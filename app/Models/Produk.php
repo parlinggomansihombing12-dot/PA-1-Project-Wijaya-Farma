@@ -1,43 +1,19 @@
 <?php
 
-use App\Models\Produk;
-use Illuminate\Http\Request;
+namespace App\Models;
 
-class ProdukController extends Controller
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Produk extends Model
 {
-    public function index()
-    {
-        $produks = Produk::all();
-        return view('produk.index', compact('produks'));
-    }
+    use HasFactory;
 
-    public function create()
-    {
-        return view('produk.create');
-    }
+    protected $table = 'produks';
 
-    public function store(Request $request)
-    {
-        Produk::create($request->all());
-        return redirect()->route('produk.index');
-    }
-
-    public function edit($id)
-    {
-        $produk = Produk::findOrFail($id);
-        return view('produk.edit', compact('produk'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $produk = Produk::findOrFail($id);
-        $produk->update($request->all());
-        return redirect()->route('produk.index');
-    }
-
-    public function destroy($id)
-    {
-        Produk::destroy($id);
-        return redirect()->route('produk.index');
-    }
+    protected $fillable = [
+        'nama_obat',
+        'harga',
+        'stok'
+    ];
 }
