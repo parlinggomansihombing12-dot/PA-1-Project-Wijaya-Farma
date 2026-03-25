@@ -234,7 +234,6 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-delete">
-                                    Hapus
                                 </button>
                             </form>
                         </div>
