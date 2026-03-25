@@ -1,5 +1,9 @@
 <h2>Data Produk Obat</h2>
 
+@if(session('success'))
+    <p style="color:green">{{ session('success') }}</p>
+@endif
+
 <a href="{{ route('produk.create') }}">+ Tambah Produk Baru</a>
 
 <table border="1" width="100%">
@@ -11,11 +15,11 @@
         <th>Aksi</th>
     </tr>
 
-    @forelse($produks as $p)
+    @forelse($list_produk as $p)
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $p->nama_obat }}</td>
-        <td>{{ $p->harga }}</td>
+        <td>Rp {{ number_format($p->harga) }}</td>
         <td>{{ $p->stok }}</td>
         <td>
             <a href="{{ route('produk.edit', $p->id) }}">Edit</a>
@@ -23,7 +27,9 @@
             <form action="{{ route('produk.destroy', $p->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit">Hapus</button>
+                <button type="submit" onclick="return confirm('Yakin hapus data?')">
+                    Hapus
+                </button>
             </form>
         </td>
     </tr>
