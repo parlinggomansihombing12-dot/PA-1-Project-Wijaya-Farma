@@ -1,142 +1,190 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Layanan</title>
+@extends('admin.layout')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+@section('content')
+<div class="container-fluid py-4 px-4">
 
-    <style>
-        body { background-color: #f4f6f9; }
-        .sidebar { background:#2C3E50; min-height:100vh; color:white; position:fixed; width:220px; }
-        .sidebar a { color:#adb5bd; padding:12px 20px; display:block; text-decoration:none; }
-        .sidebar a:hover, .sidebar a.active { background:#1ABC9C; color:white; }
-        .content { margin-left:220px; padding:30px; }
+    {{-- ALERT --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm">
+            <strong>Berhasil!</strong> {{ session('success') }}
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
-        .card-layanan { border-radius:15px; transition:0.3s; }
-        .card-layanan:hover { transform: translateY(-5px); }
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0">Kelola Layanan</h4>
 
-        .icon-circle {
-            width:80px;height:80px;background:#e0f7f4;color:#1ABC9C;
-            border-radius:50%;display:flex;align-items:center;justify-content:center;
-            margin:auto;font-size:30px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="sidebar">
-    <h4 class="text-center mt-3">💊 Admin</h4>
-    <a href="/admin/dashboard">Dashboard</a>
-    <a href="/admin/layanan" class="active">Layanan</a>
-</div>
-
-<div class="content">
-
-    <div class="d-flex justify-content-between mb-4">
-        <h3>Kelola Layanan</h3>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">
-            + Tambah
+        <button class="btn btn-primary shadow-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#modalTambah">
+            <i class="fas fa-plus me-1"></i> Tambah
         </button>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    {{-- CARD --}}
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
 
-    <div class="row">
-        @foreach($layanans as $item)
-        <div class="col-md-4 mb-4">
-            <div class="card card-layanan text-center p-3 shadow-sm">
+            <div class="row">
+                @forelse($layanans as $item)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 text-center border-0 shadow-sm p-3">
 
-                <div class="icon-circle">
-                    <i class="fas {{ $item->ikon }}"></i>
+                        {{-- ICON --}}
+                        <div class="mb-3">
+                            <div style="font-size: 40px; color: #1ABC9C;">
+                                <i class="fas {{ $item->ikon }}"></i>
+                            </div>
+                        </div>
+
+                        {{-- TITLE --}}
+                        <h5 class="fw-bold">{{ $item->nama_layanan }}</h5>
+
+                        {{-- DESC --}}
+                        <p class="text-muted small">
+                            {{ $item->deskripsi }}
+                        </p>
+
+                        {{-- ACTION --}}
+                        <div class="mt-auto pt-3 border-top d-flex justify-content-center gap-2">
+
+                            <button class="btn btn-sm btn-warning"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#edit{{ $item->id }}">
+                                Edit
+                            </button>
+
+                            <form action="{{ route('admin.layanan.destroy', $item->id) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button onclick="return confirm('Yakin hapus layanan ini?')"
+                                        class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
                 </div>
 
-                <h5>{{ $item->nama_layanan }}</h5>
-                <p class="text-muted">{{ $item->deskripsi }}</p>
+                {{-- MODAL EDIT --}}
+                <div class="modal fade" id="edit{{ $item->id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form action="{{ route('admin.layanan.update', $item->id) }}"
+                              method="POST"
+                              class="modal-content">
+                            @csrf
+                            @method('PUT')
 
-                <div class="mt-3">
-                    <button class="btn btn-warning btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#edit{{ $item->id }}">
-                        Edit
-                    </button>
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Layanan</h5>
+                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
 
-                    <form action="{{ route('admin.layanan.destroy', $item->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button onclick="return confirm('Hapus?')" class="btn btn-danger btn-sm">
-                            Hapus
-                        </button>
-                    </form>
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Layanan</label>
+                                    <input type="text"
+                                           name="nama_layanan"
+                                           value="{{ $item->nama_layanan }}"
+                                           class="form-control"
+                                           required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Ikon (FontAwesome)</label>
+                                    <input type="text"
+                                           name="ikon"
+                                           value="{{ $item->ikon }}"
+                                           class="form-control"
+                                           placeholder="Contoh: fa-pills"
+                                           required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Deskripsi</label>
+                                    <textarea name="deskripsi"
+                                              class="form-control"
+                                              rows="3"
+                                              required>{{ $item->deskripsi }}</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button class="btn btn-primary">Update</button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
 
+                @empty
+                <div class="col-12 text-center py-5 text-muted">
+                    Belum ada data layanan
+                </div>
+                @endforelse
             </div>
+
         </div>
-        @endforeach
     </div>
 
 </div>
 
-{{-- ================= MODAL TAMBAH ================= --}}
-<div class="modal fade" id="modalTambah">
+{{-- MODAL TAMBAH --}}
+<div class="modal fade" id="modalTambah" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('admin.layanan.store') }}" method="POST">
+        <form action="{{ route('admin.layanan.store') }}"
+              method="POST"
+              class="modal-content">
             @csrf
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Tambah Layanan</h5>
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Layanan</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label class="form-label">Nama Layanan</label>
+                    <input type="text"
+                           name="nama_layanan"
+                           class="form-control"
+                           required>
                 </div>
 
-                <div class="modal-body">
-                    <input type="text" name="nama_layanan" class="form-control mb-2" placeholder="Nama" required>
-                    <input type="text" name="ikon" class="form-control mb-2" placeholder="fa-pills" required>
-                    <textarea name="deskripsi" class="form-control" placeholder="Deskripsi" required></textarea>
+                <div class="mb-3">
+                    <label class="form-label">Ikon (FontAwesome)</label>
+                    <input type="text"
+                           name="ikon"
+                           class="form-control"
+                           placeholder="Contoh: fa-heartbeat"
+                           required>
                 </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-primary">Simpan</button>
+                <div class="mb-3">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea name="deskripsi"
+                              class="form-control"
+                              rows="3"
+                              required></textarea>
                 </div>
 
             </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-primary">Simpan</button>
+            </div>
+
         </form>
     </div>
 </div>
 
-{{-- ================= MODAL EDIT (DI LUAR LOOP HTML UTAMA) ================= --}}
-@foreach($layanans as $item)
-<div class="modal fade" id="edit{{ $item->id }}">
-    <div class="modal-dialog">
-        <form action="{{ route('admin.layanan.update', $item->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Edit Layanan</h5>
-                </div>
-
-                <div class="modal-body">
-                    <input type="text" name="nama_layanan" value="{{ $item->nama_layanan }}" class="form-control mb-2">
-                    <input type="text" name="ikon" value="{{ $item->ikon }}" class="form-control mb-2">
-                    <textarea name="deskripsi" class="form-control">{{ $item->deskripsi }}</textarea>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-warning">Update</button>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</div>
-@endforeach
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection
