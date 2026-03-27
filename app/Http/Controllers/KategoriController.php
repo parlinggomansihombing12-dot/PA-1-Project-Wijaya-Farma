@@ -6,17 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\ProfilToko;
 
-class KategoriController extends Controller
+class AdminKategoriController extends Controller
 {
     public function index()
     {
         $toko = ProfilToko::first();
-        $kategori = Kategori::all();
+        $kategori = Kategori::latest()->get();
 
-        // Diarahkan ke resources/views/admin/kategori/index.blade.php
         return view('admin.kategori.index', [
             'toko' => $toko,
-            'list_kategori' => $kategori, // Variabel yang akan digunakan di @forelse
+            'list_kategori' => $kategori,
             'title' => 'Manajemen Kategori'
         ]);
     }
@@ -31,7 +30,7 @@ class KategoriController extends Controller
             'nama_kategori' => $request->nama_kategori,
         ]);
 
-        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
+        return back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -40,19 +39,17 @@ class KategoriController extends Controller
             'nama_kategori' => 'required|string|max:255',
         ]);
 
-        $kategori = Kategori::findOrFail($id);
-        $kategori->update([
+        Kategori::findOrFail($id)->update([
             'nama_kategori' => $request->nama_kategori,
         ]);
 
-        return redirect()->back()->with('success', 'Kategori berhasil diperbarui!');
+        return back()->with('success', 'Kategori berhasil diupdate!');
     }
 
     public function destroy($id)
     {
-        $kategori = Kategori::findOrFail($id);
-        $kategori->delete();
+        Kategori::findOrFail($id)->delete();
 
-        return redirect()->back()->with('success', 'Kategori berhasil dihapus!');
+        return back()->with('success', 'Kategori berhasil dihapus!');
     }
 }

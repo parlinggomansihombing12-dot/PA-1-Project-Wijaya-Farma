@@ -9,45 +9,35 @@ use App\Models\ProfilToko;
 class ArtikelController extends Controller
 {
     /**
-     * Menampilkan daftar artikel (Admin & User)
+     * 📄 LIST ARTIKEL (ADMIN SAJA)
      */
     public function index()
     {
         $toko = ProfilToko::first();
         $artikels = Artikel::latest()->get();
 
-        // ✅ JIKA ADMIN
-        if (request()->is('admin/*')) {
-            return view('admin.artikel.index', [
-                'artikels' => $artikels
-            ]);
-        }
-
-        // ✅ JIKA USER (FRONTEND)
-        return view('artikel', [
+        return view('admin.artikel.index', [
             'toko' => $toko,
-            'list_artikel' => $artikels,
-            'title' => 'Artikel'
+            'artikels' => $artikels
         ]);
     }
 
     /**
-     * ✅ DETAIL ARTIKEL
+     * 🔍 DETAIL ARTIKEL (ADMIN SAJA)
      */
     public function show($id)
     {
         $toko = ProfilToko::first();
         $artikel = Artikel::findOrFail($id);
 
-        return view('artikel.show', [
+        return view('admin.artikel.show', [
             'toko' => $toko,
-            'artikel' => $artikel,
-            'title' => $artikel->judul
+            'artikel' => $artikel
         ]);
     }
 
     /**
-     * Menyimpan artikel baru (ADMIN)
+     * ➕ SIMPAN ARTIKEL
      */
     public function store(Request $request)
     {
@@ -63,11 +53,12 @@ class ArtikelController extends Controller
             'penulis' => $request->penulis,
         ]);
 
-        return redirect()->back()->with('success', 'Artikel berhasil ditambahkan!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil ditambahkan!');
     }
 
     /**
-     * Update artikel (ADMIN)
+     * ✏️ UPDATE ARTIKEL
      */
     public function update(Request $request, $id)
     {
@@ -80,17 +71,19 @@ class ArtikelController extends Controller
         $artikel = Artikel::findOrFail($id);
         $artikel->update($request->all());
 
-        return redirect()->back()->with('success', 'Artikel berhasil diperbarui!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil diperbarui!');
     }
 
     /**
-     * Hapus artikel (ADMIN)
+     * 🗑️ HAPUS ARTIKEL
      */
     public function destroy($id)
     {
         $artikel = Artikel::findOrFail($id);
         $artikel->delete();
 
-        return redirect()->back()->with('success', 'Artikel berhasil dihapus!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil dihapus!');
     }
 }

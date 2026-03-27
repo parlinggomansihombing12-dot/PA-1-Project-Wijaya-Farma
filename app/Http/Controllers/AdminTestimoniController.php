@@ -2,43 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Testimoni;   // Panggil Model Testimoni
-use App\Models\ProfilToko;  // Untuk data Navbar
+use App\Models\Testimoni;
+use App\Models\ProfilToko;
 use Illuminate\Http\Request;
 
 class AdminTestimoniController extends Controller
 {
+    // ================= INDEX =================
     public function index()
     {
         $toko = ProfilToko::first();
         $testimonis = Testimoni::latest()->get();
 
-        return view('admin.testimoni.index', [
-            'toko' => $toko,
-            'testimonis' => $testimonis,
-            'title' => 'Kelola Testimoni Pasien'
-        ]);
+        return view('admin.testimoni.index', compact('toko', 'testimonis'));
     }
 
+    // ================= STORE =================
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pasien' => 'required|string|max:255',
-            'pesan'       => 'required',
-            'rating'      => 'required|integer|min:1|max:5',
+            'nama_pelanggan' => 'required|string|max:255',
+            'komentar'       => 'required',
+            'rating'         => 'required|integer|min:1|max:5',
         ]);
 
-        // Menggunakan only() agar aman dari error _token
-        Testimoni::create($request->only(['nama_pasien', 'pesan', 'rating']));
+        Testimoni::create($request->only([
+            'nama_pelanggan',
+            'komentar',
+            'rating'
+        ]));
 
-        return redirect()->back()->with('success', 'Testimoni berhasil ditambahkan!');
+        return back()->with('success', 'Testimoni berhasil ditambahkan!');
     }
 
+    // ================= UPDATE =================
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_pelanggan' => 'required|string|max:255',
+            'komentar'       => 'required',
+            'rating'         => 'required|integer|min:1|max:5',
+        ]);
+
+        $testimoni = Testimoni::findOrFail($id);
+
+        $testimoni->update($request->only([
+            'nama_pelanggan',
+            'komentar',
+            'rating'
+        ]));
+
+        return back()->with('success', 'Testimoni berhasil diupdate!');
+    }
+
+    // ================= DELETE =================
     public function destroy($id)
     {
-        $testimoni = Testimoni::findOrFail($id);
-        $testimoni->delete();
+        Testimoni::findOrFail($id)->delete();
 
-        return redirect()->back()->with('success', 'Testimoni berhasil dihapus!');
+        return back()->with('success', 'Testimoni berhasil dihapus!');
     }
 }

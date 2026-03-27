@@ -3,56 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Testimoni;   // Panggil Model Testimoni
-use App\Models\ProfilToko;  // Panggil Model Profil Toko untuk Navbar
+use App\Models\Testimoni;
+use App\Models\ProfilToko;
 
 class TestimoniController extends Controller
 {
-    /**
-     * Menampilkan daftar testimoni (Tampilan Tabel Gambar 1)
-     */
+    // ================= TAMPILAN USER =================
     public function index()
     {
         $toko = ProfilToko::first();
-        
-        // Ambil semua data testimoni, urutkan dari yang terbaru
-        $testimoni = Testimoni::latest()->get();
 
-        return view('testimoni', [
-            'toko' => $toko,
-            'list_testimoni' => $testimoni,
-            'title' => 'Kelola Testimoni Pasien' // Judul untuk heading
-        ]);
+        $list_testimoni = Testimoni::latest()->get();
+
+        return view('testimoni', compact('toko', 'list_testimoni'));
     }
 
-    /**
-     * Menyimpan testimoni baru (Aksi tombol biru + Tambah Baru)
-     */
+    // ================= ADMIN =================
+    public function adminIndex()
+    {
+        $testimonis = Testimoni::latest()->get();
+
+        return view('admin.testimoni.index', compact('testimonis'));
+    }
+
+    // ================= STORE =================
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pasien' => 'required|string|max:255',
-            'pesan'       => 'required',
-            'rating'      => 'required|integer|min:1|max:5',
+            'nama_pelanggan' => 'required|string|max:255',
+            'komentar'       => 'required',
+            'rating'         => 'required|integer|min:1|max:5',
         ]);
 
-        Testimoni::create([
-            'nama_pasien' => $request->nama_pasien,
-            'pesan'       => $request->pesan,
-            'rating'      => $request->rating,
-        ]);
+        Testimoni::create($request->only([
+            'nama_pelanggan',
+            'komentar',
+            'rating'
+        ]));
 
-        return redirect()->back()->with('success', 'Testimoni berhasil ditambahkan!');
+        return back()->with('success', 'Testimoni berhasil ditambahkan!');
     }
 
-    /**
-     * Menghapus testimoni (Tombol Delete Merah)
-     */
+    // ================= DELETE =================
     public function destroy($id)
     {
-        $testimoni = Testimoni::findOrFail($id);
-        $testimoni->delete();
+        Testimoni::findOrFail($id)->delete();
 
-        return redirect()->back()->with('success', 'Testimoni berhasil dihapus!');
+        return back()->with('success', 'Testimoni berhasil dihapus!');
     }
 }

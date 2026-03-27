@@ -9,16 +9,18 @@ class Layanan extends Model
 {
     use HasFactory;
 
-    /**
-     * Kolom yang dapat diisi (Mass Assignable)
-     * Sesuaikan dengan field yang ada di tabel 'layanans' kamu
-     */
+    // ✅ Nama tabel (opsional, tapi aman)
+    protected $table = 'layanans';
+
+    // ✅ Field yang boleh diisi
     protected $fillable = [
         'nama_layanan',
         'deskripsi',
-        'ikon',
-        // Jika di database kamu ada kolom harga/stok, tambahkan di sini:
-        // 'harga',
-        // 'stok',
+        'ikon'
+    ];
+
+    // ✅ Default value (optional biar tidak null)
+    protected $attributes = [
+        'ikon' => '💊'
     ];
 }

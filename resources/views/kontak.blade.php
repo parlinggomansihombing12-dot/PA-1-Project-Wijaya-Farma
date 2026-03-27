@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Kontak Kami</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body { background-color: #F8F9F9; color: #2C3E50; }
         .navbar-tema { background-color: #1ABC9C !important; }
@@ -15,6 +17,13 @@
 <body>
 
 @include('navbar')
+
+@php
+    // ✅ AMAN DARI NULL
+    $alamat = optional($toko)->alamat ?? 'Jl. Lintas Porsea - Laguboti, Kecamatan Sigumpar, Kab. Toba';
+    $no_hp  = optional($toko)->no_hp ?? '6282370771069';
+    $email  = optional($toko)->email ?? 'email@contoh.com';
+@endphp
 
 <div class="container my-5">
     <div class="row bg-white p-5 rounded shadow-sm">
@@ -31,26 +40,27 @@
             <!-- ALAMAT -->
             <h5 class="fw-bold">📍 Alamat Apotek</h5>
             <p class="text-muted">
-                {{ $toko->alamat ?? 'Jl. Lintas Porsea - Laguboti, Kecamatan Sigumpar, Kab. Toba' }}
+                {{ $alamat }}
             </p>
 
             <!-- WHATSAPP -->
             <h5 class="fw-bold mt-4">📞 Telepon / WhatsApp</h5>
             <p class="text-muted">
-                <a href="https://wa.me/{{ $toko->no_hp ?? '6282370771069' }}" 
+                <a href="https://wa.me/{{ $no_hp }}" 
                    target="_blank" 
                    class="text-decoration-none">
                    
-                   {{ $toko->no_hp ? '+'.$toko->no_hp : '+62 823-7077-1069' }}
+                   +{{ $no_hp }}
                 </a>
             </p>
 
             <!-- EMAIL -->
             <h5 class="fw-bold mt-4">✉️ Email</h5>
             <p class="text-muted">
-                {{ $toko->email ?? 'email@contoh.com' }}
+                <a href="mailto:{{ $email }}" class="text-decoration-none">
+                    {{ $email }}
+                </a>
             </p>
-        </div>
 
         <!-- KANAN -->
         <div class="col-md-6">
@@ -70,6 +80,8 @@
 
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
