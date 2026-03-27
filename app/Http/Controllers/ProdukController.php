@@ -9,17 +9,17 @@ use App\Models\ProfilToko;
 class ProdukController extends Controller
 {
     // 🔍 TAMPIL DATA
-    public function index()
+   public function index()
     {
         $toko = ProfilToko::first();
         $produk = Produk::all();
 
-        return view('produk.index', [
+        // CUKUP TULIS 'produk', JANGAN 'produk.index'
+        return view('produk',[
             'toko' => $toko,
             'list_produk' => $produk
         ]);
     }
-
     // ➕ FORM TAMBAH
     public function create()
     {
