@@ -3,39 +3,60 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Artikel;    // Memanggil Model Artikel
-use App\Models\ProfilToko; // Memanggil Model ProfilToko untuk Navbar/Sidebar
+use App\Models\Artikel;
+use App\Models\ProfilToko;
 
 class ArtikelController extends Controller
 {
     /**
-     * Menampilkan daftar artikel (Tampilan Tabel sesuai Gambar 1)
+     * Menampilkan daftar artikel (Admin & User)
      */
     public function index()
     {
         $toko = ProfilToko::first();
-        $artikel = Artikel::latest()->get(); // Mengambil artikel terbaru
+        $artikels = Artikel::latest()->get();
 
+        // ✅ JIKA ADMIN
+        if (request()->is('admin/*')) {
+            return view('admin.artikel.index', [
+                'artikels' => $artikels
+            ]);
+        }
+
+        // ✅ JIKA USER (FRONTEND)
         return view('artikel', [
-            'toko' => $toko, 
-            'list_artikel' => $artikel,
-            'title' => 'Kelola Artikel' // Judul halaman
+            'toko' => $toko,
+            'list_artikel' => $artikels,
+            'title' => 'Artikel'
         ]);
     }
 
     /**
-     * Menyimpan artikel baru (Aksi dari tombol biru + Tambah Baru)
+     * ✅ DETAIL ARTIKEL
+     */
+    public function show($id)
+    {
+        $toko = ProfilToko::first();
+        $artikel = Artikel::findOrFail($id);
+
+        return view('artikel.show', [
+            'toko' => $toko,
+            'artikel' => $artikel,
+            'title' => $artikel->judul
+        ]);
+    }
+
+    /**
+     * Menyimpan artikel baru (ADMIN)
      */
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'judul'   => 'required|string|max:255',
             'konten'  => 'required',
             'penulis' => 'required|string|max:100',
         ]);
 
-        // Simpan ke database
         Artikel::create([
             'judul'   => $request->judul,
             'konten'  => $request->konten,
@@ -46,7 +67,7 @@ class ArtikelController extends Controller
     }
 
     /**
-     * Memperbarui artikel (Tombol Edit)
+     * Update artikel (ADMIN)
      */
     public function update(Request $request, $id)
     {
@@ -63,7 +84,7 @@ class ArtikelController extends Controller
     }
 
     /**
-     * Menghapus artikel (Tombol Delete Merah)
+     * Hapus artikel (ADMIN)
      */
     public function destroy($id)
     {
