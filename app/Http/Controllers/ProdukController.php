@@ -9,21 +9,21 @@ use App\Models\ProfilToko;
 class ProdukController extends Controller
 {
     // 🔍 TAMPIL DATA
-   public function index()
+    public function index()
     {
         $toko = ProfilToko::first();
         $produk = Produk::all();
 
-        // CUKUP TULIS 'produk', JANGAN 'produk.index'
-        return view('produk',[
+        return view('admin.produk.index', [
             'toko' => $toko,
-            'list_produk' => $produk
+            'produks' => $produk
         ]);
     }
+
     // ➕ FORM TAMBAH
     public function create()
     {
-        return view('produk.create');
+        return view('admin.produk.create');
     }
 
     // 💾 SIMPAN DATA
@@ -37,7 +37,7 @@ class ProdukController extends Controller
 
         Produk::create($request->all());
 
-        return redirect()->route('produk.index')
+        return redirect()->route('admin.produk.index')
                          ->with('success', 'Produk berhasil ditambahkan');
     }
 
@@ -45,7 +45,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $produk = Produk::findOrFail($id);
-        return view('produk.edit', compact('produk'));
+        return view('admin.produk.edit', compact('produk'));
     }
 
     // 🔄 UPDATE DATA
@@ -60,7 +60,7 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id);
         $produk->update($request->all());
 
-        return redirect()->route('produk.index')
+        return redirect()->route('admin.produk.index')
                          ->with('success', 'Produk berhasil diupdate');
     }
 
@@ -69,7 +69,7 @@ class ProdukController extends Controller
     {
         Produk::destroy($id);
 
-        return redirect()->route('produk.index')
+        return redirect()->route('admin.produk.index')
                          ->with('success', 'Produk berhasil dihapus');
     }
 }

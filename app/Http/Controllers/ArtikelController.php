@@ -3,50 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Artikel;    // Memanggil Model Artikel
-use App\Models\ProfilToko; // Memanggil Model ProfilToko untuk Navbar/Sidebar
+use App\Models\Artikel;
+use App\Models\ProfilToko;
 
 class ArtikelController extends Controller
 {
     /**
-     * Menampilkan daftar artikel (Tampilan Tabel sesuai Gambar 1)
+     * 📄 LIST ARTIKEL (ADMIN SAJA)
      */
     public function index()
     {
         $toko = ProfilToko::first();
-        $artikel = Artikel::latest()->get(); // Mengambil artikel terbaru
+        $artikels = Artikel::latest()->get();
 
-        return view('artikel', [
-            'toko' => $toko, 
-            'list_artikel' => $artikel,
-            'title' => 'Kelola Artikel' // Judul halaman
+        return view('admin.artikel.index', [
+            'toko' => $toko,
+            'artikels' => $artikels
         ]);
     }
 
     /**
-     * Menyimpan artikel baru (Aksi dari tombol biru + Tambah Baru)
+     * 🔍 DETAIL ARTIKEL (ADMIN SAJA)
+     */
+    public function show($id)
+    {
+        $toko = ProfilToko::first();
+        $artikel = Artikel::findOrFail($id);
+
+        return view('admin.artikel.show', [
+            'toko' => $toko,
+            'artikel' => $artikel
+        ]);
+    }
+
+    /**
+     * ➕ SIMPAN ARTIKEL
      */
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'judul'   => 'required|string|max:255',
             'konten'  => 'required',
             'penulis' => 'required|string|max:100',
         ]);
 
-        // Simpan ke database
         Artikel::create([
             'judul'   => $request->judul,
             'konten'  => $request->konten,
             'penulis' => $request->penulis,
         ]);
 
-        return redirect()->back()->with('success', 'Artikel berhasil ditambahkan!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil ditambahkan!');
     }
 
     /**
-     * Memperbarui artikel (Tombol Edit)
+     * ✏️ UPDATE ARTIKEL
      */
     public function update(Request $request, $id)
     {
@@ -59,17 +71,19 @@ class ArtikelController extends Controller
         $artikel = Artikel::findOrFail($id);
         $artikel->update($request->all());
 
-        return redirect()->back()->with('success', 'Artikel berhasil diperbarui!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil diperbarui!');
     }
 
     /**
-     * Menghapus artikel (Tombol Delete Merah)
+     * 🗑️ HAPUS ARTIKEL
      */
     public function destroy($id)
     {
         $artikel = Artikel::findOrFail($id);
         $artikel->delete();
 
-        return redirect()->back()->with('success', 'Artikel berhasil dihapus!');
+        return redirect()->route('admin.artikel.index')
+                         ->with('success', 'Artikel berhasil dihapus!');
     }
 }

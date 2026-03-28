@@ -2,68 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Layanan;
 use Illuminate\Http\Request;
-use App\Models\Layanan;     // Panggil Model Layanan
-use App\Models\ProfilToko;  // Panggil Model Profil Toko untuk Navbar
 
 class LayananController extends Controller
 {
-    /**
-     * Menampilkan daftar layanan (Tampilan Tabel Gambar 1)
-     */
-    public function index()
-    {
-        $toko = ProfilToko::first();
-        $layanan = Layanan::all();
-
-        return view('layanan', [
-            'toko' => $toko,
-            'list_layanan' => $layanan,
-            'title' => 'Data Layanan Medis'
-        ]);
+    // Untuk Halaman Depan (Landing Page)
+    public function welcome() {
+        $layanans = Layanan::all();
+        return view('welcome', compact('layanans'));
     }
 
-    /**
-     * Menyimpan layanan baru (Tombol Tambah Produk Baru)
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_layanan' => 'required|string|max:255',
-            'harga'        => 'required|numeric',
-            'stok'         => 'required|integer', // Jika layanan memiliki kuota/limit
-        ]);
+    // CRUD Admin
+    public function index() {
+        $layanans = Layanan::latest()->get();
+        return view('admin.layanan.index', compact('layanans'));
+    }
 
+    public function create() {
+        return view('admin.layanan.create');
+    }
+
+    public function store(Request $request) {
+        $request->validate([
+            'nama_layanan' => 'required',
+            'deskripsi' => 'required',
+            'ikon' => 'required',
+        ]);
         Layanan::create($request->all());
-
-        return redirect()->back()->with('success', 'Layanan berhasil ditambahkan!');
+        return redirect()->route('layanan.index')->with('success', 'Layanan berhasil ditambahkan');
     }
 
-    /**
-     * Memperbarui data layanan (Tombol Edit)
-     */
-    public function update(Request $request, $id)
-    {
+    public function edit(Layanan $layanan) {
+        return view('admin.layanan.edit', compact('layanan'));
+    }
+
+    public function update(Request $request, Layanan $layanan) {
         $request->validate([
-            'nama_layanan' => 'required|string|max:255',
-            'harga'        => 'required|numeric',
-            'stok'         => 'required|integer',
+            'nama_layanan' => 'required',
+            'deskripsi' => 'required',
+            'ikon' => 'required',
         ]);
-
-        $layanan = Layanan::findOrFail($id);
         $layanan->update($request->all());
-
-        return redirect()->back()->with('success', 'Layanan berhasil diperbarui!');
+        return redirect()->route('layanan.index')->with('success', 'Layanan berhasil diperbarui');
     }
 
-    /**
-     * Menghapus layanan (Tombol Delete)
-     */
-    public function destroy($id)
-    {
-        $layanan = Layanan::findOrFail($id);
+    public function destroy(Layanan $layanan) {
         $layanan->delete();
-
-        return redirect()->back()->with('success', 'Layanan berhasil dihapus!');
+        return redirect()->route('layanan.index')->with('success', 'Layanan berhasil dihapus');
     }
 }
