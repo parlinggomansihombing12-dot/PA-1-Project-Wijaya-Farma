@@ -1,43 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Wijaya Farma</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-        body { background-color: #F8F9F9; color: #2C3E50; overflow-x: hidden; }
-        .teks-hijau { color: #1ABC9C; }
-        .btn-tema { background-color: #1ABC9C; color: white; border: none; }
-        
-        /* Layout CSS agar Sidebar dan Konten Berdampingan */
-        .wrapper { display: flex; width: 100%; align-items: stretch; }
-        #content { width: 100%; padding: 20px; min-height: 100vh; }
-    </style>
-</head>
-<body>
-
-    <div class="wrapper">
-        <!-- 1. PANGGIL SIDEBAR ADMIN (Bukan Navbar) -->
-        @include('sidebar_admin') {{-- Pastikan nama file sidebar Anda 'sidebar_admin.blade.php' --}}
-
-        <!-- 2. AREA KONTEN UTAMA -->
-        <div id="content">
-            <!-- Header Kecil (Opsional untuk menyapa Admin) -->
-            <div class="d-flex justify-content-end mb-3">
-                <span class="badge bg-light text-dark p-2 shadow-sm">
-                    Halo, <strong>{{ Auth::user()->name }}</strong>!
-                </span>
-            </div>
-
-            <div class="container-fluid">
-                @yield('content')
+<!-- SIDEBAR PINTAR -->
+        <div class="col-md-2 sidebar p-0">
+            <h4 class="text-center mb-4 text-white fw-bold mt-3">💊 Admin Panel</h4>
+            
+            <!-- PASTIKAN SEMUA HREF DIMULAI DENGAN /admin/ -->
+            <a href="/admin/dashboard" class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">🏠 Dashboard</a>
+            <a href="/admin/produk" class="{{ request()->is('admin/produk') ? 'active' : '' }}">📦 Kelola Produk</a>
+            <a href="/admin/kategori" class="{{ request()->is('admin/kategori') ? 'active' : '' }}">📂 Kelola Kategori</a>
+            <a href="/admin/layanan" class="{{ request()->is('admin/layanan') ? 'active' : '' }}">⚕️ Kelola Layanan</a>
+            <a href="/admin/artikel" class="{{ request()->is('admin/artikel') ? 'active' : '' }}">📝 Kelola Artikel</a>
+            <a href="/admin/testimoni" class="{{ request()->is('admin/testimoni') ? 'active' : '' }}">⭐ Kelola Testimoni</a>
+            <a href="/admin/profil" class="{{ request()->is('admin/profil') ? 'active' : '' }}">⚙️ Profil Toko</a>
+            
+            <hr class="text-secondary mx-3">
+            <div class="px-3">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger w-100">Keluar (Logout)</button>
+                </form>
             </div>
         </div>
-    </div>
-
-    <!-- Script Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

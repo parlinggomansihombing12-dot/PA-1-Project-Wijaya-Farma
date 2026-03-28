@@ -1,22 +1,17 @@
-@extends('layouts.main')
-
-@section('title', 'Kategori Obat')
+@extends('layouts.frontend') {{-- Jika Anda punya layout khusus pengunjung --}}
 
 @section('content')
-<div class="container my-5">
-    <h2 class="text-center fw-bold mb-5" style="color: #1ABC9C;">Kategori Produk Kami</h2>
-    <div class="row justify-content-center">
-        @foreach($list_kategori as $item)
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 p-3 bg-white" style="border-left: 5px solid #2980B9;">
-                <div class="card-body">
-                    <h4 class="fw-bold mb-3" style="color: #2980B9;">{{ $item->nama_kategori }}</h4>
-                    <p class="text-muted mb-4">{{ $item->deskripsi }}</p>
-                    <a href="/produk" class="btn btn-outline-secondary w-100 mt-auto">Lihat Produk &rarr;</a>
-                </div>
-            </div>
+<div class="container mx-auto py-10">
+    <h1 class="text-3xl font-bold text-teal-600 text-center mb-8">Kategori Produk Kami</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- Contoh Card -->
+        <div class="bg-white p-6 shadow rounded-lg text-center border-t-4 border-teal-500">
+            <h3 class="font-bold text-xl">Obat Bebas</h3>
+            <p class="text-gray-500 text-sm">Dapat dibeli tanpa resep.</p>
+            <a href="#" class="mt-4 inline-block text-teal-600 font-semibold">Lihat Produk →</a>
         </div>
-        @endforeach
+        <!-- Ulangi untuk kategori lainnya -->
     </div>
 </div>
 @endsection
