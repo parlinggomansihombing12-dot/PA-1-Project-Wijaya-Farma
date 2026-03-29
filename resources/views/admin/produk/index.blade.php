@@ -1,158 +1,63 @@
-@extends('admin.layout')
+@extends('layouts.admin_master')
+
+@section('title', 'Kelola Produk - Admin Panel')
 
 @section('content')
-
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f8fafc;
-    }
-
-    .container-custom {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-
-    .header-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-
-    h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: #0f172a;
-    }
-
-    .alert-success {
-        background-color: #ecfdf5;
-        border-left: 5px solid #10b981;
-        color: #065f46;
-        padding: 15px 20px;
-        border-radius: 8px;
-        margin-bottom: 25px;
-        font-size: 14px;
-    }
-
-    .btn-primary {
-        background-color: #2563eb;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    .btn-primary:hover {
-        background-color: #1d4ed8;
-    }
-
-    .card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    thead {
-        background-color: #f1f5f9;
-    }
-
-    th, td {
-        padding: 14px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .btn-edit {
-        color: #2563eb;
-        font-weight: 600;
-        margin-right: 10px;
-    }
-
-    .btn-delete {
-        background-color: #fee2e2;
-        color: #dc2626;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 6px;
-    }
-
-    .stock-badge {
-        background: #f1f5f9;
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-    }
-</style>
-
-<div class="container-custom">
-
-    <div class="header-section">
-        <h2>Data Produk Obat</h2>
-        <a href="{{ route('admin.produk.create') }}" class="btn-primary">
-            + Tambah Produk
-        </a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #2C3E50;">Data Produk Obat</h2>
+        <!-- Tombol ini diarahkan ke fungsi create() di Controller Anda -->
+        <a href="{{ route('admin.produk.create') }}" class="btn btn-primary fw-bold">+ Tambah Produk Baru</a>
     </div>
 
+    <!-- Menampilkan Notifikasi Sukses dari Controller -->
     @if(session('success'))
-        <div class="alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
-    <div class="card">
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" width="5%">No</th>
+                        <th>Nama Obat</th>
+                        <th width="20%">Harga</th>
+                        <th width="10%" class="text-center">Stok</th>
+                        <th width="20%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Perhatikan: Variabelnya 'produks' sesuai dari Controller Anda -->
+                    @forelse($produks as $item)
+                    <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <!-- Sesuai nama kolom di Controller Anda: 'nama_obat' -->
+                        <td class="fw-bold">{{ $item->nama_obat }}</td>
+                        <td class="text-primary fw-bold">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                        <td class="text-center"><span class="badge bg-success px-3 py-2">{{ $item->stok }}</span></td>
+                        <td class="text-center">
+                            
+                            <!-- Tombol Edit & Hapus (Disambungkan ke Route Resource) -->
+                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus obat ini?');">
+                                <a href="{{ route('admin.produk.edit', $item->id) }}" class="btn btn-warning btn-sm text-dark fw-bold">✏️ Edit</a>
+                                
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm fw-bold">🗑️ Hapus</button>
+                            </form>
 
-            <tbody>
-                @forelse($produks as $p)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $p->nama_produk }}</td>
-                    <td>Rp {{ number_format($p->harga,0,',','.') }}</td>
-                    <td><span class="stock-badge">{{ $p->stok }}</span></td>
-                    <td class="text-center">
-
-                        <a href="{{ route('admin.produk.edit', $p->id) }}" class="btn-edit">
-                            Edit
-                        </a>
-
-                        <form action="{{ route('admin.produk.destroy', $p->id) }}" method="POST" style="display:inline">
-                            @csrf
-                            @method('DELETE')
-                            <button onclick="return confirm('Yakin hapus?')" class="btn-delete">
-                                Hapus
-                            </button>
-                        </form>
-
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="text-center text-muted">
-                        Belum ada data produk
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">Belum ada produk obat yang ditambahkan.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-
-</div>
-
 @endsection

@@ -11,7 +11,7 @@ class AdminKategoriController extends Controller
     {
         $kategoris = Kategori::latest()->get();
 
-        return view('admin.kategori.index', compact('kategoris'));
+        return view('admin.Kategori.index', compact('kategoris'));
     }
 
     public function store(Request $request)

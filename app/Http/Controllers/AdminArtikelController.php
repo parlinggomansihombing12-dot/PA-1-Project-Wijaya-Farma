@@ -6,11 +6,11 @@ use App\Models\Artikel;
 
 class AdminArtikelController extends Controller
 {
-    public function index() 
+   public function index() 
     {
-        $artikel = Artikel::all();
+        $artikel = \App\Models\Artikel::all();
         
-        // RAHASIANYA DI SINI: Harus pakai titik (admin.artikel)
-        return view('admin.artikel',['list_artikel' => $artikel]);
+        // PERHATIKAN: Ubah 'list_artikel' menjadi 'artikels' sesuai permintaan teman Anda
+        return view('admin.Artikel.index', ['artikels' => $artikel]);
     }
 }

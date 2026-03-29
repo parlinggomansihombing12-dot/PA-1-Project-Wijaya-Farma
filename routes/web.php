@@ -39,7 +39,7 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     // Dashboard Admin (Ganti nama agar tidak bentrok dengan default Breeze jika perlu)
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     // Profile Admin
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -60,18 +60,20 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     // Artikel Admin
     Route::prefix('artikel')->group(function () {
-        Route::get('/', [ArtikelController::class, 'index'])->name('admin.artikel.index');
-        Route::post('/', [ArtikelController::class, 'store'])->name('admin.artikel.store');
-        Route::put('/{id}', [ArtikelController::class, 'update'])->name('admin.artikel.update');
-        Route::delete('/{id}', [ArtikelController::class, 'destroy'])->name('admin.artikel.destroy');
+        // UBAH JADI AdminArtikelController
+        Route::get('/',[App\Http\Controllers\AdminArtikelController::class, 'index'])->name('admin.artikel.index');
+        Route::post('/',[App\Http\Controllers\AdminArtikelController::class, 'store'])->name('admin.artikel.store');
+        Route::put('/{id}', [App\Http\Controllers\AdminArtikelController::class, 'update'])->name('admin.artikel.update');
+        Route::delete('/{id}',[App\Http\Controllers\AdminArtikelController::class, 'destroy'])->name('admin.artikel.destroy');
     });
 
     // Layanan Admin
     Route::prefix('layanan')->group(function () {
-        Route::get('/', [LayananController::class, 'index'])->name('admin.layanan.index');
-        Route::post('/', [LayananController::class, 'store'])->name('admin.layanan.store');
-        Route::put('/{id}', [LayananController::class, 'update'])->name('admin.layanan.update');
-        Route::delete('/{id}', [LayananController::class, 'destroy'])->name('admin.layanan.destroy');
+        // UBAH JADI AdminLayananController
+        Route::get('/', [App\Http\Controllers\AdminLayananController::class, 'index'])->name('admin.layanan.index');
+        Route::post('/',[App\Http\Controllers\AdminLayananController::class, 'store'])->name('admin.layanan.store');
+        Route::put('/{id}', [App\Http\Controllers\AdminLayananController::class, 'update'])->name('admin.layanan.update');
+        Route::delete('/{id}',[App\Http\Controllers\AdminLayananController::class, 'destroy'])->name('admin.layanan.destroy');
     });
 
     // Testimoni Admin

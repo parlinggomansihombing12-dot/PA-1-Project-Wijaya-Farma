@@ -14,7 +14,7 @@ class AdminTestimoniController extends Controller
         $toko = ProfilToko::first();
         $testimonis = Testimoni::latest()->get();
 
-        return view('admin.testimoni.index', compact('toko', 'testimonis'));
+        return view('admin.Testimoni.index', compact('toko', 'testimonis'));
     }
 
     // ================= STORE =================

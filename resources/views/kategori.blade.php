@@ -1,17 +1,30 @@
-@extends('layouts.frontend') {{-- Jika Anda punya layout khusus pengunjung --}}
+@extends('layouts.main')
+
+@section('title', 'Kategori Obat - Wijaya Farma')
 
 @section('content')
-<div class="container mx-auto py-10">
-    <h1 class="text-3xl font-bold text-teal-600 text-center mb-8">Kategori Produk Kami</h1>
+<div class="container my-5">
+    <h2 class="text-center fw-bold teks-hijau mb-5">Kategori Produk Kami</h2>
     
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <!-- Contoh Card -->
-        <div class="bg-white p-6 shadow rounded-lg text-center border-t-4 border-teal-500">
-            <h3 class="font-bold text-xl">Obat Bebas</h3>
-            <p class="text-gray-500 text-sm">Dapat dibeli tanpa resep.</p>
-            <a href="#" class="mt-4 inline-block text-teal-600 font-semibold">Lihat Produk →</a>
+    <div class="row justify-content-center">
+        @foreach($list_kategori as $item)
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 p-3 bg-white shadow-sm" style="border-left: 5px solid #2980B9;">
+                <div class="card-body d-flex flex-column">
+                    <h4 class="fw-bold mb-3" style="color: #2980B9;">{{ $item->nama_kategori }}</h4>
+                    <p class="text-muted mb-4">{{ $item->deskripsi }}</p>
+                    
+                    <a href="/produk" class="btn btn-outline-secondary w-100 mt-auto">Lihat Produk &rarr;</a>
+                </div>
+            </div>
         </div>
-        <!-- Ulangi untuk kategori lainnya -->
+        @endforeach
+
+        @if($list_kategori->isEmpty())
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Belum ada kategori yang tersedia.</p>
+            </div>
+        @endif
     </div>
 </div>
 @endsection

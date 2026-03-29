@@ -11,6 +11,6 @@ class AdminLayananController extends Controller
         $layanan = Layanan::all();
         
         // RAHASIANYA DI SINI: Harus pakai titik (admin.layanan)
-        return view('admin.layanan', ['list_layanan' => $layanan]);
+        return view('admin.layanan.index', ['list_layanan' => $layanan]);
     }
 }
