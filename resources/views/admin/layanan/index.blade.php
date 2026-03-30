@@ -3,11 +3,23 @@
 @section('content')
 <div class="container-fluid py-4 px-4">
 
-    {{-- ALERT --}}
+    {{-- ALERT SUCCESS --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show shadow-sm">
             <strong>Berhasil!</strong> {{ session('success') }}
             <button class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    {{-- ALERT ERROR --}}
+    @if ($errors->any())
+        <div class="alert alert-danger shadow-sm">
+            <strong>Oops!</strong> Ada kesalahan:
+            <ul class="mb-0 mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -34,7 +46,11 @@
                         {{-- ICON --}}
                         <div class="mb-3">
                             <div style="font-size: 40px; color: #1ABC9C;">
-                                <i class="fas {{ $item->ikon }}"></i>
+                                @if(str_contains($item->ikon, 'fa-'))
+                                    <i class="fas {{ $item->ikon }}"></i>
+                                @else
+                                    <span>{{ $item->ikon }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -96,12 +112,12 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Ikon (FontAwesome)</label>
+                                    <label class="form-label">Ikon (FontAwesome / Emoji)</label>
                                     <input type="text"
                                            name="ikon"
                                            value="{{ $item->ikon }}"
                                            class="form-control"
-                                           placeholder="Contoh: fa-pills"
+                                           placeholder="Contoh: fa-pills atau 💊"
                                            required>
                                 </div>
 
@@ -126,7 +142,8 @@
 
                 @empty
                 <div class="col-12 text-center py-5 text-muted">
-                    Belum ada data layanan
+                    <i class="fas fa-box-open fa-2x mb-2"></i>
+                    <p>Belum ada data layanan</p>
                 </div>
                 @endforelse
             </div>
@@ -160,11 +177,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Ikon (FontAwesome)</label>
+                    <label class="form-label">Ikon (FontAwesome / Emoji)</label>
                     <input type="text"
                            name="ikon"
                            class="form-control"
-                           placeholder="Contoh: fa-heartbeat"
+                           placeholder="Contoh: fa-heartbeat atau ❤️"
                            required>
                 </div>
 

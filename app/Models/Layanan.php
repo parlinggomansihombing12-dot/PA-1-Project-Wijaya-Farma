@@ -9,18 +9,14 @@ class Layanan extends Model
 {
     use HasFactory;
 
-    // ✅ Nama tabel (opsional, tapi aman)
-    protected $table = 'layanans';
-
-    // ✅ Field yang boleh diisi
     protected $fillable = [
         'nama_layanan',
         'deskripsi',
         'ikon'
     ];
 
-    // ✅ Default value (optional biar tidak null)
+    // Default icon (FontAwesome)
     protected $attributes = [
-        'ikon' => '💊'
+        'ikon' => 'fa-pills'
     ];
 }
