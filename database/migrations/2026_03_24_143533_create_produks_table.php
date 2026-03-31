@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_obat');   // ✅ WAJIB
             $table->integer('harga');      // ✅ WAJIB
-            $table->integer('stok');       // ✅ WAJIB
+            $table->integer('stok');
+            $table->string('foto')->nullable();     
             $table->timestamps();
         });
     }

@@ -1,64 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Produk</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
+<!-- 1. Panggil Template Induk Admin -->
+@extends('layouts.admin_master')
 
-<div class="bg-white p-6 rounded shadow max-w-md mx-auto">
-    <h2 class="text-lg font-bold mb-4">Tambah Produk</h2>
+<!-- 2. Beri Judul Halaman -->
+@section('title', 'Tambah Produk Baru - Admin Panel')
 
-    {{-- ALERT ERROR VALIDASI --}}
-    @if ($errors->any())
-        <div class="bg-red-100 text-red-700 p-3 mb-3 rounded">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>- {{ $error }}</li>
+<!-- 3. Masukkan Konten Form Tambah -->
+@section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #2C3E50;">➕ Tambah Produk Baru</h2>
+        <!-- Tombol Kembali ke Daftar Produk -->
+        <a href="{{ route('admin.produk.index') }}" class="btn btn-secondary fw-bold">&larr; Kembali</a>
+    </div>
+
+    <!-- Menampilkan pesan error jika ada isian yang salah/kosong -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
 
-    <form action="{{ route('admin.produk.store') }}" method="POST">
-        @csrf
+    <div class="card border-0 shadow-sm" style="max-width: 600px;">
+        <div class="card-body p-4">
+            
+            <!-- Form Tambah diarahkan ke Controller dengan method POST -->
+            <!-- WAJIB ADA enctype agar bisa kirim gambar -->
+            <form action="{{ route('admin.produk.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                
+                <!-- Input Nama Obat -->
+                <div class="mb-3">
+                    <label for="nama_obat" class="form-label fw-bold">Nama Obat / Produk <span class="text-danger">*</span></label>
+                    <input type="text" name="nama_obat" id="nama_obat" class="form-control" value="{{ old('nama_obat') }}" placeholder="Contoh: Paracetamol 500mg" required>
+                </div>
 
-        <input 
-            type="text" 
-            name="nama_obat" 
-            placeholder="Nama Obat"
-            value="{{ old('nama_obat') }}"
-            class="w-full border p-2 mb-2 rounded"
-        >
+                <div class="row">
+                    <!-- Input Harga -->
+                    <div class="col-md-6 mb-3">
+                        <label for="harga" class="form-label fw-bold">Harga (Rp) <span class="text-danger">*</span></label>
+                        <input type="number" name="harga" id="harga" class="form-control" value="{{ old('harga') }}" placeholder="Contoh: 15000" required>
+                    </div>
 
-        <input 
-            type="number" 
-            name="harga" 
-            placeholder="Harga"
-            value="{{ old('harga') }}"
-            class="w-full border p-2 mb-2 rounded"
-        >
+                    <!-- Input Stok -->
+                    <div class="col-md-6 mb-3">
+                        <label for="stok" class="form-label fw-bold">Stok Awal <span class="text-danger">*</span></label>
+                        <input type="number" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" placeholder="Contoh: 50" required>
+                    </div>
+                </div>
 
-        <input 
-            type="number" 
-            name="stok" 
-            placeholder="Stok"
-            value="{{ old('stok') }}"
-            class="w-full border p-2 mb-4 rounded"
-        >
+                <!-- Input Upload Foto Baru -->
+                <div class="mb-4">
+                    <label for="foto" class="form-label fw-bold">Upload Foto Produk</label>
+                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
+                    <small class="text-muted">Format yang diizinkan: JPG, PNG, JPEG. (Maksimal 2MB).</small>
+                </div>
 
-        <button 
-            type="submit"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">
-            Simpan
-        </button>
-
-        <a href="{{ route('admin.produk.index') }}" 
-           class="block text-center mt-3 text-gray-600 hover:underline">
-            Kembali
-        </a>
-    </form>
-</div>
-
-</body>
-</html>
+                <!-- Tombol Submit -->
+                <button type="submit" class="btn btn-primary w-100 fw-bold py-2">💾 Simpan Produk Baru</button>
+                
+            </form>
+            
+        </div>
+    </div>
+@endsection

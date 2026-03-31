@@ -24,49 +24,34 @@ class AdminProdukController extends Controller
     // 💾 SIMPAN DATA
     public function store(Request $request)
     {
+        // 1. Validasi Inputan
         $request->validate([
             'nama_obat' => 'required|string|max:255',
             'harga' => 'required|numeric',
-            'stok' => 'required|numeric'
+            'stok' => 'required|numeric',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validasi khusus foto
         ]);
 
+        // 2. Proses Upload Foto (Jika ada)
+        $nama_foto = null;
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            // Buat nama file unik (waktu_namaasli.ext)
+            $nama_foto = time() . '_' . $file->getClientOriginalName();
+            // Simpan foto ke folder public/images/produk
+            $file->move(public_path('images/produk'), $nama_foto);
+        }
+
+        // 3. Simpan ke Database
         Produk::create([
             'nama_obat' => $request->nama_obat,
             'harga' => $request->harga,
-            'stok' => $request->stok
+            'stok' => $request->stok,
+            'foto' => $nama_foto // Simpan nama file fotonya
         ]);
 
         return redirect()->route('admin.produk.index')
                          ->with('success', 'Produk berhasil ditambahkan');
-    }
-
-    // ✏️ FORM EDIT
-    public function edit($id)
-    {
-        $produk = Produk::findOrFail($id);
-
-        return view('admin.produk.edit', compact('produk'));
-    }
-
-    // 🔄 UPDATE DATA
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_obat' => 'required|string|max:255',
-            'harga' => 'required|numeric',
-            'stok' => 'required|numeric'
-        ]);
-
-        $produk = Produk::findOrFail($id);
-
-        $produk->update([
-            'nama_obat' => $request->nama_obat,
-            'harga' => $request->harga,
-            'stok' => $request->stok
-        ]);
-
-        return redirect()->route('admin.produk.index')
-                         ->with('success', 'Produk berhasil diupdate');
     }
 
     // 🗑️ HAPUS DATA

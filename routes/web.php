@@ -21,42 +21,39 @@ use App\Http\Controllers\AdminLayananController;
 use App\Http\Controllers\AdminTestimoniController;
 use App\Http\Controllers\ProfileController;
 
-
 // ==============================================
 // 1. PUBLIC (TANPA LOGIN)
 // ==============================================
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
-
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
-
 Route::get('/profil', [ProfilTokoController::class, 'index'])->name('profil.index');
 Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni.index');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 
-
 // ==============================================
 // 2. ADMIN (WAJIB LOGIN)
 // ==============================================
-Route::middleware(['auth', 'verified'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
 
-    // Dashboard
+// GRUP 1: KHUSUS DASHBOARD (Agar namanya murni 'dashboard')
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-
+    
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    // ================= RESOURCE =================
-
+// GRUP 2: RESOURCE ADMIN (Dengan tambahan nama 'admin.')
+Route::middleware(['auth', 'verified'])
+    ->prefix('admin')
+    ->name('admin.') // Efek ini hanya berlaku untuk rute di bawah ini
+    ->group(function () {
+        
     Route::resource('produk', AdminProdukController::class);
     Route::resource('kategori', AdminKategoriController::class)->except(['create', 'show']);
     Route::resource('artikel', AdminArtikelController::class)->except(['create', 'show']);
