@@ -8,15 +8,27 @@ use App\Models\ProfilToko;
 
 class ArtikelController extends Controller
 {
+    // ✅ HALAMAN LIST ARTIKEL
     public function index()
     {
         $toko = ProfilToko::first();
         $artikel = Artikel::latest()->get();
 
-        // MENGARAH KE HALAMAN PENGUNJUNG (Bukan admin.artikel)
-        return view('artikel',[
+        return view('artikel', [
             'toko' => $toko,
             'list_artikel' => $artikel
+        ]);
+    }
+
+    // ✅ HALAMAN DETAIL ARTIKEL (INI YANG KURANG)
+    public function show($id)
+    {
+        $toko = ProfilToko::first();
+        $artikel = Artikel::findOrFail($id);
+
+        return view('artikel_detail', [
+            'toko' => $toko,
+            'artikel' => $artikel
         ]);
     }
 }
