@@ -1,19 +1,16 @@
 @extends('layouts.admin_master')
-
 @section('title', 'Kelola Produk - Admin Panel')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold" style="color: #2C3E50;">Data Produk Obat</h2>
-        <!-- Tombol ini diarahkan ke fungsi create() di Controller Anda -->
         <a href="{{ route('admin.produk.create') }}" class="btn btn-primary fw-bold">+ Tambah Produk Baru</a>
     </div>
 
-    <!-- Menampilkan Notifikasi Sukses dari Controller -->
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
@@ -23,6 +20,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th class="text-center" width="5%">No</th>
+                        <th class="text-center" width="10%">Foto</th>
                         <th>Nama Obat</th>
                         <th width="20%">Harga</th>
                         <th width="10%" class="text-center">Stok</th>
@@ -30,31 +28,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Perhatikan: Variabelnya 'produks' sesuai dari Controller Anda -->
                     @forelse($produks as $item)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <!-- Sesuai nama kolom di Controller Anda: 'nama_obat' -->
+                        <td class="text-center">
+                            @if($item->foto)
+                                <img src="{{ asset('images/produk/' . $item->foto) }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                            @else
+                                <span class="badge bg-secondary">Kosong</span>
+                            @endif
+                        </td>
                         <td class="fw-bold">{{ $item->nama_obat }}</td>
                         <td class="text-primary fw-bold">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                         <td class="text-center"><span class="badge bg-success px-3 py-2">{{ $item->stok }}</span></td>
                         <td class="text-center">
-                            
-                            <!-- Tombol Edit & Hapus (Disambungkan ke Route Resource) -->
-                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus obat ini?');">
+                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus obat ini?');">
                                 <a href="{{ route('admin.produk.edit', $item->id) }}" class="btn btn-warning btn-sm text-dark fw-bold">✏️ Edit</a>
-                                
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm fw-bold">🗑️ Hapus</button>
                             </form>
-
                         </td>
                     </tr>
                     @empty
-                    <tr>
-                        <td colspan="5" class="text-center py-4 text-muted">Belum ada produk obat yang ditambahkan.</td>
-                    </tr>
+                    <tr><td colspan="6" class="text-center py-4 text-muted">Belum ada produk.</td></tr>
                     @endforelse
                 </tbody>
             </table>

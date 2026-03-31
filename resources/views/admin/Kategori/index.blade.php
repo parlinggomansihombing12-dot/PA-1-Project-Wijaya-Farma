@@ -1,144 +1,50 @@
 @extends('layouts.admin_master')
-
+@section('title', 'Kelola Kategori - Admin Panel')
 
 @section('content')
-<div class="container-fluid py-4 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #2C3E50;">Data Kategori Obat</h2>
+        <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary fw-bold">+ Tambah Kategori</a>
+    </div>
 
-    {{-- ALERT --}}
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm">
-            <strong>Berhasil!</strong> {{ session('success') }}
-            <button class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    {{-- HEADER --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold mb-0">Kelola Kategori</h4>
-
-        <button class="btn btn-success shadow-sm"
-                data-bs-toggle="modal"
-                data-bs-target="#modalTambah">
-            <i class="fas fa-plus me-1"></i> Tambah
-        </button>
-    </div>
-
-    {{-- CARD --}}
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
-
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-
-                    <thead class="table-light">
-                        <tr>
-                            <th width="60" class="ps-4">No</th>
-                            <th>Nama Kategori</th>
-                            <th width="180" class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @forelse($kategoris as $key => $item)
-                        <tr class="align-middle">
-                            <td class="ps-4 text-muted">{{ $key + 1 }}</td>
-                            <td class="fw-semibold">{{ $item->nama_kategori }}</td>
-
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-warning"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#edit{{ $item->id }}">
-                                    Edit
-                                </button>
-
-                                <form action="{{ route('admin.kategori.destroy', $item->id) }}"
-                                      method="POST"
-                                      class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin hapus data ini?')"
-                                            class="btn btn-sm btn-danger">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-
-                        {{-- MODAL EDIT --}}
-                        <div class="modal fade" id="edit{{ $item->id }}" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <form action="{{ route('admin.kategori.update', $item->id) }}"
-                                      method="POST"
-                                      class="modal-content">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit Kategori</h5>
-                                        <button class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <input type="text"
-                                               name="nama_kategori"
-                                               value="{{ $item->nama_kategori }}"
-                                               class="form-control"
-                                               required>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <button class="btn btn-success">Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        @empty
-                        <tr>
-                            <td colspan="3" class="text-center py-4 text-muted">
-                                Belum ada data kategori
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-
-                </table>
-            </div>
-
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" width="5%">No</th>
+                        <th width="30%">Nama Kategori</th>
+                        <th>Deskripsi</th>
+                        <th width="20%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($kategoris as $item)
+                    <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td class="fw-bold text-primary">{{ $item->nama_kategori }}</td>
+                        <td>{{ $item->deskripsi ?? '-' }}</td>
+                        <td class="text-center">
+                            <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus kategori ini?');">
+                                <a href="{{ route('admin.kategori.edit', $item->id) }}" class="btn btn-warning btn-sm text-dark fw-bold">✏️ Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm fw-bold">🗑️ Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="4" class="text-center py-4 text-muted">Belum ada kategori obat.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-
-</div>
-
-{{-- MODAL TAMBAH --}}
-<div class="modal fade" id="modalTambah" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <form action="{{ route('admin.kategori.store') }}"
-              method="POST"
-              class="modal-content">
-            @csrf
-
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Kategori</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <input type="text"
-                       name="nama_kategori"
-                       class="form-control"
-                       placeholder="Nama kategori"
-                       required>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button class="btn btn-success">Simpan</button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
 @endsection
