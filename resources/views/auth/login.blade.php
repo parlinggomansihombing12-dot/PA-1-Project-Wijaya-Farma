@@ -1,47 +1,81 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.app')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('content')
+<div class="min-h-screen bg-green-50 flex items-center justify-center p-6">
+    <div class="w-full max-w-md">
 
-        <!-- Username -->
-        <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="mx-auto mb-4 flex justify-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                    <span class="text-3xl">💊</span>
+                </div>
+            </div>
+            <h1 class="text-2xl font-bold text-green-700">Wijaya Farma</h1>
+            <p class="text-gray-500 text-sm">Apotek & Layanan Kesehatan</p>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-md p-6">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <h2 class="text-xl font-semibold text-gray-700 text-center mb-6">
+                Login Admin
+            </h2>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <!-- Username -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Username</label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value="{{ old('username') }}"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-400 focus:outline-none"
+                        placeholder="Masukkan username"
+                        required
+                    >
+                </div>
+
+                <!-- Password -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-1">Password</label>
+                    <input 
+                        type="password" 
+                        name="password"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-400 focus:outline-none"
+                        placeholder="Masukkan password"
+                        required
+                    >
+                </div>
+
+                <!-- Remember -->
+                <div class="flex items-center justify-between text-sm mb-4">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" name="remember">
+                        <span class="text-gray-600">Ingat saya</span>
+                    </label>
+
+                    <a href="{{ route('password.request') }}" class="text-green-600 hover:underline">
+                        Lupa password?
+                    </a>
+                </div>
+
+                <!-- Button -->
+                <button 
+                    type="submit"
+                    class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+                >
+                    Login
+                </button>
+            </form>
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        <!-- Footer -->
+        <p class="text-center text-gray-400 text-sm mt-6">
+            © 2026 Wijaya Farma
+        </p>
+    </div>
+</div>
+@endsection
