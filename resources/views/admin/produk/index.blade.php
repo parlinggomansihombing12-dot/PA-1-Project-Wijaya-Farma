@@ -1,60 +1,139 @@
-@extends('layouts.admin_master')
-@section('title', 'Kelola Produk - Admin Panel')
+@extends('layouts.main')
+@section('title', 'Dashboard Produk - Wijaya Farma')
+
+@push('custom-css')
+<style>
+    .card-produk { 
+        border: none; 
+        border-radius: 12px; 
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+        transition: transform 0.2s; 
+        overflow: hidden; 
+    }
+
+    .card-produk:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+        border: 1px solid #1ABC9C;
+    }
+
+    .harga { 
+        color: #2980B9; 
+        font-size: 1.1rem; 
+        font-weight: bold; 
+    }
+
+    .foto-produk { 
+        height: 180px; 
+        width: 100%; 
+        object-fit: cover; 
+    }
+
+    .foto-kosong { 
+        height: 180px; 
+        background-color: #e9ecef; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .teks-hijau {
+        color: #1ABC9C;
+    }
+
+    .btn-tema {
+        background-color: #1ABC9C;
+        color: white;
+        border: none;
+    }
+
+    .btn-tema:hover {
+        background-color: #159a80;
+        color: white;
+    }
+</style>
+@endpush
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold" style="color: #2C3E50;">Data Produk Obat</h2>
-        <a href="{{ route('admin.produk.create') }}" class="btn btn-primary fw-bold">+ Tambah Produk Baru</a>
+<div class="container my-5">
+
+    <!-- HEADER ATAS (SAMA SEPERTI KATALOG) -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="fw-bold teks-hijau mb-0">Dashboard Produk</h2>
+
+        <!-- SEARCH -->
+        <form action="{{ route('admin.produk.index') }}" method="GET" class="d-flex">
+            <input type="search" name="cari" 
+                class="form-control me-2 rounded-pill px-4" 
+                placeholder="Cari produk..." 
+                value="{{ request('cari') }}">
+            
+            <button type="submit" class="btn btn-tema rounded-pill px-4">
+                Cari
+            </button>
+        </form>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+    <!-- TOMBOL TAMBAH -->
+    <div class="mb-4 text-end">
+        <a href="{{ route('admin.produk.create') }}" class="btn btn-tema px-4">
+            + Tambah Produk
+        </a>
+    </div>
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-            <table class="table table-bordered table-striped table-hover align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-center" width="5%">No</th>
-                        <th class="text-center" width="10%">Foto</th>
-                        <th>Nama Obat</th>
-                        <th width="20%">Harga</th>
-                        <th width="10%" class="text-center">Stok</th>
-                        <th width="20%" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($produks as $item)
-                    <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">
-                            @if($item->foto)
-                                <img src="{{ asset('images/produk/' . $item->foto) }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
-                            @else
-                                <span class="badge bg-secondary">Kosong</span>
-                            @endif
-                        </td>
-                        <td class="fw-bold">{{ $item->nama_obat }}</td>
-                        <td class="text-primary fw-bold">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                        <td class="text-center"><span class="badge bg-success px-3 py-2">{{ $item->stok }}</span></td>
-                        <td class="text-center">
-                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus obat ini?');">
-                                <a href="{{ route('admin.produk.edit', $item->id) }}" class="btn btn-warning btn-sm text-dark fw-bold">✏️ Edit</a>
+    <!-- LIST PRODUK -->
+    <div class="row">
+        @forelse($produks as $item)
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-produk h-100 bg-white">
+
+                <!-- FOTO -->
+                @if($item->foto)
+                    <img src="{{ asset('images/produk/' . $item->foto) }}" class="foto-produk">
+                @else
+                    <div class="foto-kosong text-muted">
+                        <div class="text-center">
+                            📷<br><small>Belum Ada Foto</small>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="card-body d-flex flex-column">
+                    <h6 class="fw-bold">{{ $item->nama_obat }}</h6>
+
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</span>
+                            <small>Stok: {{ $item->stok }}</small>
+                        </div>
+
+                        <!-- BUTTON AKSI -->
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('admin.produk.edit', $item->id) }}" 
+                               class="btn btn-warning btn-sm w-50">
+                               Edit
+                            </a>
+
+                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="w-50">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm fw-bold">🗑️ Hapus</button>
+                                <button class="btn btn-danger btn-sm w-100">
+                                    Hapus
+                                </button>
                             </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr><td colspan="6" class="text-center py-4 text-muted">Belum ada produk.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+        @empty
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">Belum ada produk</p>
+        </div>
+        @endforelse
     </div>
+
+</div>
 @endsection
