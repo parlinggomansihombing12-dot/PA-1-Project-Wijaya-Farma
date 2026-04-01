@@ -8,15 +8,22 @@ use App\Models\ProfilToko;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $toko = ProfilToko::first();
-        $produk = Produk::all();
+        
+        // Fitur Pencarian Biasa (Jika ada pengunjung yang mengetik di kotak pencarian)
+        $query = Produk::query();
+        if ($request->has('cari') && $request->cari != '') {
+            $query->where('nama_obat', 'like', '%' . $request->cari . '%');
+        }
 
-        // MENGARAH KE HALAMAN PENGUNJUNG (Bukan admin.produk)
-        return view('produk',[
+        $list_produk = $query->latest()->get();
+
+        // MENGARAH KE FILE 'produk.blade.php'
+        return view('produk', [
             'toko' => $toko,
-            'list_produk' => $produk
+            'list_produk' => $list_produk
         ]);
     }
 }

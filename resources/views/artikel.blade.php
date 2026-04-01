@@ -1,55 +1,59 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Artikel Kesehatan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #F8F9F9; color: #2C3E50; }
-        .navbar-tema { background-color: #1ABC9C !important; }
-        .btn-tema { background-color: #2980B9; color: white; border: none; }
-        .btn-tema:hover { background-color: #1f6391; color: white; }
-        .teks-hijau { color: #1ABC9C; }
-    </style>
-</head>
-<body>
+@extends('layouts.main') {{-- sesuaikan dengan nama layout kamu --}}
 
-    @include('navbar') 
+@section('title', 'Artikel Kesehatan')
 
-    <div class="container my-5">
-        <h2 class="text-center fw-bold teks-hijau mb-4">
-            Artikel Kesehatan Terbaru
-        </h2>
+@section('content')
 
-        <div class="row">
-            @foreach($list_artikel as $item)
-            <div class="col-md-6 mb-4">
-                <div class="card border-0 shadow-sm h-100 p-3">
-                    <div class="card-body">
+<div class="container my-5">
 
-                        <small class="text-muted fst-italic">
-                            {{ $item->created_at?->format('d M Y') ?? 'Baru saja' }} 
-                            • Oleh: {{ $item->penulis }}
-                        </small>
+    {{-- Judul --}}
+    <h3 class="fw-bold mb-4">Terbaru</h3>
 
-                        <h4 class="fw-bold mt-2">{{ $item->judul }}</h4>
+    <div class="row g-4">
 
-                        <p class="text-muted">
-                            {{ \Illuminate\Support\Str::limit($item->konten, 100) }}
-                        </p>
+        @foreach($list_artikel as $item)
+        <div class="col-md-4">
 
-                        {{-- ✅ TOMBOL SUDAH DIPERBAIKI --}}
-                        <a href="{{ route('artikel.show', $item->id) }}" 
-                           class="btn btn-sm btn-outline-primary">
-                            Baca Selengkapnya →
-                        </a>
+            <div class="card border-0 shadow-sm h-100 artikel-card">
 
-                    </div>
+                {{-- GAMBAR --}}
+                <img src="https://source.unsplash.com/400x250/?health"
+                     class="card-img-top"
+                     style="height:200px; object-fit:cover;">
+
+                <div class="card-body">
+
+                    {{-- JUDUL --}}
+                    <h5 class="fw-bold">
+                        {{ $item->judul }}
+                    </h5>
+
+                    {{-- TANGGAL --}}
+                    <small class="text-muted">
+                        {{ $item->created_at?->format('d F Y') ?? 'Baru saja' }}
+                    </small>
+
+                    {{-- DESKRIPSI --}}
+                    <p class="text-muted mt-2">
+                        {{ \Illuminate\Support\Str::limit($item->konten, 80) }}
+                    </p>
+
                 </div>
+
+                <div class="card-footer bg-white border-0">
+                    <a href="{{ route('artikel.show', $item->id) }}" 
+                       class="btn btn-primary w-100">
+                        Baca Selengkapnya
+                    </a>
+                </div>
+
             </div>
-            @endforeach
+
         </div>
+        @endforeach
+
     </div>
 
-</body>
-</html>
+</div>
+
+@endsection
