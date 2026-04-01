@@ -1,138 +1,101 @@
-@extends('layouts.main')
-@section('title', 'Dashboard Produk - Wijaya Farma')
+{{-- 1. Ganti extends ke layout admin Anda (biasanya layouts.admin atau layouts.app_admin) --}}
+@extends('layouts.admin') 
 
-@push('custom-css')
-<style>
-    .card-produk { 
-        border: none; 
-        border-radius: 12px; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        transition: transform 0.2s; 
-        overflow: hidden; 
-    }
-
-    .card-produk:hover { 
-        transform: translateY(-5px); 
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
-        border: 1px solid #1ABC9C;
-    }
-
-    .harga { 
-        color: #2980B9; 
-        font-size: 1.1rem; 
-        font-weight: bold; 
-    }
-
-    .foto-produk { 
-        height: 180px; 
-        width: 100%; 
-        object-fit: cover; 
-    }
-
-    .foto-kosong { 
-        height: 180px; 
-        background-color: #e9ecef; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-    }
-
-    .teks-hijau {
-        color: #1ABC9C;
-    }
-
-    .btn-tema {
-        background-color: #1ABC9C;
-        color: white;
-        border: none;
-    }
-
-    .btn-tema:hover {
-        background-color: #159a80;
-        color: white;
-    }
-</style>
-@endpush
+@section('title', 'Data Produk - Admin Wijaya Farma')
 
 @section('content')
-<div class="container my-5">
-
-    <!-- HEADER ATAS (SAMA SEPERTI KATALOG) -->
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h2 class="fw-bold teks-hijau mb-0">Dashboard Produk</h2>
-
-        <!-- SEARCH -->
-        <form action="{{ route('admin.produk.index') }}" method="GET" class="d-flex">
-            <input type="search" name="cari" 
-                class="form-control me-2 rounded-pill px-4" 
-                placeholder="Cari produk..." 
-                value="{{ request('cari') }}">
-            
-            <button type="submit" class="btn btn-tema rounded-pill px-4">
-                Cari
-            </button>
-        </form>
-    </div>
-
-    <!-- TOMBOL TAMBAH -->
-    <div class="mb-4 text-end">
-        <a href="{{ route('admin.produk.create') }}" class="btn btn-tema px-4">
-            + Tambah Produk
+<div class="container-fluid p-4">
+    
+    <!-- HEADER HALAMAN -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-dark">Data Produk Obat</h3>
+        
+        <!-- TOMBOL TAMBAH -->
+        <a href="{{ route('admin.produk.create') }}" class="btn btn-primary shadow-sm px-4">
+            <i class="fas fa-plus me-2"></i>Tambah Produk
         </a>
     </div>
 
-    <!-- LIST PRODUK -->
-    <div class="row">
-        @forelse($produks as $item)
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card card-produk h-100 bg-white">
-
-                <!-- FOTO -->
-                @if($item->foto)
-                    <img src="{{ asset('images/produk/' . $item->foto) }}" class="foto-produk">
-                @else
-                    <div class="foto-kosong text-muted">
-                        <div class="text-center">
-                            📷<br><small>Belum Ada Foto</small>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="card-body d-flex flex-column">
-                    <h6 class="fw-bold">{{ $item->nama_obat }}</h6>
-
-                    <div class="mt-auto">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</span>
-                            <small>Stok: {{ $item->stok }}</small>
-                        </div>
-
-                        <!-- BUTTON AKSI -->
-                        <div class="d-flex gap-2">
-                            <a href="{{ route('admin.produk.edit', $item->id) }}" 
-                               class="btn btn-warning btn-sm w-50">
-                               Edit
-                            </a>
-
-                            <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" class="w-50">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm w-100">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+    <!-- FORM PENCARIAN -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form action="{{ route('admin.produk.index') }}" method="GET" class="row g-2">
+                <div class="col-md-10">
+                    <input type="search" name="cari" class="form-control" placeholder="Cari berdasarkan nama obat..." value="{{ request('cari') }}">
                 </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-dark w-100">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <!-- TABEL DATA (Agar Seragam dengan Halaman Kategori) -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th class="py-3 px-4" style="width: 50px;">No</th>
+                            <th class="py-3">Foto</th>
+                            <th class="py-3">Nama Obat</th>
+                            <th class="py-3">Harga</th>
+                            <th class="py-3">Stok</th>
+                            <th class="py-3 text-center" style="width: 180px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($produks as $index => $item)
+                        <tr>
+                            <td class="px-4 text-center">{{ $index + 1 }}</td>
+                            <td>
+                                @if($item->foto)
+                                    <img src="{{ asset('images/produk/' . $item->foto) }}" width="60" class="rounded shadow-sm border">
+                                @else
+                                    <div class="bg-light rounded text-center d-flex align-items-center justify-content-center" style="width: 60px; height: 45px;">
+                                        <small class="text-muted" style="font-size: 10px;">No Img</small>
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="fw-bold text-dark">{{ $item->nama_obat }}</div>
+                                <small class="text-muted">{{ $item->kategori->nama_kategori ?? 'Tanpa Kategori' }}</small>
+                            </td>
+                            <td class="fw-bold text-primary">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                            <td>
+                                <span class="badge {{ $item->stok > 10 ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $item->stok }} pcs
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="{{ route('admin.produk.edit', $item->id) }}" class="btn btn-warning btn-sm text-white px-3">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    
+                                    <form action="{{ route('admin.produk.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm px-3">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">
+                                <i class="fas fa-box-open fa-3x mb-3 opacity-25"></i><br>
+                                Belum ada data produk yang tersedia.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        @empty
-        <div class="col-12 text-center py-5">
-            <p class="text-muted">Belum ada produk</p>
-        </div>
-        @endforelse
     </div>
 
 </div>

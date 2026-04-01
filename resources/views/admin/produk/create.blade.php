@@ -71,6 +71,12 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                     <label class="form-label fw-bold">Deskripsi Produk <span class="text-danger">*</span></label>
+                     <textarea name="deskripsi" class="form-control" rows="5" placeholder="Masukkan kegunaan, dosis, atau efek samping obat..." required></textarea>
+                     <small class="text-muted">Gunakan tombol Enter untuk baris baru agar rapi di halaman pengunjung.</small>
+                </div>
+
                 <hr class="my-4 opacity-50">
 
                 <!-- Tombol Submit -->

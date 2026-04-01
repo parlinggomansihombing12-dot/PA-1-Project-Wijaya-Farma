@@ -41,6 +41,11 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                     <label class="form-label fw-bold">Deskripsi Produk</label>
+                     <textarea name="deskripsi" class="form-control" rows="5" required>{{ old('deskripsi', $produk->deskripsi) }}</textarea>
+                </div>
+
                 <!-- Input Upload Foto (Sesuai modifikasi kita sebelumnya) -->
                 <div class="mb-4">
                     <label for="foto" class="form-label fw-bold">Ganti Foto Produk (Opsional)</label>

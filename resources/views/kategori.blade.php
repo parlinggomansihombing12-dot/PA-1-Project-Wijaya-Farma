@@ -1,179 +1,233 @@
 @extends('layouts.main')
+
 @section('title', 'Kategori Obat - Wijaya Farma')
 
-@push('custom-css')
+{{-- Bagian CSS Khusus Halaman Kategori --}}
+@section('custom-css')
 <style>
-    body { background-color: #fcfdfe; font-family: 'Inter', sans-serif; }
-    
-    /* SIDEBAR KATEGORI */
-    .sidebar-kategori { background: white; border-right: 1px solid #eef2f7; min-height: 100vh; padding: 20px 0; }
-    .kategori-item { 
-        display: flex; 
-        align-items: center; 
-        padding: 12px 25px; 
-        color: #444; 
-        text-decoration: none; 
-        font-size: 14px;
-        font-weight: 500; 
-        transition: 0.3s; 
-    }
-    .kategori-item:hover { background-color: #f8f9fa; color: #0067b8; }
-    
-    /* Warna Biru saat Kategori Aktif (Sesuai Gambar) */
-    .kategori-item.active { 
-        background-color: #0067b8; 
-        color: white; 
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        margin-right: 15px;
-    }
-    .kategori-icon { width: 24px; height: 24px; margin-right: 15px; object-fit: contain; }
-    
-    /* SEARCH BAR */
-    .search-container { position: relative; }
-    .search-box { 
-        border-radius: 10px; 
-        padding: 15px 25px; 
-        border: 1px solid #e0e0e0; 
-        background: #fff;
-        font-size: 16px;
-        color: #888;
-    }
-    .search-icon { position: absolute; right: 20px; top: 15px; color: #aaa; }
+    body { background-color: #f4f7f6; }
 
-    /* KARTU PRODUK */
-    .card-produk { 
-        border: 1px solid #f0f0f0; 
-        border-radius: 12px; 
-        transition: 0.3s; 
-        background: #fff;
-        position: relative;
+    /* SIDEBAR STYLING */
+    .sidebar-kategori {
+        background: white !important;
+        border-right: 1px solid #dee2e6;
+        min-height: calc(100vh - 70px);
+        position: sticky;
+        top: 70px;
+        padding-top: 20px;
+        z-index: 100;
+    }
+
+    .sidebar-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: #999;
+        text-transform: uppercase;
+        padding: 0 25px 10px;
+        letter-spacing: 1px;
+    }
+
+    .kategori-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 25px;
+        color: #444;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+        border-left: 4px solid transparent;
+    }
+
+    .kategori-link:hover {
+        background: #f0fdfa;
+        color: #1abc9c;
+    }
+
+    .kategori-link.active {
+        background: #e6f7f4;
+        color: #1abc9c;
+        border-left: 4px solid #1abc9c;
+        font-weight: 700;
+    }
+
+    /* KONTEN UTAMA */
+    .main-content-area {
+        padding: 30px;
+        background: #f8f9fa;
+    }
+
+    /* SEARCH BOX */
+    .search-wrapper {
+        background: white;
         padding: 15px;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+        border: 1px solid #eee;
     }
-    .card-produk:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-    
-    .foto-produk { 
-        height: 140px; 
-        width: 100%; 
-        object-fit: contain; 
-        margin-bottom: 10px;
+
+    .search-input {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent;
     }
-    
-    /* Badge K (Obat Keras) Merah di pojok kanan */
-    .badge-keras {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 22px;
-        height: 22px;
-        background-color: #ff0000;
-        color: white;
-        border-radius: 50%;
+
+    /* KARTU PRODUK (PENTING: Mencegah Gambar Flowchart Melebar) */
+    .card-produk {
+        background: white;
+        border-radius: 15px;
+        padding: 15px;
+        border: 1px solid #eee;
+        transition: 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden; /* MEMOTONG GAMBAR JIKA TERLALU BESAR */
+    }
+
+    .card-produk:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+
+    /* WADAH GAMBAR - KUNCI AGAR GAMBAR TIDAK MERUSAK LAYOUT */
+    .img-box {
+        height: 150px; /* Tinggi maksimal gambar */
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
-        font-size: 12px;
-        border: 2px solid #000;
-        z-index: 2;
+        margin-bottom: 15px;
+        background: #fff;
+        overflow: hidden; /* Memotong gambar yang keluar jalur */
     }
 
-    .brand-powered { font-size: 10px; color: #0067b8; font-weight: bold; margin-bottom: 10px; }
-    
-    .nama-obat { 
-        font-size: 13px; 
-        font-weight: 700; 
-        color: #333; 
-        text-transform: uppercase; 
-        line-height: 1.4;
+    .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Memaksa gambar tetap proporsional di dalam kotak */
+    }
+
+    .badge-keras {
+        position: absolute; top: 12px; right: 12px; width: 22px; height: 22px;
+        background: #ff4d4d; color: white; border-radius: 50%; font-size: 11px;
+        display: flex; align-items: center; justify-content: center; font-weight: 800; border: 1px solid #000;
+    }
+
+    .nama-obat {
+        font-size: 14px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Batasi maksimal 2 baris teks */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
         min-height: 40px;
     }
+
+    .harga-obat {
+        font-size: 15px;
+        font-weight: 800;
+        color: #1abc9c;
+        margin-top: auto;
+    }
+
+    .btn-lihat {
+        margin-top: 15px;
+        background: #1abc9c;
+        color: white;
+        text-align: center;
+        padding: 8px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-lihat:hover { background: #16a085; color: white; }
 </style>
-@endpush
+@endsection
 
 @section('content')
-<div class="container-fluid p-0">
+<div class="container-fluid">
     <div class="row g-0">
         
-        <!-- ================= KIRI: SIDEBAR KATEGORI ================= -->
-        <div class="col-lg-2 col-md-3">
-            <div class="sidebar-kategori sticky-top">
-                <!-- Tombol Semua -->
-                <a href="/kategori" class="kategori-item {{ empty($kategori_aktif) ? 'active' : '' }}">
-                    <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" class="kategori-icon"> Semua
-                </a>
+        <!-- SIDEBAR (BAGIAN KIRI) -->
+        <div class="col-md-2 d-none d-md-block p-0">
+            <div class="sidebar-kategori shadow-sm">
+                <p class="sidebar-label">Pilih Kategori</p>
                 
-               <!-- Looping Daftar Kategori di Sidebar -->
-@foreach($list_kategori as $kat)
-<a href="/kategori?kategori={{ $kat->id }}" class="kategori-item {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
-    @if($kat->icon)
-        <img src="{{ asset('images/kategori/' . $kat->icon) }}" class="kategori-icon" style="width: 24px; margin-right: 10px;">
-    @else
-        <span class="me-3 fs-5">💊</span> {{-- Icon default jika belum upload --}}
-    @endif
-    {{ $kat->nama_kategori }}
-</a>
-@endforeach
+                <a href="/kategori" class="kategori-link {{ empty($kategori_aktif) ? 'active' : '' }}">
+                   <span class="me-2">📦</span> Semua Produk
+                </a>
+
+                @foreach($list_kategori as $kat)
+                <a href="/kategori?kategori={{ $kat->id }}" class="kategori-link {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
+                    <span class="me-2">💊</span> {{ $kat->nama_kategori }}
+                </a>
+                @endforeach
             </div>
         </div>
 
-        <!-- ================= KANAN: KONTEN PRODUK ================= -->
-        <div class="col-lg-10 col-md-9 p-4">
+        <!-- AREA PRODUK (BAGIAN KANAN) -->
+        <div class="col-md-10 main-content-area">
             
-            <!-- 1. KOTAK PENCARIAN (Sesuai Gambar) -->
-            <form action="/kategori" method="GET" class="mb-4 search-container">
-                @if($kategori_aktif)
-                    <input type="hidden" name="kategori" value="{{ $kategori_aktif }}">
-                @endif
-                <input type="search" name="cari" class="form-control search-box" 
-                       placeholder="Cari di Kategori {{ $kategori_aktif ? $list_kategori->where('id', $kategori_aktif)->first()->nama_kategori : 'Semua Obat' }}" 
-                       value="{{ request('cari') }}">
-                <i class="fas fa-search search-icon"></i>
-            </form>
+            <!-- Form Pencarian -->
+            <div class="search-wrapper">
+                <form action="/kategori" method="GET" class="d-flex align-items-center">
+                    @if($kategori_aktif)
+                        <input type="hidden" name="kategori" value="{{ $kategori_aktif }}">
+                    @endif
+                    <i class="fas fa-search text-muted mx-3"></i>
+                    <input type="text" name="cari" class="form-control search-input w-100" 
+                           placeholder="Cari obat atau vitamin yang anda butuhkan..." value="{{ request('cari') }}">
+                </form>
+            </div>
 
-            <!-- 2. GRID PRODUK -->
-            <div class="row g-3">
+            <!-- Judul Kategori -->
+            <h4 class="fw-bold mb-4">
+                {{ $kategori_aktif ? $list_kategori->where('id', $kategori_aktif)->first()->nama_kategori : 'Semua Obat' }}
+            </h4>
+
+            <!-- Grid Produk -->
+            <div class="row g-4">
                 @forelse($list_produk as $item)
                 <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                    <div class="card-produk h-100">
-                        
-                        <!-- Badge Keras (Jika diperlukan resep) -->
-                        <div class="badge-keras">K</div>
+                    <div class="card-produk">
+                        <!-- Tanda Obat Keras (Opsional) -->
+                        <div class="badge-keras" title="Obat Keras">K</div>
 
-                        <!-- Foto Produk -->
-                        <div class="text-center">
+                        <!-- Kotak Gambar (Kunci perbaikan anda) -->
+                        <div class="img-box">
                             @if($item->foto)
-                                <img src="{{ asset('images/produk/' . $item->foto) }}" class="foto-produk">
+                                <img src="{{ asset('images/produk/' . $item->foto) }}" alt="{{ $item->nama_obat }}">
                             @else
-                                <div class="foto-produk d-flex align-items-center justify-content-center bg-light">
-                                    <small class="text-muted">No Image</small>
-                                </div>
+                                <img src="https://via.placeholder.com/200x200?text=No+Image" alt="no-image">
                             @endif
                         </div>
 
-                        <!-- Info Produk -->
-                        <div class="brand-powered">
-                            <span style="background:#0067b8; color:white; padding:2px 5px; border-radius:3px; font-size:8px;">Powered by</span> Goapotik
-                        </div>
-                        
-                        <div class="nama-obat">
-                            {{ $item->nama_obat }}
-                        </div>
+                        <div class="small text-muted fw-bold mb-1" style="font-size: 10px;">WIJAYA FARMA</div>
+                        <div class="nama-obat">{{ $item->nama_obat }}</div>
+                        <div class="harga-obat">Rp {{ number_format($item->harga, 0, ',', '.') }}</div>
 
-                        <!-- Harga (Optional jika ingin ditampilkan tipis) -->
-                        <div class="mt-2 text-primary fw-bold" style="font-size: 14px;">
-                            Rp {{ number_format($item->harga, 0, ',', '.') }}
-                        </div>
+                        <a href="/produk/{{ $item->id }}" class="btn-lihat">Lihat Detail</a>
                     </div>
                 </div>
                 @empty
+                <!-- Tampilan Jika Tidak Ada Produk -->
                 <div class="col-12 text-center py-5">
-                    <p class="text-muted">Obat tidak ditemukan.</p>
+                    <div class="mb-3"><i class="fas fa-pills fa-4x text-muted opacity-25"></i></div>
+                    <h5 class="text-muted">Maaf, obat tidak ditemukan.</h5>
+                    <p class="text-muted small">Coba cari dengan kata kunci lain atau pilih kategori berbeda.</p>
                 </div>
                 @endforelse
             </div>
-
         </div>
+
     </div>
 </div>
 @endsection

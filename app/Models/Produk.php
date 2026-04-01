@@ -17,6 +17,7 @@ class Produk extends Model
         'stok',
         'foto',
         'kategori_id',
+        'deskripsi',
     ];
 
     public function kategori()
