@@ -2,37 +2,68 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Judul akan berubah-ubah sesuai halaman -->
-    <title>@yield('title', 'Apotek Wijaya Farma')</title>
-    
+    <title>@yield('title')</title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- CSS TEMA GLOBAL -->
+
+    <!-- STYLE GLOBAL -->
     <style>
-        body { background-color: #F8F9F9; color: #2C3E50; }
-        .navbar-tema { background-color: #1ABC9C !important; }
-        .btn-tema { background-color: #2980B9; color: white; border: none; }
-        .btn-tema:hover { background-color: #1f6391; color: white; }
-        .teks-hijau { color: #1ABC9C; }
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #1ABC9C;
+        }
+
+        .navbar a {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            color: #e8f8f5 !important;
+        }
+
+        .btn-tema {
+            background-color: #1ABC9C;
+            color: white;
+        }
+
+        .btn-tema:hover {
+            background-color: #159a80;
+            color: white;
+        }
+
+        .teks-hijau {
+            color: #1ABC9C;
+        }
     </style>
-    
-    <!-- Tempat untuk menyisipkan CSS khusus halaman tertentu -->
+
     @stack('custom-css')
 </head>
+
 <body>
 
-    <!-- Panggil Navbar Pintar Kita -->
-    @include('navbar')
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand text-white fw-bold" href="/">Wijaya Farma</a>
 
-    <!-- DI SINI KONTEN UTAMA AKAN DISUNTIKKAN -->
-    <main>
-        @yield('content')
-    </main>
+        <div class="ms-auto">
+            <a href="/produk" class="me-3">Produk</a>
+            <a href="/artikel" class="me-3">Artikel</a>
+            <a href="/kontak" class="me-3">Kontak</a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Tempat untuk menyisipkan Script khusus halaman tertentu -->
-    @stack('custom-js')
+            <!-- ADMIN -->
+            <a href="/admin/dashboard" class="btn btn-light btn-sm">Dashboard</a>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+@yield('content')
+
 </body>
 </html>
