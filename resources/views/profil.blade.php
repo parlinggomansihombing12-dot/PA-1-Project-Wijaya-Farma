@@ -1,117 +1,140 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
-<div class="max-w-6xl mx-auto mt-10 px-4">
+<!-- Tambahkan FontAwesome untuk ikon yang lebih stabil -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- HEADER -->
-    <div class="bg-green-500 text-white rounded-2xl p-6 mb-6 shadow">
-        <h2 class="text-xl font-semibold">Apotek Wijaya Farma</h2>
-        <p class="text-sm opacity-90">
-            Melayani kebutuhan kesehatan dengan aman dan terpercaya
-        </p>
+<div class="max-w-6xl mx-auto mt-10 px-4 pb-20">
+
+    <!-- HEADER / HERO SECTION -->
+    <div class="relative overflow-hidden bg-gradient-to-r from-green-600 to-teal-500 text-white rounded-3xl p-8 mb-8 shadow-lg">
+        <div class="relative z-10">
+            <span class="bg-white/20 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/30">Profil Resmi</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-4">Apotek Wijaya Farma</h2>
+            <p class="text-lg opacity-90 mt-2 flex items-center gap-2">
+                <i class="fas fa-check-circle text-white"></i> Melayani kebutuhan kesehatan dengan aman dan terpercaya
+            </p>
+        </div>
+        <!-- Dekorasi background -->
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+            <i class="fas fa-plus-square"></i>
+        </div>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- PROFIL TOKO -->
-        <div class="md:col-span-2 bg-white rounded-2xl shadow p-6">
-
-            <h3 class="text-lg font-semibold text-green-600 mb-4">
-                Profil Toko
-            </h3>
-
-            <div class="space-y-4 text-sm">
-
-                <div>
-                    <p class="text-gray-500">Nama Toko</p>
-                    <p class="font-medium text-gray-800">Wijaya Farma</p>
+        <!-- KIRI: PROFIL TOKO -->
+        <div class="md:col-span-2 space-y-6">
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="bg-green-100 p-3 rounded-xl text-green-600">
+                        <i class="fas fa-store text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 tracking-tight">Tentang Kami</h3>
                 </div>
 
-                <div>
-                    <p class="text-gray-500">Deskripsi</p>
-                    <p class="text-gray-700">
-                        Apotek Wijaya Farma menyediakan berbagai obat, vitamin, dan layanan kesehatan 
-                        untuk membantu masyarakat menjaga kesehatan dengan aman dan terpercaya.
-                    </p>
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                    <!-- Deskripsi (Full Width) -->
+                    <div class="md:col-span-2 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-gray-500 mb-1 uppercase text-xs font-bold tracking-wider">Deskripsi</p>
+                        <p class="text-gray-700 leading-relaxed text-base">
+                            Apotek Wijaya Farma adalah pusat pelayanan obat dan alat kesehatan yang berkomitmen menyediakan produk berkualitas, vitamin, dan konsultasi kesehatan bagi masyarakat di wilayah Toba.
+                        </p>
+                    </div>
 
-                <div>
-                    <p class="text-gray-500">Alamat</p>
-                    <p class="text-gray-700">
-                        Jl. Lintas Porsea - Laguboti<br>
-                        Kec. Sigumpar, Kab. Toba
-                    </p>
-                </div>
+                    <!-- Alamat -->
+                    <div class="flex gap-4">
+                        <div class="text-green-500 mt-1"><i class="fas fa-map-marker-alt text-lg"></i></div>
+                        <div>
+                            <p class="text-gray-400 font-semibold uppercase text-[10px]">Alamat Lengkap</p>
+                            <p class="text-gray-800 font-medium leading-relaxed">
+                                Jl. Lintas Porsea - Laguboti, Kec. Sigumpar, Kab. Toba, Sumatera Utara
+                            </p>
+                        </div>
+                    </div>
 
-                <div>
-                    <p class="text-gray-500">Jam Operasional</p>
-                    <p class="text-gray-800">
-                        08.00 - 22.00 (Setiap Hari)
-                    </p>
-                </div>
+                    <!-- Jam Operasional -->
+                    <div class="flex gap-4">
+                        <div class="text-orange-500 mt-1"><i class="fas fa-clock text-lg"></i></div>
+                        <div>
+                            <p class="text-gray-400 font-semibold uppercase text-[10px]">Jam Operasional</p>
+                            <p class="text-gray-800 font-bold">08.00 - 22.00</p>
+                            <p class="text-green-600 text-xs font-medium italic">Melayani Setiap Hari</p>
+                        </div>
+                    </div>
 
-                <div>
-                    <p class="text-gray-500">Layanan</p>
-                    <p class="text-gray-800">
-                        Obat umum, resep dokter, vitamin, alat kesehatan, konsultasi
-                    </p>
+                    <!-- Layanan -->
+                    <div class="md:col-span-2 flex gap-4">
+                        <div class="text-blue-500 mt-1"><i class="fas fa-hand-holding-medical text-lg"></i></div>
+                        <div>
+                            <p class="text-gray-400 font-semibold uppercase text-[10px]">Layanan Unggulan</p>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                @foreach(['Obat Umum', 'Resep Dokter', 'Vitamin', 'Alkes', 'Konsultasi'] as $tag)
+                                <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold">{{ $tag }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- PROFIL PEMILIK -->
-        <div class="bg-white rounded-2xl shadow p-6 text-center">
+        <!-- KANAN: PROFIL PEMILIK & SOSMED -->
+        <div class="space-y-6">
+            <!-- Card Pemilik -->
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-green-500"></div>
+                
+                <h3 class="text-xl font-bold text-gray-800 mb-6">Apoteker Penanggung Jawab</h3>
 
-            <h3 class="text-lg font-semibold text-green-600 mb-6">
-                Profil Pemilik
-            </h3>
+                <div class="relative inline-block mb-4">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300"
+                         class="w-32 h-32 mx-auto rounded-3xl object-cover shadow-lg border-4 border-white">
+                    <div class="absolute -bottom-2 -right-2 bg-green-500 text-white p-2 rounded-xl shadow-md">
+                        <i class="fas fa-user-nurse"></i>
+                    </div>
+                </div>
 
-            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300"
-                 class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow">
+                <p class="text-lg font-extrabold text-gray-800 leading-tight">
+                    Bdn. Yesika Pradinata Sitohang, S.Keb
+                </p>
+                <p class="text-green-600 text-sm font-medium mt-1">Pemilik & Pengelola</p>
 
-            <p class="text-lg font-semibold text-gray-800 mb-4">
-                Bdn. Yesika Pradinata Sitohang, S.Keb
-            </p>
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Hubungi Kami</h4>
+                    
+                    <div class="space-y-3">
+                        <!-- Instagram -->
+                        <a href="#" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50 hover:bg-pink-50 hover:text-pink-600 transition-all group">
+                            <i class="fab fa-instagram text-xl text-pink-500 group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-pink-600">@wijayafarma</span>
+                        </a>
 
-            <!-- SOSIAL MEDIA -->
-           <div class="text-sm text-gray-700 space-y-3 text-left">
+                        <!-- Facebook -->
+                        <a href="#" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50 hover:bg-blue-50 hover:text-blue-600 transition-all group">
+                            <i class="fab fa-facebook text-xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-blue-600">Wijaya Farma</span>
+                        </a>
 
-    <!-- Instagram -->
-    <div class="flex items-center gap-3">
-        <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-2.75a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"/>
-        </svg>
-        <span><b>Instagram:</b> @wijayafarma</span>
+                        <!-- TikTok -->
+                        <a href="#" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50 hover:bg-gray-200 transition-all group text-black">
+                            <i class="fab fa-tiktok text-xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-bold text-gray-700">@wijayafarma</span>
+                        </a>
+
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/6281234567890" class="flex items-center gap-4 p-3 rounded-2xl bg-green-50 text-green-700 hover:bg-green-100 transition-all border border-green-100 group">
+                            <i class="fab fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase font-bold opacity-70 leading-none">Chat Sekarang</p>
+                                <span class="text-sm font-extrabold text-green-700">0812-3456-7890</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-    <!-- Facebook -->
-    <div class="flex items-center gap-3">
-        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22 12a10 10 0 10-11.5 9.87v-6.99H7.9V12h2.6V9.8c0-2.57 1.53-4 3.88-4 1.12 0 2.3.2 2.3.2v2.5h-1.3c-1.28 0-1.68.8-1.68 1.6V12h2.86l-.46 2.88h-2.4v6.99A10 10 0 0022 12z"/>
-        </svg>
-        <span><b>Facebook:</b> Wijaya Farma</span>
-    </div>
-
-    <!-- TikTok -->
-    <div class="flex items-center gap-3">
-        <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M16 3a5 5 0 003 3.87V10a7 7 0 01-4-1.26V16a6 6 0 11-6-6c.34 0 .67.03 1 .08v3.06a3 3 0 10-2-2.84V7a6 6 0 018 6V3h2z"/>
-        </svg>
-        <span><b>TikTok:</b> @wijayafarma</span>
-    </div>
-
-    <!-- WhatsApp -->
-    <div class="flex items-center gap-3">
-        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20 3.5A11 11 0 003.3 18.2L2 22l3.9-1.2A11 11 0 1020 3.5zm-8 16a9 9 0 01-4.6-1.3l-.3-.2-2.3.7.7-2.2-.2-.3A9 9 0 1112 19.5zm5-6.7c-.3-.2-1.8-.9-2-1s-.4-.2-.6.2-.7 1-1 1.2-.5.2-.8 0a7.4 7.4 0 01-2.2-1.4 8.2 8.2 0 01-1.5-1.9c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5 0-.2 0-.4-.1-.6s-.6-1.5-.9-2c-.3-.5-.6-.4-.8-.4h-.7c-.2 0-.6.1-.9.4s-1.1 1-1.1 2.4 1.2 2.8 1.3 3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.9.6.8.2 1.5.2 2 .1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4 0-.1-.2-.2-.5-.4z"/>
-        </svg>
-        <span><b>WhatsApp:</b> 0812-3456-7890</span>
-    </div>
-
-    </div>
-
-    </div>
-
 </div>
 @endsection
