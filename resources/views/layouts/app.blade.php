@@ -1,68 +1,73 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 <head>
-    <style>
-.artikel-card {
-    border-radius: 12px;
-    overflow: hidden;
-    transition: 0.3s;
-}
-
-.artikel-card:hover {
-    transform: translateY(-5px);
-}
-
-.card-img-top {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-</style>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Wijaya Farma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    {{-- Font --}}
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    {{-- Bootstrap CSS --}}
+    {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .navbar-custom {
+            background-color: #14B8A6;
+        }
 
-    {{-- Vite --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #d1fae5 !important;
+        }
+    </style>
 </head>
+<body>
 
-<body class="font-sans antialiased bg-light">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
+    <div class="container">
 
-<div class="min-h-screen">
+        <!-- LOGO -->
+        <a class="navbar-brand fw-bold" href="/">
+            Wijaya Farma
+        </a>
 
-    {{-- Navbar --}}
-    @include('layouts.navigation')
+        <!-- TOGGLE MOBILE -->
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            ☰
+        </button>
 
-    {{-- Header --}}
-    @isset($header)
-        <header class="bg-white shadow-sm mb-4">
-            <div class="container py-4">
-                {{ $header }}
-            </div>
-        </header>
-    @endisset
+        <!-- MENU -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
 
-    {{-- Content --}}
-    <main class="container-fluid py-3">
-        @if(isset($slot))
-            {{ $slot }}
-        @else
-            @yield('content')
-        @endif
-    </main>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Beranda</a>
+                </li>
 
-</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/produk">Produk</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/testimoni">Testimoni</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/kontak">Kontak</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<!-- CONTENT -->
+@yield('content')
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
