@@ -21,51 +21,65 @@ class AdminKategoriController extends Controller
     }
 
     // 3. PROSES SIMPAN DATA
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_kategori' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string'
-        ]);
+   // ... bagian atas tetap sama ...
 
-        Kategori::create([
-            'nama_kategori' => $request->nama_kategori,
-            'deskripsi' => $request->deskripsi
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'nama_kategori' => 'required|string|max:255',
+        'icon' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:2048', // Validasi Icon
+        'deskripsi' => 'nullable|string'
+    ]);
 
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+    $data = $request->all();
+
+    // Logika Upload Icon
+    if ($request->hasFile('icon')) {
+        $file = $request->file('icon');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('images/kategori'), $nama_file);
+        $data['icon'] = $nama_file;
     }
 
-    // 4. HALAMAN FORM EDIT
-    public function edit($id)
-    {
-        $kategori = Kategori::findOrFail($id);
-        return view('admin.Kategori.edit', compact('kategori'));
+    Kategori::create($data);
+    return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_kategori' => 'required|string|max:255',
+        'icon' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:2048',
+        'deskripsi' => 'nullable|string'
+    ]);
+
+    $kategori = Kategori::findOrFail($id);
+    $data = $request->all();
+
+    if ($request->hasFile('icon')) {
+        // Hapus icon lama jika ada
+        if ($kategori->icon && file_exists(public_path('images/kategori/' . $kategori->icon))) {
+            unlink(public_path('images/kategori/' . $kategori->icon));
+        }
+        
+        $file = $request->file('icon');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('images/kategori'), $nama_file);
+        $data['icon'] = $nama_file;
     }
 
-    // 5. PROSES UPDATE DATA
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama_kategori' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string'
-        ]);
+    $kategori->update($data);
+    return redirect()->route('admin.kategori.index')->with('success', 'Kategori diperbarui!');
+}
 
-        $kategori = Kategori::findOrFail($id);
-        $kategori->update([
-            'nama_kategori' => $request->nama_kategori,
-            'deskripsi' => $request->deskripsi
-        ]);
-
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil diperbarui!');
+public function destroy($id)
+{
+    $kategori = Kategori::findOrFail($id);
+    // Hapus file gambar dari folder
+    if ($kategori->icon && file_exists(public_path('images/kategori/' . $kategori->icon))) {
+        unlink(public_path('images/kategori/' . $kategori->icon));
     }
-
-    // 6. PROSES HAPUS DATA
-    public function destroy($id)
-    {
-        $kategori = Kategori::findOrFail($id);
-        $kategori->delete();
-
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil dihapus!');
-    }
+    $kategori->delete();
+    return redirect()->route('admin.kategori.index')->with('success', 'Kategori dihapus!');
+   }
 }

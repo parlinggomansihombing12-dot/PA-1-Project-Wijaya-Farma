@@ -9,4 +9,9 @@ class Kategori extends Model
     
     // Izin simpan data ke kolom ini
     protected $fillable = ['nama_kategori', 'deskripsi']; 
+
+    public function produks()
+{
+    return $this->hasMany(Produk::class, 'kategori_id');
+}
 }

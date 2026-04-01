@@ -103,13 +103,17 @@
                     <img src="https://cdn-icons-png.flaticon.com/512/822/822143.png" class="kategori-icon"> Semua
                 </a>
                 
-                @foreach($list_kategori as $kat)
-                <a href="/kategori?kategori={{ $kat->id }}" class="kategori-item {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
-                    <!-- Contoh Icon: Anda bisa mengganti source image sesuai nama kategori -->
-                    <img src="https://cdn-icons-png.flaticon.com/512/3024/3024515.png" class="kategori-icon"> 
-                    {{ $kat->nama_kategori }}
-                </a>
-                @endforeach
+               <!-- Looping Daftar Kategori di Sidebar -->
+@foreach($list_kategori as $kat)
+<a href="/kategori?kategori={{ $kat->id }}" class="kategori-item {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
+    @if($kat->icon)
+        <img src="{{ asset('images/kategori/' . $kat->icon) }}" class="kategori-icon" style="width: 24px; margin-right: 10px;">
+    @else
+        <span class="me-3 fs-5">💊</span> {{-- Icon default jika belum upload --}}
+    @endif
+    {{ $kat->nama_kategori }}
+</a>
+@endforeach
             </div>
         </div>
 

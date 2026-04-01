@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori; // TAMBAHKAN INI
 use Illuminate\Support\Facades\File;
 
 class AdminProdukController extends Controller
@@ -11,14 +12,16 @@ class AdminProdukController extends Controller
     // 🔍 1. TAMPIL DATA DI TABEL ADMIN
     public function index()
     {
-        $produks = Produk::latest()->get();
+        // Menggunakan with('kategori') agar lebih cepat (Eager Loading)
+        $produks = Produk::with('kategori')->latest()->get();
         return view('admin.produk.index', compact('produks'));
     }
 
     // ➕ 2. HALAMAN FORM TAMBAH
     public function create()
     {
-        return view('admin.produk.create');
+        $kategoris = Kategori::all(); // AMBIL SEMUA KATEGORI
+        return view('admin.produk.create', compact('kategoris'));
     }
 
     // 💾 3. PROSES SIMPAN DATA & FOTO BARU
@@ -27,24 +30,24 @@ class AdminProdukController extends Controller
         // Validasi inputan
         $request->validate([
             'nama_obat' => 'required|string|max:255',
+            'kategori_id' => 'required', // VALIDASI KATEGORI WAJIB
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048' // Maksimal 2MB
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $nama_foto = null;
 
-        // Proses Upload Foto (Jika ada)
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $nama_foto = time() . '_' . $file->getClientOriginalName();
-            // Buat folder jika belum ada, lalu simpan fotonya
             $file->move(public_path('images/produk'), $nama_foto);
         }
 
         // Simpan ke Database
         Produk::create([
             'nama_obat' => $request->nama_obat,
+            'kategori_id' => $request->kategori_id, // SIMPAN ID KATEGORI
             'harga' => $request->harga,
             'stok' => $request->stok,
             'foto' => $nama_foto
@@ -57,38 +60,37 @@ class AdminProdukController extends Controller
     public function edit($id)
     {
         $produk = Produk::findOrFail($id);
-        return view('admin.produk.edit', compact('produk'));
+        $kategoris = Kategori::all(); // AMBIL KATEGORI UNTUK EDIT
+        return view('admin.produk.edit', compact('produk', 'kategoris'));
     }
 
-    // 🔄 5. PROSES UPDATE DATA & GANTI FOTO
+    // 🔄 5. PROSES UPDATE DATA
     public function update(Request $request, $id)
     {
         $request->validate([
             'nama_obat' => 'required|string|max:255',
+            'kategori_id' => 'required',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $produk = Produk::findOrFail($id);
-        $nama_foto = $produk->foto; // Ingat nama foto lama
+        $nama_foto = $produk->foto;
 
-        // Jika admin mengupload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus file foto lama dari folder komputer
             if ($nama_foto && File::exists(public_path('images/produk/' . $nama_foto))) {
                 File::delete(public_path('images/produk/' . $nama_foto));
             }
 
-            // Upload foto baru
             $file = $request->file('foto');
             $nama_foto = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/produk'), $nama_foto);
         }
 
-        // Update ke Database
         $produk->update([
             'nama_obat' => $request->nama_obat,
+            'kategori_id' => $request->kategori_id, // UPDATE KATEGORI
             'harga' => $request->harga,
             'stok' => $request->stok,
             'foto' => $nama_foto
@@ -97,18 +99,13 @@ class AdminProdukController extends Controller
         return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
-    // 🗑️ 6. PROSES HAPUS DATA & FOTO
     public function destroy($id)
     {
         $produk = Produk::findOrFail($id);
-
-        // Hapus file foto fisiknya agar memori tidak penuh
         if ($produk->foto && File::exists(public_path('images/produk/' . $produk->foto))) {
             File::delete(public_path('images/produk/' . $produk->foto));
         }
-
         $produk->delete();
-
         return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil dihapus!');
     }
 }
