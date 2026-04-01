@@ -37,6 +37,14 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 
 
 // ==============================================
+// 🔥 FIX: Tambahan route dashboard global
+// ==============================================
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+// ==============================================
 // 2. ADMIN (WAJIB LOGIN)
 // ==============================================
 
@@ -55,6 +63,7 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->group(function () {
 
+<<<<<<< Updated upstream
     // Saya hapus pemblokiran 'create' untuk semuanya!
     // Hanya memblokir 'show' (karena biasanya admin tidak butuh halaman detail terpisah, cukup di tabel)
     Route::resource('produk', AdminProdukController::class);
@@ -63,6 +72,26 @@ Route::middleware(['auth', 'verified'])
     Route::resource('layanan', AdminLayananController::class)->except(['show']);
     Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
 
+=======
+    // Dashboard
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // ================= RESOURCE =================
+    Route::resource('produk', AdminProdukController::class);
+    Route::resource('kategori', AdminKategoriController::class)->except(['create', 'show']);
+    Route::resource('artikel', AdminArtikelController::class)->except(['create', 'show']);
+    Route::resource('layanan', AdminLayananController::class)->except(['create', 'show']);
+    Route::resource('testimoni', AdminTestimoniController::class)->except(['create', 'show']);
+>>>>>>> Stashed changes
 });
 
+
+// ==============================================
+// AUTH (LOGIN, REGISTER, DLL)
+// ==============================================
 require __DIR__.'/auth.php';
