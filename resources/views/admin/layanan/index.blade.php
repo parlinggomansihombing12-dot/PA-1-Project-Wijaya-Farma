@@ -1,7 +1,6 @@
 @extends('layouts.admin_master')
 
 @section('content')
-<!-- Pastikan FontAwesome terpanggil -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <div class="container-fluid py-4 px-4">
@@ -21,7 +20,6 @@
             <p class="text-muted small mb-0">Atur layanan kesehatan yang muncul di halaman depan.</p>
         </div>
 
-        <!-- Tombol Tambah (ID Target: #modalTambah) -->
         <button type="button" class="btn btn-primary shadow-sm px-4"
                 data-bs-toggle="modal" 
                 data-bs-target="#modalTambah">
@@ -36,16 +34,14 @@
             <div class="card h-100 border-0 shadow-sm rounded-4 transition-hover">
                 <div class="card-body text-center p-4">
                     
-                    {{-- Tampilan Ikon --}}
+                    {{-- Tampilan Foto (Ganti Ikon ke Gambar) --}}
                     <div class="icon-box mb-3 mx-auto d-flex align-items-center justify-content-center" 
-                         style="width: 70px; height: 70px; background: rgba(26, 188, 156, 0.1); border-radius: 20px;">
-                        <div style="font-size: 32px; color: #1ABC9C;">
-                            @if(str_contains($item->ikon, 'fa-'))
-                                <i class="fas {{ $item->ikon }}"></i>
-                            @else
-                                <span>{{ $item->ikon }}</span>
-                            @endif
-                        </div>
+                         style="width: 80px; height: 80px; background: #f8f9fa; border-radius: 20px; overflow: hidden; border: 1px solid #eee;">
+                        @if($item->foto)
+                            <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto {{ $item->nama_layanan }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        @else
+                            <i class="fas fa-image text-muted fa-2x"></i>
+                        @endif
                     </div>
 
                     <h5 class="fw-bold text-dark">{{ $item->nama_layanan }}</h5>
@@ -57,14 +53,12 @@
 
                     {{-- TOMBOL AKSI --}}
                     <div class="d-flex justify-content-center gap-2">
-                        <!-- Edit Button -->
                         <button type="button" class="btn btn-sm btn-outline-warning px-3 rounded-pill"
                                 data-bs-toggle="modal" 
                                 data-bs-target="#modalEdit{{ $item->id }}">
                             <i class="fas fa-edit me-1"></i> Edit
                         </button>
 
-                        <!-- Hapus Button -->
                         <form action="{{ route('admin.layanan.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -78,10 +72,11 @@
             </div>
         </div>
 
-        {{-- MODAL EDIT (Diletakkan di dalam loop agar mendapat ID masing-masing) --}}
+        {{-- MODAL EDIT --}}
         <div class="modal fade" id="modalEdit{{ $item->id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form action="{{ route('admin.layanan.update', $item->id) }}" method="POST" class="modal-content border-0 shadow">
+                {{-- TAMBAHKAN enctype="multipart/form-data" --}}
+                <form action="{{ route('admin.layanan.update', $item->id) }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
                     @csrf
                     @method('PUT')
                     <div class="modal-header border-0 pb-0">
@@ -94,8 +89,15 @@
                             <input type="text" name="nama_layanan" value="{{ $item->nama_layanan }}" class="form-control rounded-3" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Ikon (FontAwesome / Emoji)</label>
-                            <input type="text" name="ikon" value="{{ $item->ikon }}" class="form-control rounded-3" placeholder="Contoh: fa-pills" required>
+                            <label class="form-label fw-semibold">Foto Layanan</label>
+                            <input type="file" name="foto" class="form-control rounded-3" accept="image/*">
+                            <small class="text-muted">Kosongkan jika tidak ingin mengubah foto. Format: JPG, PNG, Maks 2MB.</small>
+                            @if($item->foto)
+                                <div class="mt-2">
+                                    <small class="d-block mb-1 text-muted">Foto saat ini:</small>
+                                    <img src="{{ asset('storage/' . $item->foto) }}" width="80" class="rounded shadow-sm">
+                                </div>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Deskripsi</label>
@@ -119,10 +121,11 @@
     </div>
 </div>
 
-{{-- MODAL TAMBAH (Diletakkan di luar loop) --}}
+{{-- MODAL TAMBAH --}}
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form action="{{ route('admin.layanan.store') }}" method="POST" class="modal-content border-0 shadow">
+        {{-- TAMBAHKAN enctype="multipart/form-data" --}}
+        <form action="{{ route('admin.layanan.store') }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
             @csrf
             <div class="modal-header border-0 pb-0">
                 <h5 class="fw-bold" id="modalTambahLabel">Tambah Layanan Baru</h5>
@@ -134,8 +137,9 @@
                     <input type="text" name="nama_layanan" class="form-control rounded-3" placeholder="Misal: Konsultasi Dokter" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label fw-semibold">Ikon (FontAwesome / Emoji)</label>
-                    <input type="text" name="ikon" class="form-control rounded-3" placeholder="Contoh: fa-heartbeat atau 💊" required>
+                    <label class="form-label fw-semibold">Foto Layanan</label>
+                    <input type="file" name="foto" class="form-control rounded-3" accept="image/*" required>
+                    <small class="text-muted">Format: JPG, PNG, Maks 2MB.</small>
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Deskripsi Singkat</label>

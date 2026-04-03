@@ -31,7 +31,7 @@
             <a href="/admin/layanan" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">⚕️ Layanan</a>
             <a href="/admin/artikel" class="{{ request()->is('admin/artikel') ? 'active' : '' }}">📝 Artikel</a>
             <a href="/admin/testimoni" class="{{ request()->is('admin/testimoni') ? 'active' : '' }}">⭐ Testimoni</a>
-            <a href="/admin/profil" class="{{ request()->is('admin/profil') ? 'active' : '' }}">⚙️ Profil Toko</a>
+            <a href="/admin/profil-toko" class="{{ request()->is('admin/profil-toko') ? 'active' : '' }}">⚙️ Profil Toko</a>
             
             <hr class="text-secondary mx-3">
             <div class="px-3 btn-logout">

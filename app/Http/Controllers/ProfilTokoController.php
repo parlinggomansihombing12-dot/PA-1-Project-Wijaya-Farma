@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProfilToko; // <-- Jangan lupa baris ini agar Model terpanggil
+use App\Models\ProfilToko; // <-- PASTIKAN NAMA MODEL SESUAI
 
 class ProfilTokoController extends Controller
 {
     public function index()
     {
-        // Ambil data toko yang pertama ditemukan
-        $toko = ProfilToko::first();
+        // AMBIL DATA PERTAMA
+        $toko = ProfilToko::first(); 
 
-        // Kirim data ke view dengan nama variabel 'toko'
-        return view('profil', ['toko' => $toko]);
+        // KIRIM KE VIEW
+        return view('profil', compact('toko'));
     }
 }
