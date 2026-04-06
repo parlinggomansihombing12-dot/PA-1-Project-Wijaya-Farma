@@ -1,196 +1,168 @@
 @extends('layouts.main')
 
 @section('content')
-<!-- Google Fonts: Inter -->
+<!-- Google Fonts & Font Awesome -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
     :root {
-        --primary: #1ABC9C;
-        --secondary: #2980B9;
-        --text-dark: #1e272e;
-        --text-muted: #57606f;
-        --bg-body: #f1f2f6;
+        --primary-green: #1ABC9C;
+        --dark-navy: #2c3e50;
+        --bg-soft: #f8fafc;
     }
 
     body {
         font-family: 'Inter', sans-serif;
-        background-color: var(--bg-body);
+        background-color: var(--bg-soft);
     }
 
-    /* Layout Full Width */
-    .wide-container {
-        max-width: 96%;
-        margin: 0 auto;
-        padding: 50px 0;
+    .container-layanan {
+        padding: 60px 15px;
     }
 
-    /* Header Section */
-    .header-box {
-        margin-bottom: 80px;
-    }
-
-    .header-box h2 {
+    /* Judul Section */
+    .section-title {
         font-weight: 800;
-        font-size: 3rem;
-        color: var(--text-dark);
-        letter-spacing: -1.5px;
+        font-size: 2.5rem;
+        color: var(--dark-navy);
+        margin-bottom: 10px;
     }
 
-    .line-gradient {
-        width: 100px;
-        height: 6px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
-        margin: 25px auto;
-        border-radius: 50px;
+    .underline {
+        width: 60px;
+        height: 4px;
+        background: var(--primary-green);
+        margin: 0 auto 25px;
+        border-radius: 10px;
     }
 
-    /* Service Card Modern */
-    .premium-card {
+    /* Card Layanan - Dibuat Lebih Lebar & Mewah */
+    .card-layanan {
         background: #ffffff;
         border: none;
-        border-radius: 35px;
-        padding: 50px 30px;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         height: 100%;
-        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
     }
 
-    .premium-card:hover {
-        transform: translateY(-20px);
-        box-shadow: 0 40px 80px rgba(26, 188, 156, 0.12);
+    .card-layanan:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
-    /* FOTO DIPERBESAR (Sekarang 220px) */
-    .image-wrapper {
-        width: 220px; /* Ukuran diperbesar */
-        height: 220px; /* Ukuran diperbesar */
-        margin-bottom: 40px;
-        border-radius: 50px; /* Sudut melengkung yang modern */
+    /* AREA FOTO - DIPERBAIKI: Lebih Tinggi & Fokus Tengah */
+    .foto-wrapper {
+        width: 100%;
+        height: 300px; /* Dipertinggi agar foto nampak jelas */
         overflow: hidden;
-        background: #fff;
-        padding: 10px; /* Memberikan border putih di dalam */
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        transition: 0.5s;
+        background: #f1f1f1;
+        position: relative;
     }
 
-    .image-wrapper img {
+    .foto-wrapper img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        border-radius: 40px; /* Mengikuti lengkungan wrapper */
+        object-fit: cover; /* Foto memenuhi kotak tanpa penyet */
+        object-position: center; /* Fokus di tengah foto */
+        transition: transform 0.5s ease;
     }
 
-    .premium-card:hover .image-wrapper {
-        transform: scale(1.08) rotate(-3deg);
-        box-shadow: 0 20px 45px rgba(26, 188, 156, 0.2);
+    .card-layanan:hover .foto-wrapper img {
+        transform: scale(1.05);
     }
 
-    /* Typography */
-    .card-title {
-        font-weight: 800;
-        font-size: 1.6rem;
-        color: var(--text-dark);
-        margin-bottom: 18px;
+    /* Info Content */
+    .card-body-layanan {
+        padding: 30px;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
-    .card-text {
-        font-size: 1.05rem;
-        color: var(--text-muted);
-        line-height: 1.8;
-        margin-bottom: 40px;
-    }
-
-    /* Button Action - Tanpa Logo WA */
-    .btn-custom {
-        background: transparent;
-        color: var(--secondary);
-        border: 3px solid var(--secondary);
-        padding: 15px 40px;
-        border-radius: 20px;
+    .nama-layanan {
         font-weight: 700;
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: 0.4s;
+        font-size: 1.5rem;
+        color: var(--dark-navy);
+        margin-bottom: 15px;
+    }
+
+    .deskripsi-layanan {
+        color: #636e72;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        flex-grow: 1;
+    }
+
+    /* Tombol Tanya Layanan */
+    .btn-wa {
+        background-color: transparent;
+        color: var(--primary-green);
+        border: 2px solid var(--primary-green);
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-block;
         width: 100%;
     }
 
-    .btn-custom:hover {
-        background: var(--secondary);
-        color: #fff;
-        box-shadow: 0 10px 25px rgba(41, 128, 185, 0.3);
-    }
-
-    /* Efek Animasi Muncul Berurutan */
-    .fade-up {
-        animation: fadeUp 0.8s ease-out forwards;
-    }
-
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-        .image-wrapper { width: 180px; height: 180px; } /* Ukuran sedikit mengecil di HP agar pas */
-        .header-box h2 { font-size: 2.2rem; }
+    .btn-wa:hover {
+        background-color: var(--primary-green);
+        color: #ffffff;
     }
 </style>
 
-<div class="wide-container">
+<div class="container container-layanan">
     <!-- Header -->
-    <div class="header-box text-center">
-        <h2 class="fade-up">Layanan <span style="color: var(--primary)">Terbaik</span> Kami</h2>
-        <div class="line-gradient fade-up"></div>
-        <p class="text-muted col-lg-5 mx-auto fs-5 fade-up">
-            Dedikasi kami untuk memberikan solusi kesehatan berkualitas tinggi melalui fasilitas modern dan profesionalisme tinggi.
+    <div class="text-center mb-5">
+        <h2 class="section-title">Layanan <span style="color: var(--primary-green)">Terbaik</span> Kami</h2>
+        <div class="underline"></div>
+        <p class="text-muted col-lg-6 mx-auto">
+            Kami berkomitmen memberikan pelayanan kesehatan yang cepat, tepat, dan terpercaya bagi masyarakat.
         </p>
     </div>
-    
-    <!-- Grid -->
-    <div class="row g-5 justify-content-center">
+
+    <!-- Grid Layanan -->
+    <div class="row g-4 justify-content-center">
         @forelse($list_layanan as $item)
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4 fade-up">
-            <div class="premium-card">
-                
-                <!-- Area Foto Besar -->
-                <div class="image-wrapper">
+        <div class="col-lg-4 col-md-6">
+            <div class="card-layanan">
+                <!-- Bagian Foto -->
+                <div class="foto-wrapper">
                     @if($item->foto)
+                        <!-- Pastikan path asset benar, gunakan storage atau public sesuai folder Anda -->
                         <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->nama_layanan }}">
                     @else
-                        <div class="h-100 w-100 d-flex align-items-center justify-content-center bg-light text-muted">
-                            <i class="fas fa-hand-holding-medical fa-4x"></i>
+                        <div class="h-100 w-100 d-flex align-items-center justify-content-center bg-light">
+                            <i class="fas fa-image fa-3x text-muted"></i>
                         </div>
                     @endif
                 </div>
 
-                <!-- Info Layanan -->
-                <h5 class="card-title">{{ $item->nama_layanan }}</h5>
-                <p class="card-text">
-                    {{ \Illuminate\Support\Str::limit($item->deskripsi, 150) }}
-                </p>
-                
-                <!-- Button (Logo WA sudah dihapus) -->
-                <div class="mt-auto w-100">
-                    <a href="https://wa.me/{{ $toko->whatsapp ?? '' }}?text=Halo, saya ingin berkonsultasi mengenai layanan {{ $item->nama_layanan }}" 
-                       class="btn btn-custom">
-                       Tanya Layanan
+                <!-- Bagian Teks -->
+                <div class="card-body-layanan">
+                    <h5 class="nama-layanan">{{ $item->nama_layanan }}</h5>
+                    <p class="deskripsi-layanan">
+                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 120) }}
+                    </p>
+                    <a href="https://wa.me/{{ $toko->whatsapp ?? '' }}?text=Halo Wijaya Farma, saya ingin tanya layanan {{ $item->nama_layanan }}" 
+                       target="_blank" class="btn-wa">
+                        Tanya Layanan
                     </a>
                 </div>
             </div>
         </div>
         @empty
         <div class="col-12 text-center py-5">
-            <div class="bg-white p-5 rounded-5 shadow-sm d-inline-block">
-                <i class="fas fa-stethoscope fa-4x mb-3 text-muted"></i>
-                <h4 class="text-muted">Layanan saat ini sedang diperbarui.</h4>
-            </div>
+            <p class="text-muted italic">Belum ada data layanan.</p>
         </div>
         @endforelse
     </div>
