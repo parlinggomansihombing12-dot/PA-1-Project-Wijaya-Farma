@@ -1,177 +1,55 @@
 @extends('layouts.admin_master')
-
+@section('title', 'Kelola Artikel - Admin Panel')
 
 @section('content')
-<div class="container-fluid py-4 px-4">
-
-    {{-- ALERT --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm">
-            <strong>Berhasil!</strong> {{ session('success') }}
-            <button class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    {{-- HEADER --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold mb-0">Kelola Artikel</h4>
-
-        <button class="btn btn-primary shadow-sm"
-                data-bs-toggle="modal"
-                data-bs-target="#modalTambah">
-            <i class="fas fa-plus me-1"></i> Tambah
-        </button>
-    </div>
-
-    {{-- CARD --}}
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
-
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-
-                    <thead class="table-light">
-                        <tr>
-                            <th width="60" class="ps-4">No</th>
-                            <th>Judul</th>
-                            <th>Konten</th>
-                            <th width="180" class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @forelse($artikels as $key => $item)
-                        <tr class="align-middle">
-                            <td class="ps-4 text-muted">{{ $key + 1 }}</td>
-
-                            <td class="fw-semibold">
-                                {{ $item->judul }}
-                            </td>
-
-                            <td>
-                                {{ Str::limit($item->konten, 80) }}
-                            </td>
-
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-warning"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#edit{{ $item->id }}">
-                                    Edit
-                                </button>
-
-                                <form action="{{ route('admin.artikel.destroy', $item->id) }}"
-                                      method="POST"
-                                      class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin hapus artikel ini?')"
-                                            class="btn btn-sm btn-danger">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-
-                        {{-- MODAL EDIT --}}
-                        <div class="modal fade" id="edit{{ $item->id }}" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <form action="{{ route('admin.artikel.update', $item->id) }}"
-                                      method="POST"
-                                      class="modal-content">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit Artikel</h5>
-                                        <button class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-
-                                        <div class="mb-3">
-                                            <label class="form-label">Judul</label>
-                                            <input type="text"
-                                                   name="judul"
-                                                   value="{{ $item->judul }}"
-                                                   class="form-control"
-                                                   required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">Konten</label>
-                                            <textarea name="konten"
-                                                      class="form-control"
-                                                      rows="5"
-                                                      required>{{ $item->konten }}</textarea>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <button class="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        @empty
-                        <tr>
-                            <td colspan="4" class="text-center py-4 text-muted">
-                                Belum ada data artikel
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-
-                </table>
-            </div>
-
-        </div>
-    </div>
-
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold" style="color: #2C3E50;">📝 Kelola Artikel Kesehatan</h2>
+    <!-- Tombol Mengarah ke Halaman Create -->
+    <a href="{{ route('admin.artikel.create') }}" class="btn btn-primary fw-bold">+ Tambah Artikel</a>
 </div>
 
-{{-- MODAL TAMBAH --}}
-<div class="modal fade" id="modalTambah" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <form action="{{ route('admin.artikel.store') }}"
-              method="POST"
-              class="modal-content">
-            @csrf
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Artikel</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label class="form-label">Judul</label>
-                    <input type="text"
-                           name="judul"
-                           class="form-control"
-                           required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Konten</label>
-                    <textarea name="konten"
-                              class="form-control"
-                              rows="5"
-                              required></textarea>
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button class="btn btn-primary">Simpan</button>
-            </div>
-
-        </form>
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="5%" class="text-center">No</th>
+                        <th width="30%">Judul Artikel</th>
+                        <th>Ringkasan Konten</th>
+                        <th width="20%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ingat: Controller kita mengirim nama variabel 'artikels' -->
+                    @forelse($artikels as $item)
+                    <tr>
+                        <td class="text-center text-muted">{{ $loop->iteration }}</td>
+                        <td class="fw-bold text-primary">{{ $item->judul }}</td>
+                        <td>{{ Str::limit($item->konten, 80) }}</td>
+                        <td class="text-center">
+                            <!-- Tombol Hapus & Edit Terpisah -->
+                            <form action="{{ route('admin.artikel.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus artikel ini?');">
+                                <a href="{{ route('admin.artikel.edit', $item->id) }}" class="btn btn-warning btn-sm text-dark fw-bold">✏️ Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm fw-bold">🗑️ Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="4" class="text-center py-4 text-muted">Belum ada artikel yang diterbitkan.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
 @endsection

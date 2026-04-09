@@ -20,7 +20,7 @@ use App\Http\Controllers\AdminArtikelController;
 use App\Http\Controllers\AdminLayananController;
 use App\Http\Controllers\AdminTestimoniController;
 use App\Http\Controllers\AdminProfilTokoController; // Untuk admin mengelola profil
-use App\Http\Controllers\ProfileController; // Untuk kelola akun login (Password, Email)
+use App\Http\Controllers\ProfileController; // Untuk kelola akun login
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,8 @@ use App\Http\Controllers\ProfileController; // Untuk kelola akun login (Password
 */
 
 // ==============================================
-// 1. HALAMAN PUBLIK (DIAKSES PENGUNJUNG)
+// 1. HALAMAN PUBLIK (BISA DIAKSES SIAPA SAJA)
 // ==============================================
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show'); 
@@ -44,43 +43,43 @@ Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni
 Route::post('/testimoni', [TestimoniController::class, 'store'])->name('testimoni.store');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 
-
 // ==============================================
-// REDIRECT DASHBOARD (Bawaan Breeze)
+// 2. HALAMAN ADMIN (WAJIB LOGIN & TERVERIFIKASI)
 // ==============================================
-Route::get('/dashboard', function () {
-    return redirect()->route('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');
 
-
-// ==============================================
-// 2. HALAMAN ADMIN (PROTECTED)
-// ==============================================
-Route::middleware(['auth', 'verified'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-
-    // DASHBOARD UTAMA ADMIN
+// GRUP 2.A: DASHBOARD (Namanya harus murni 'dashboard' agar Breeze tidak error)
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-
-    // KELOLA AKUN ADMIN (Password/Email User yang Login)
+    
+    // KELOLA AKUN ADMIN (Password/Email)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    // ================= FITUR CRUD ADMIN (RESOURCE) =================
+// GRUP 2.B: RESOURCE CRUD ADMIN (Otomatis ditambahkan kata 'admin.' di depannya)
+Route::middleware(['auth', 'verified'])
+    ->prefix('admin')
+    ->name('admin.') // Efek ini hanya berlaku untuk rute di bawah ini
+    ->group(function () {
+
+    // Kelola Produk (Termasuk Upload Foto)
     Route::resource('produk', AdminProdukController::class);
+    
+    // Kelola Kategori, Layanan, Artikel, Testimoni (Tanpa halaman detail/show)
     Route::resource('kategori', AdminKategoriController::class)->except(['show']);
     Route::resource('artikel', AdminArtikelController::class)->except(['show']);
     Route::resource('layanan', AdminLayananController::class)->except(['show']);
     Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
 
     // ================= FITUR PROFIL TOKO ADMIN =================
-    // Kita gunakan PUT untuk update agar lebih standar RESTful API
+    // Menggunakan GET untuk tampil form, dan PUT untuk simpan/update data
     Route::get('profil-toko', [AdminProfilTokoController::class, 'index'])->name('profil-toko.index');
     Route::put('profil-toko/update', [AdminProfilTokoController::class, 'update'])->name('profil-toko.update');
 
 });
 
+// ==============================================
+// SISTEM AUTHENTICATION (LOGIN, REGISTER, LOGOUT)
+// ==============================================
 require __DIR__.'/auth.php';
