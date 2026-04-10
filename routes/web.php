@@ -8,7 +8,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\ArtikelController;
-use App\Http\Controllers\ProfilTokoController; // Untuk pengunjung
+use App\Http\Controllers\ProfilTokoController; 
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\KontakController;
 
@@ -19,8 +19,9 @@ use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminArtikelController;
 use App\Http\Controllers\AdminLayananController;
 use App\Http\Controllers\AdminTestimoniController;
-use App\Http\Controllers\AdminProfilTokoController; // Untuk admin mengelola profil
-use App\Http\Controllers\ProfileController; // Untuk kelola akun login
+use App\Http\Controllers\AdminProfilTokoController; 
+use App\Http\Controllers\AdminKontakController; // Tambahkan controller baru ini
+use App\Http\Controllers\ProfileController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.in
 Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
-Route::get('/profil', [ProfilTokoController::class, 'index'])->name('profil.index'); // Halaman Profil Pengunjung
+Route::get('/profil', [ProfilTokoController::class, 'index'])->name('profil.index'); 
 Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni.index');
 Route::post('/testimoni', [TestimoniController::class, 'store'])->name('testimoni.store');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
@@ -47,39 +48,40 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 // 2. HALAMAN ADMIN (WAJIB LOGIN & TERVERIFIKASI)
 // ==============================================
 
-// GRUP 2.A: DASHBOARD (Namanya harus murni 'dashboard' agar Breeze tidak error)
+// GRUP 2.A: DASHBOARD & AKUN
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    // KELOLA AKUN ADMIN (Password/Email)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// GRUP 2.B: RESOURCE CRUD ADMIN (Otomatis ditambahkan kata 'admin.' di depannya)
+// GRUP 2.B: RESOURCE CRUD & PENGATURAN TOKO
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
-    ->name('admin.') // Efek ini hanya berlaku untuk rute di bawah ini
+    ->name('admin.') 
     ->group(function () {
 
-    // Kelola Produk (Termasuk Upload Foto)
+    // Kelola Konten (Resource)
     Route::resource('produk', AdminProdukController::class);
-    
-    // Kelola Kategori, Layanan, Artikel, Testimoni (Tanpa halaman detail/show)
     Route::resource('kategori', AdminKategoriController::class)->except(['show']);
     Route::resource('artikel', AdminArtikelController::class)->except(['show']);
     Route::resource('layanan', AdminLayananController::class)->except(['show']);
     Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
 
     // ================= FITUR PROFIL TOKO ADMIN =================
-    // Menggunakan GET untuk tampil form, dan PUT untuk simpan/update data
     Route::get('profil-toko', [AdminProfilTokoController::class, 'index'])->name('profil-toko.index');
     Route::put('profil-toko/update', [AdminProfilTokoController::class, 'update'])->name('profil-toko.update');
+
+    // ================= FITUR KONTAK & LOKASI ADMIN =================
+    // Ini adalah fitur baru untuk mengelola alamat, no hp, dan map
+    Route::get('kontak', [AdminKontakController::class, 'index'])->name('kontak.index');
+    Route::put('kontak/update', [AdminKontakController::class, 'update'])->name('kontak.update');
 
 });
 
 // ==============================================
-// SISTEM AUTHENTICATION (LOGIN, REGISTER, LOGOUT)
+// SISTEM AUTHENTICATION (BREEZE)
 // ==============================================
 require __DIR__.'/auth.php';

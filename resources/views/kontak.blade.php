@@ -8,50 +8,120 @@
     $email  = optional($toko)->email ?? 'email@contoh.com';
 @endphp
 
+<style>
+    /* Tambahan Style untuk mempercantik */
+    .contact-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+    .info-item {
+        transition: all 0.3s ease;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #f0f0f0;
+    }
+    .info-item:hover {
+        background-color: #f8fff9;
+        border-color: #20b295;
+        transform: translateY(-5px);
+    }
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        background: rgba(32, 178, 149, 0.1);
+        color: #20b295;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        height: 100%;
+        min-height: 400px;
+    }
+</style>
+
 <div class="container my-5 pt-4">
-    <div class="card card-custom p-5">
-        <div class="row">
-            <!-- KIRI -->
-            <div class="col-md-6 mb-4">
-                <h2 class="fw-bold teks-hijau mb-4">Hubungi Kami</h2>
-                <p class="text-muted mb-5 leading-relaxed">
-                    Punya pertanyaan seputar obat atau ingin konsultasi? 
-                    Jangan ragu untuk menghubungi kami melalui kontak di bawah ini.
-                </p>
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold teks-hijau">Hubungi Kami</h2>
+            <p class="text-muted">Kami siap melayani kebutuhan kesehatan Anda dengan sepenuh hati.</p>
+        </div>
+    </div>
 
-                <div class="mb-4">
-                    <h6 class="fw-bold mb-1"><i class="fas fa-map-marker-alt me-2 teks-hijau"></i> Alamat Apotek</h6>
-                    <p class="text-muted small">{{ $alamat }}</p>
+    <div class="card contact-card p-4 p-md-5">
+        <div class="row g-5">
+            <!-- KIRI: INFORMASI KONTAK -->
+            <div class="col-md-5">
+                <h4 class="fw-bold mb-4">Informasi Kontak</h4>
+                
+                <!-- Alamat -->
+                <div class="info-item mb-4">
+                    <div class="icon-circle">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Alamat Apotek</h6>
+                    <p class="text-muted small mb-0">{{ $alamat }}</p>
                 </div>
 
-                <div class="mb-4">
-                    <h6 class="fw-bold mb-1"><i class="fab fa-whatsapp me-2 teks-hijau"></i> Telepon / WhatsApp</h6>
-                    <p class="text-muted small">
-                        <a href="https://wa.me/{{ $no_hp }}" target="_blank" class="text-decoration-none text-muted">
-                           +{{ $no_hp }}
-                        </a>
+                <!-- WhatsApp -->
+                <div class="info-item mb-4">
+                    <div class="icon-circle">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Telepon / WhatsApp</h6>
+                    <p class="text-muted small mb-2">Konsultasi obat lebih cepat via WhatsApp</p>
+                    <a href="https://wa.me/{{ $no_hp }}" target="_blank" class="btn btn-sm btn-success rounded-pill px-3">
+                        <i class="fab fa-whatsapp me-1"></i> Chat Sekarang
+                    </a>
+                </div>
+
+                <!-- Jam Operasional -->
+                <div class="info-item mb-4">
+                    <div class="icon-circle">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Jam Operasional</h6>
+                    <p class="text-muted small mb-0">
+                        Senin - Sabtu: 08:00 - 21:00 <br>
+                        Minggu: 09:00 - 17:00
                     </p>
                 </div>
 
-                <div class="mb-4">
-                    <h6 class="fw-bold mb-1"><i class="fas fa-envelope me-2 teks-hijau"></i> Email</h6>
-                    <p class="text-muted small">
-                        <a href="mailto:{{ $email }}" class="text-decoration-none text-muted">{{ $email }}</a>
-                    </p>
+                <!-- Email -->
+                <div class="info-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">Email Resmi</h6>
+                    <p class="text-muted small mb-0">{{ $email }}</p>
                 </div>
             </div>
 
-            <!-- KANAN -->
-            <div class="col-md-6">
-                <div class="card border-0 bg-light p-4 rounded-4 shadow-none">
-                    <h5 class="fw-bold mb-4">Kirim Pesan Cepat</h5>
-                    <div class="mb-3">
-                        <input type="text" class="form-control border-0 py-3 px-4" placeholder="Nama Anda">
-                    </div>
-                    <div class="mb-4">
-                        <textarea class="form-control border-0 py-3 px-4" rows="4" placeholder="Tulis pesan atau pertanyaan..."></textarea>
-                    </div>
-                    <button class="btn btn-tema w-100 py-3">Kirim Pesan Sekarang</button>
+            <!-- KANAN: GOOGLE MAPS -->
+            <div class="col-md-7">
+                <div class="map-container shadow-sm">
+                    <!-- Ganti URL src di bawah ini dengan link share embed dari Google Maps lokasi toko Anda -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.5332!2d99.1234!3d2.3456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMjAnNDQuNCJOIDk5wrAwNyU1Ny42IkU!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; min-height: 450px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="mt-3 text-end">
+                    <a href="https://maps.google.com" target="_blank" class="text-decoration-none teks-hijau small fw-bold">
+                        Buka di Google Maps <i class="fas fa-external-link-alt ms-1"></i>
+                    </a>
                 </div>
             </div>
         </div>
