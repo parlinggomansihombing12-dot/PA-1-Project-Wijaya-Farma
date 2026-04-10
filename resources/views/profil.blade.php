@@ -1,176 +1,117 @@
 @extends('layouts.main')
-
 @section('title', 'Profil Kami - Wijaya Farma')
 
-@push('custom-css')
+@section('custom-css')
 <style>
-    /* Reset margin agar hero bisa full-width menempel pinggir layar */
-    body { background-color: #ffffff; font-family: 'Inter', 'Segoe UI', sans-serif; overflow-x: hidden; }
+    body { background-color: #f8fcfb; font-family: 'Inter', sans-serif; overflow-x: hidden; }
     
-    /* 1. HERO SECTION (FOTO BESAR FULL WIDTH) */
+    /* HERO: Foto Latar Belakang */
     .hero-profil {
         position: relative;
         width: 100vw;
-        height: 60vh;
+        height: 50vh;
         min-height: 400px;
-        /* FOTO HEADER (Gambar Apotek) */
-        background: url('https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+        margin-left: calc(-50vw + 50%);
+        margin-bottom: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: calc(-50vw + 50%); /* Trik agar full width */
-        margin-bottom: 80px;
+        /* Logika Foto: Jika ada foto di DB, pakai itu. Jika tidak, pakai foto dummy Unsplash */
+        background: url('{{ isset($toko->foto_toko) ? asset("images/profil/".$toko->foto_toko) : "https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=2000&auto=format&fit=crop" }}') center/cover no-repeat;
     }
 
-    /* Lapisan Gelap (Overlay) agar teks putih terbaca */
     .hero-overlay {
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(to bottom, rgba(26,188,156,0.85) 0%, rgba(44,62,80,0.85) 100%);
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, rgba(26,188,156,0.85), rgba(44,62,80,0.9));
         z-index: 1;
     }
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        color: white;
-        padding: 0 20px;
-    }
+    .hero-content { position: relative; z-index: 2; text-align: center; color: white; padding: 0 20px; }
+    .hero-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .hero-subtitle { font-size: 1.2rem; font-weight: 300; max-width: 700px; margin: 0 auto; opacity: 0.9; }
 
-    .hero-title {
-        font-size: 4rem;
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 20px;
-        text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
+    /* SEJARAH */
+    .judul-section { color: #2c3e50; font-weight: 800; font-size: 2.2rem; margin-bottom: 20px; text-align: center; }
+    .teks-sejarah { color: #596275; font-size: 1.1rem; line-height: 1.8; text-align: center; max-width: 800px; margin: 0 auto; }
 
-    .hero-subtitle {
-        font-size: 1.25rem;
-        font-weight: 300;
-        max-width: 800px;
-        margin: 0 auto;
-        opacity: 0.9;
-    }
-
-    /* 2. SECTION SEJARAH (KIRI FOTO, KANAN TEKS) */
-    .sejarah-section {
-        padding: 0 0 100px 0;
-    }
-    
-    .judul-sejarah {
-        color: #2c3e50;
-        font-weight: 800;
-        font-size: 2.5rem;
-        margin-bottom: 30px;
-        position: relative;
-        display: inline-block;
-    }
-
-    /* Garis Hijau di bawah Judul */
-    .judul-sejarah::after {
-        content: '';
-        position: absolute;
-        bottom: -12px;
-        left: 0;
-        width: 80px;
-        height: 5px;
-        background-color: #1ABC9C;
-        border-radius: 3px;
-    }
-
-    .teks-sejarah {
-        color: #596275;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        text-align: justify;
-        margin-top: 20px;
-    }
-
-    /* Foto Pendukung Sejarah */
-    .foto-sejarah-wrapper {
-        position: relative;
-        padding-right: 30px;
-        padding-bottom: 30px;
-    }
-    
-    /* Kotak Hijau Dekorasi di belakang foto */
-    .foto-sejarah-wrapper::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 80%;
-        height: 80%;
-        background-color: #e8f8f5;
+    /* KARTU VISI MISI */
+    .card-vm {
+        border: none;
         border-radius: 20px;
-        z-index: 0;
+        padding: 40px;
+        height: 100%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: 0.3s;
     }
-
-    .foto-sejarah {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        position: relative;
-        z-index: 1;
-        object-fit: cover;
-        height: 450px; 
-    }
+    .card-vm:hover { transform: translateY(-10px); }
+    .card-visi { border-top: 5px solid #3498db; }
+    .card-misi { border-top: 5px solid #1ABC9C; }
+    .vm-icon { font-size: 3rem; margin-bottom: 20px; }
 </style>
-@endpush
+@endsection
 
 @section('content')
 
-    <!-- ================= HERO SECTION FULL WIDTH ================= -->
+    <!-- HERO SECTION (FOTO TOKO FULL WIDTH) -->
     <div class="hero-profil">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">{{ $toko->nama_toko ?? 'Apotek Wijaya Farma' }}</h1>
             <p class="hero-subtitle">
-                "{{ $toko->deskripsi ?? 'Mitra terpercaya keluarga Anda dalam menyediakan layanan kesehatan dan obat-obatan yang aman, lengkap, serta terjangkau.' }}"
+                "{{ $toko->deskripsi ?? 'Melayani dengan sepenuh hati demi kesehatan Anda dan keluarga tercinta.' }}"
             </p>
         </div>
     </div>
 
-    <!-- ================= KONTEN SEJARAH (SPLIT SCREEN) ================= -->
-    <div class="container sejarah-section">
-        <div class="row align-items-center">
-            
-            <!-- KOLOM KIRI: FOTO SEJARAH APOTEK -->
-            <div class="col-lg-5 mb-5 mb-lg-0">
-                <div class="foto-sejarah-wrapper">
-                    <!-- FOTO ILUSTRASI SEJARAH -->
-                    <img src="https://images.unsplash.com/photo-1550572017-edd951aa8f72?q=80&w=1000&auto=format&fit=crop" alt="Sejarah Wijaya Farma" class="foto-sejarah">
-                </div>
+    <div class="container pb-5">
+        
+        <!-- SEJARAH TOKO -->
+        <div class="mb-5">
+            <h2 class="judul-section">Perjalanan Kami</h2>
+            <div class="teks-sejarah">
+                @if(isset($toko->sejarah) && $toko->sejarah != '')
+                    <p>{!! nl2br(e($toko->sejarah)) !!}</p>
+                @else
+                    <p>Berdiri dengan komitmen kuat untuk memajukan kesehatan masyarakat sekitar. Kami memulai langkah kecil yang kini berkembang menjadi pusat pelayanan kesehatan terpercaya yang menyediakan obat-obatan lengkap dan asli.</p>
+                @endif
             </div>
-
-            <!-- KOLOM KANAN: TEKS SEJARAH -->
-            <div class="col-lg-7 ps-lg-5">
-                <h2 class="judul-sejarah">Perjalanan Kami</h2>
-                
-                <div class="teks-sejarah">
-                    @if(isset($toko->sejarah) && $toko->sejarah != '')
-                        <p>{!! nl2br(e($toko->sejarah)) !!}</p>
-                    @else
-                        <p class="fw-bold" style="color: #2c3e50; font-size: 1.2rem;">
-                            Berawal dari sebuah komitmen kecil di tahun 2010, Wijaya Farma didirikan dengan visi sederhana: mendekatkan layanan kesehatan berkualitas kepada masyarakat sekitar.
-                        </p>
-                        <p>
-                            Di awal berdirinya, apotek kami hanya menempati sebuah ruangan kecil dengan fasilitas yang sangat terbatas. Namun, seiring berjalannya waktu, berkat kepercayaan luar biasa dari para pelanggan dan dedikasi tim apoteker profesional kami, Wijaya Farma terus berkembang pesat.
-                        </p>
-                        <p>
-                            Kami mulai melengkapi fasilitas, memperbanyak ketersediaan jenis obat-obatan dari berbagai merek terkemuka, hingga menyediakan alat kesehatan modern untuk memenuhi kebutuhan warga yang semakin kompleks.
-                        </p>
-                        <p>
-                            Kini, Wijaya Farma tidak hanya sekadar tempat membeli obat. Kami telah bertransformasi menjadi pusat layanan kesehatan terpadu. Nilai inti kami tetap sama sejak hari pertama: <strong>"Kesehatan Anda adalah Prioritas Utama Kami"</strong>.
-                        </p>
-                    @endif
-                </div>
-            </div>
-
         </div>
+
+        <!-- VISI & MISI -->
+        <div class="row mt-5 pt-4">
+            <!-- VISI -->
+            <div class="col-md-6 mb-4">
+                <div class="card-vm card-visi text-center bg-white">
+                    <div class="vm-icon">👁️</div>
+                    <h3 class="fw-bold" style="color: #3498db;">Visi Kami</h3>
+                    <p class="text-muted mt-3" style="line-height: 1.7;">
+                        @if(isset($toko->visi) && $toko->visi != '')
+                            {!! nl2br(e($toko->visi)) !!}
+                        @else
+                            Menjadi apotek pilihan utama masyarakat yang dikenal karena kualitas pelayanan, kelengkapan produk, dan inovasi dalam edukasi kesehatan.
+                        @endif
+                    </p>
+                </div>
+            </div>
+
+            <!-- MISI -->
+            <div class="col-md-6 mb-4">
+                <div class="card-vm card-misi text-center bg-white">
+                    <div class="vm-icon">🎯</div>
+                    <h3 class="fw-bold" style="color: #1ABC9C;">Misi Kami</h3>
+                    <p class="text-muted mt-3" style="line-height: 1.7;">
+                        @if(isset($toko->misi) && $toko->misi != '')
+                            {!! nl2br(e($toko->misi)) !!}
+                        @else
+                            1. Menyediakan obat-obatan asli dan berkualitas.<br>
+                            2. Memberikan pelayanan ramah, cepat, dan solutif.<br>
+                            3. Mengedukasi masyarakat tentang pentingnya kesehatan.
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-<!-- INI PENUTUP YANG BENAR (TANPA HURUF S) -->
 @endsection

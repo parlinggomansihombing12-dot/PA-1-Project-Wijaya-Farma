@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,18 +8,9 @@ class ProfilToko extends Model
 {
     use HasFactory;
 
-    // Nama tabel di database
-    protected $table = 'profil_tokos';
-
-    // Kolom yang boleh diisi
+    // PASTIKAN SEMUA NAMA KOLOM INI ADA DI DALAM SINI
     protected $fillable = [
-        'nama_toko',
-        'foto_toko',
-        'sejarah',
-        'jam_operasional',
-        'nama_pemilik',
-        'foto_pemilik',
-        'pendidikan',
-        'pengalaman',
+        'nama_toko', 'deskripsi', 'alamat', 'no_hp', 'email', 
+        'foto_toko', 'sejarah', 'visi', 'misi'
     ];
 }
