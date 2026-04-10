@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
-use App\Models\Kategori; // TAMBAHKAN INI
+use App\Models\Kategori; 
 use Illuminate\Support\Facades\File;
 
 class AdminProdukController extends Controller
@@ -50,7 +50,7 @@ class AdminProdukController extends Controller
         'kategori_id' => $request->kategori_id,
         'harga'       => $request->harga,
         'stok'        => $request->stok,
-        'deskripsi'   => $request->deskripsi, // SIMPAN DESKRIPSI DI SINI
+        'deskripsi'   => $request->deskripsi, 
         'foto'        => $nama_file,
     ]);
 
@@ -73,7 +73,7 @@ public function update(Request $request, $id)
         'kategori_id' => 'required',
         'harga' => 'required|numeric',
         'stok' => 'required|numeric',
-        'deskripsi' => 'required', // 🟢 TAMBAHKAN VALIDASI DESKRIPSI DI SINI
+        'deskripsi' => 'required', 
         'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
     ]);
 
