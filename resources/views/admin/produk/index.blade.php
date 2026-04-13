@@ -1,5 +1,4 @@
-{{-- 1. Ganti extends ke layout admin Anda (biasanya layouts.admin atau layouts.app_admin) --}}
-@extends('layouts.admin') 
+@extends('layouts.admin_master')
 
 @section('title', 'Data Produk - Admin Wijaya Farma')
 

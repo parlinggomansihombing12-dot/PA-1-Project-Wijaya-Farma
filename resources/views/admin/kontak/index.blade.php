@@ -1,4 +1,4 @@
-@extends('layouts.admin') {{-- Pastikan nama layout sesuai dengan file layout admin Anda --}}
+@extends('layouts.admin_master')
 @section('title', 'Kelola Kontak')
 
 @section('content')

@@ -11,12 +11,34 @@
     
     <style>
         body { background-color: #f4f6f9; overflow-x: hidden; }
-        .sidebar { background-color: #2C3E50; min-height: 100vh; color: white; padding-top: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.1); position: sticky; top: 0; }
-        .sidebar a { color: #adb5bd; text-decoration: none; padding: 12px 20px; display: block; font-weight: 500; transition: 0.3s; }
-        .sidebar a i { width: 25px; } /* Menjaga jarak ikon tetap rapi */
-        .sidebar a:hover, .sidebar a.active { background-color: #1ABC9C; color: white; border-left: 4px solid #fff; }
+        
+        /* SIDEBAR TETAP DI TEMPAT (STICKY) */
+        .sidebar { 
+            background-color: #2C3E50; 
+            min-height: 100vh; 
+            color: white; 
+            padding-top: 20px; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
+            position: sticky; 
+            top: 0; 
+            height: 100vh; /* Memastikan tingginya pas selayar */
+            overflow-y: auto; /* Bisa di-scroll jika menunya banyak */
+        }
+        
+        /* MENGHILANGKAN SCROLLBAR SIDEBAR (TAPI TETAP BISA DI-SCROLL) */
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: #1ABC9C; border-radius: 10px; }
+        
+        .sidebar a { color: #adb5bd; text-decoration: none; padding: 14px 20px; display: block; font-weight: 500; transition: 0.3s; }
+        .sidebar a i { width: 30px; text-align: center; font-size: 1.1rem; } /* Jarak ikon dibuat konsisten */
+        .sidebar a:hover, .sidebar a.active { background-color: #1ABC9C; color: white; border-left: 5px solid #fff; }
+        
         .content { padding: 30px; background-color: #f4f6f9; min-height: 100vh; }
         .btn-logout { margin-top: 20px; margin-bottom: 30px; }
+        
+        /* Judul Sidebar */
+        .brand-logo { letter-spacing: 1px; color: #1ABC9C; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
@@ -25,22 +47,24 @@
     <div class="row">
         <!-- SIDEBAR -->
         <div class="col-md-2 sidebar p-0">
-            <h4 class="text-center mb-4 text-white fw-bold mt-3">💊 Wijaya Farma</h4>
+            <h4 class="text-center mb-5 mt-3 fw-bold brand-logo">
+                <i class="fas fa-capsules me-2 text-white"></i>WIJAYA FARMA
+            </h4>
             
             <a href="{{ route('dashboard') }}" class="{{ request()->is('admin/dashboard*') ? 'active' : '' }}">
                 <i class="fas fa-home me-2"></i> Dashboard
             </a>
             
             <a href="{{ route('admin.produk.index') }}" class="{{ request()->is('admin/produk*') ? 'active' : '' }}">
-                <i class="fas fa-box me-2"></i> Kelola Produk
+                <i class="fas fa-box-open me-2"></i> Kelola Produk
             </a>
             
             <a href="{{ route('admin.kategori.index') }}" class="{{ request()->is('admin/kategori*') ? 'active' : '' }}">
-                <i class="fas fa-folder me-2"></i> Kelola Kategori
+                <i class="fas fa-tags me-2"></i> Kelola Kategori
             </a>
             
             <a href="{{ route('admin.layanan.index') }}" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">
-                <i class="fas fa-hand-holding-medical me-2"></i> Kelola Layanan
+                <i class="fas fa-notes-medical me-2"></i> Kelola Layanan
             </a>
             
             <a href="{{ route('admin.artikel.index') }}" class="{{ request()->is('admin/artikel*') ? 'active' : '' }}">
@@ -48,25 +72,20 @@
             </a>
             
             <a href="{{ route('admin.testimoni.index') }}" class="{{ request()->is('admin/testimoni*') ? 'active' : '' }}">
-                <i class="fas fa-star me-2"></i> Kelola Testimoni
+                <i class="fas fa-star me-2 text-warning"></i> Kelola Testimoni
             </a>
             
-            <a href="{{ route('admin.profil-toko.index') }}" class="{{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
-                <i class="fas fa-store me-2"></i> Profil Toko
-            </a>
-
-            <!-- MENU KONTAK (BARU TAMBAHAN) -->
             <a href="{{ route('admin.kontak.index') }}" class="{{ request()->is('admin/kontak*') ? 'active' : '' }}">
                 <i class="fas fa-address-book me-2"></i> Kelola Kontak
             </a>
             
-            <hr class="text-secondary mx-3">
+            <hr class="text-secondary mx-3 mt-4 mb-4">
             
             <div class="px-3 btn-logout">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-danger w-100 shadow-sm rounded-3">
-                        <i class="fas fa-sign-out-alt me-1"></i> Keluar (Logout)
+                    <button type="submit" class="btn btn-danger w-100 shadow-sm rounded-pill fw-bold">
+                        <i class="fas fa-sign-out-alt me-2"></i> KELUAR
                     </button>
                 </form>
             </div>
