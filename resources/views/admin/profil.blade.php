@@ -14,8 +14,8 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body p-4">
-        <!-- WAJIB enctype untuk upload file -->
-        <form action="{{ route('admin.profil-toko.update') }}" method="POST" enctype="multipart/form-data">
+        <!-- PERBAIKAN: Mengubah admin.profil-toko.update menjadi admin.profil.update -->
+        <form action="{{ route('admin.profil.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             

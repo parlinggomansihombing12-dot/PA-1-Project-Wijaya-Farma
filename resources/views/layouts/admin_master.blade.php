@@ -11,8 +11,6 @@
     
     <style>
         body { background-color: #f4f6f9; overflow-x: hidden; }
-        
-        /* SIDEBAR TETAP DI TEMPAT (STICKY) */
         .sidebar { 
             background-color: #2C3E50; 
             min-height: 100vh; 
@@ -21,23 +19,17 @@
             box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
             position: sticky; 
             top: 0; 
-            height: 100vh; /* Memastikan tingginya pas selayar */
-            overflow-y: auto; /* Bisa di-scroll jika menunya banyak */
+            height: 100vh;
+            overflow-y: auto;
         }
-        
-        /* MENGHILANGKAN SCROLLBAR SIDEBAR (TAPI TETAP BISA DI-SCROLL) */
         .sidebar::-webkit-scrollbar { width: 5px; }
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: #1ABC9C; border-radius: 10px; }
-        
         .sidebar a { color: #adb5bd; text-decoration: none; padding: 14px 20px; display: block; font-weight: 500; transition: 0.3s; }
-        .sidebar a i { width: 30px; text-align: center; font-size: 1.1rem; } /* Jarak ikon dibuat konsisten */
+        .sidebar a i { width: 30px; text-align: center; font-size: 1.1rem; }
         .sidebar a:hover, .sidebar a.active { background-color: #1ABC9C; color: white; border-left: 5px solid #fff; }
-        
         .content { padding: 30px; background-color: #f4f6f9; min-height: 100vh; }
         .btn-logout { margin-top: 20px; margin-bottom: 30px; }
-        
-        /* Judul Sidebar */
         .brand-logo { letter-spacing: 1px; color: #1ABC9C; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
     </style>
 </head>
@@ -61,6 +53,11 @@
             
             <a href="{{ route('admin.kategori.index') }}" class="{{ request()->is('admin/kategori*') ? 'active' : '' }}">
                 <i class="fas fa-tags me-2"></i> Kelola Kategori
+            </a>
+             
+            <!-- FIX: Menggunakan admin.profil.index -->
+            <a href="{{ route('admin.profil.index') }}" class="{{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
+               <i class="fas fa-notes-medical me-2"></i> Kelola Profil
             </a>
             
             <a href="{{ route('admin.layanan.index') }}" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">
@@ -98,9 +95,6 @@
     </div>
 </div>
 
-<!-- ========================================================== -->
-<!-- WAJIB: SCRIPT BOOTSTRAP JS -->
-<!-- ========================================================== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

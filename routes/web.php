@@ -20,7 +20,7 @@ use App\Http\Controllers\AdminArtikelController;
 use App\Http\Controllers\AdminLayananController;
 use App\Http\Controllers\AdminTestimoniController;
 use App\Http\Controllers\AdminProfilTokoController; 
-use App\Http\Controllers\AdminKontakController; // Tambahkan controller baru ini
+use App\Http\Controllers\AdminKontakController;
 use App\Http\Controllers\ProfileController; 
 
 /*
@@ -71,17 +71,14 @@ Route::middleware(['auth', 'verified'])
     Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
 
     // ================= FITUR PROFIL TOKO ADMIN =================
-    Route::get('profil-toko', [AdminProfilTokoController::class, 'index'])->name('profil-toko.index');
-    Route::put('profil-toko/update', [AdminProfilTokoController::class, 'update'])->name('profil-toko.update');
+    // Nama route diubah menjadi 'profil.index' agar sinkron dengan file Blade
+    Route::get('profil-toko', [AdminProfilTokoController::class, 'index'])->name('profil.index');
+    Route::put('profil-toko/update', [AdminProfilTokoController::class, 'update'])->name('profil.update');
 
     // ================= FITUR KONTAK & LOKASI ADMIN =================
-    // Ini adalah fitur baru untuk mengelola alamat, no hp, dan map
     Route::get('kontak', [AdminKontakController::class, 'index'])->name('kontak.index');
     Route::put('kontak/update', [AdminKontakController::class, 'update'])->name('kontak.update');
 
 });
 
-// ==============================================
-// SISTEM AUTHENTICATION (BREEZE)
-// ==============================================
 require __DIR__.'/auth.php';
