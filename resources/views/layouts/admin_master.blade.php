@@ -32,47 +32,52 @@
         .btn-logout { margin-top: 20px; margin-bottom: 30px; }
         .brand-logo { letter-spacing: 1px; color: #1ABC9C; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
     </style>
+
+    <!-- INI BARIS WAJIB (Menerima CSS dari Dashboard) -->
+    @yield('custom-css')
+
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR PINTAR -->
         <div class="col-md-2 sidebar p-0">
             <h4 class="text-center mb-5 mt-3 fw-bold brand-logo">
                 <i class="fas fa-capsules me-2 text-white"></i>WIJAYA FARMA
             </h4>
             
-            <a href="{{ route('dashboard') }}" class="{{ request()->is('admin/dashboard*') ? 'active' : '' }}">
+            <!-- JALAN NINJA: SEMUA MENGGUNAKAN URL STATIS (/admin/...) -->
+            
+            <a href="/admin/dashboard" class="{{ request()->is('admin/dashboard*') ? 'active' : '' }}">
                 <i class="fas fa-home me-2"></i> Dashboard
             </a>
             
-            <a href="{{ route('admin.produk.index') }}" class="{{ request()->is('admin/produk*') ? 'active' : '' }}">
+            <a href="/admin/produk" class="{{ request()->is('admin/produk*') ? 'active' : '' }}">
                 <i class="fas fa-box-open me-2"></i> Kelola Produk
             </a>
             
-            <a href="{{ route('admin.kategori.index') }}" class="{{ request()->is('admin/kategori*') ? 'active' : '' }}">
+            <a href="/admin/kategori" class="{{ request()->is('admin/kategori*') ? 'active' : '' }}">
                 <i class="fas fa-tags me-2"></i> Kelola Kategori
             </a>
              
-            <!-- FIX: Menggunakan admin.profil.index -->
-            <a href="{{ route('admin.profil.index') }}" class="{{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
-               <i class="fas fa-notes-medical me-2"></i> Kelola Profil
+            <a href="/admin/profil-toko" class="{{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
+               <i class="fas fa-store-alt me-2"></i> Profil Toko
             </a>
             
-            <a href="{{ route('admin.layanan.index') }}" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">
+            <a href="/admin/layanan" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">
                 <i class="fas fa-notes-medical me-2"></i> Kelola Layanan
             </a>
             
-            <a href="{{ route('admin.artikel.index') }}" class="{{ request()->is('admin/artikel*') ? 'active' : '' }}">
+            <a href="/admin/artikel" class="{{ request()->is('admin/artikel*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper me-2"></i> Kelola Artikel
             </a>
             
-            <a href="{{ route('admin.testimoni.index') }}" class="{{ request()->is('admin/testimoni*') ? 'active' : '' }}">
+            <a href="/admin/testimoni" class="{{ request()->is('admin/testimoni*') ? 'active' : '' }}">
                 <i class="fas fa-star me-2 text-warning"></i> Kelola Testimoni
             </a>
             
-            <a href="{{ route('admin.kontak.index') }}" class="{{ request()->is('admin/kontak*') ? 'active' : '' }}">
+            <a href="/admin/kontak" class="{{ request()->is('admin/kontak*') ? 'active' : '' }}">
                 <i class="fas fa-address-book me-2"></i> Kelola Kontak
             </a>
             
@@ -95,7 +100,11 @@
     </div>
 </div>
 
+<!-- JS BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JIKA ADA SUNTIKAN JAVASCRIPT -->
+@yield('custom-js')
 
 </body>
 </html>
