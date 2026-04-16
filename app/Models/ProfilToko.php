@@ -12,6 +12,7 @@ class ProfilToko extends Model
    protected $fillable = [
         'nama_toko', 'deskripsi', 'alamat', 'no_hp', 'email', 
         'foto_toko', 'sejarah', 'visi', 'misi', 
-        'jam_operasional', 'map_url' // <--- DUA INI BARU DITAMBAHKAN
+        'jam_operasional', 'map_url', 'nama_pemilik', 'foto_pemilik', 
+        'pendidikan_pemilik', 'pengalaman_pemilik' 
     ];
 }

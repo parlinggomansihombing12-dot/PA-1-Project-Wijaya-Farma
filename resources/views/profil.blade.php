@@ -17,7 +17,7 @@
         align-items: center;
         justify-content: center;
         /* Logika Foto: Jika ada foto di DB, pakai itu. Jika tidak, pakai foto dummy Unsplash */
-        background: url('{{ isset($toko->foto_toko) ? asset("images/profil/".$toko->foto_toko) : "https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=2000&auto=format&fit=crop" }}') center/cover no-repeat;
+        background: url('{{ isset($toko->foto_toko) && $toko->foto_toko != '' ? asset("images/profil/".$toko->foto_toko) : "https://images.unsplash.com/photo-1585435557343-3b092031a831?q=80&w=2000&auto=format&fit=crop" }}') center/cover no-repeat;
     }
 
     .hero-overlay {
@@ -30,11 +30,10 @@
     .hero-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     .hero-subtitle { font-size: 1.2rem; font-weight: 300; max-width: 700px; margin: 0 auto; opacity: 0.9; }
 
-    /* SEJARAH */
+    /* SEJARAH & KARTU */
     .judul-section { color: #2c3e50; font-weight: 800; font-size: 2.2rem; margin-bottom: 20px; text-align: center; }
     .teks-sejarah { color: #596275; font-size: 1.1rem; line-height: 1.8; text-align: center; max-width: 800px; margin: 0 auto; }
 
-    /* KARTU VISI MISI */
     .card-vm {
         border: none;
         border-radius: 20px;
@@ -111,6 +110,53 @@
                 </div>
             </div>
         </div>
+
+        <!-- ================= BAGIAN BARU: PROFIL PEMILIK ================= -->
+        @if(isset($toko->nama_pemilik) && $toko->nama_pemilik != '')
+        <div class="row justify-content-center mt-5 pt-5 border-top">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm" style="border-radius: 20px; overflow: hidden; background-color: #ffffff;">
+                    <div class="row g-0 align-items-center">
+                        
+                        <!-- Foto Pemilik (Kiri) -->
+                        <div class="col-md-5 text-center p-5" style="background: linear-gradient(135deg, #e8f8f5 0%, #f4f7f6 100%);">
+                            @if(isset($toko->foto_pemilik) && $toko->foto_pemilik != '')
+                                <img src="{{ asset('images/profil/' . $toko->foto_pemilik) }}" class="rounded-circle shadow mb-4" style="width: 200px; height: 200px; object-fit: cover; border: 5px solid white;" alt="Foto Apoteker">
+                            @else
+                                <div class="rounded-circle shadow mb-4 mx-auto d-flex align-items-center justify-content-center" style="width: 200px; height: 200px; background-color: white; font-size: 5rem; color: #1ABC9C;">👨‍⚕️</div>
+                            @endif
+                            <h4 class="fw-bold text-dark mb-1">{{ $toko->nama_pemilik }}</h4>
+                            <span class="badge py-2 px-3 mt-2" style="background-color: #1ABC9C; font-size: 0.85rem;">Pemilik / Apoteker</span>
+                        </div>
+
+                        <!-- Detail Profil (Kanan) -->
+                        <div class="col-md-7">
+                            <div class="card-body p-4 p-md-5">
+                                
+                                <h5 class="fw-bold mb-3" style="color: #2C3E50;">
+                                    <i class="fas fa-graduation-cap me-2 text-primary"></i>Latar Belakang Pendidikan
+                                </h5>
+                                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                                    {!! nl2br(e($toko->pendidikan_pemilik ?? 'Belum ada data pendidikan.')) !!}
+                                </p>
+
+                                <hr class="mb-4">
+
+                                <h5 class="fw-bold mb-3" style="color: #2C3E50;">
+                                    <i class="fas fa-briefcase me-2 text-success"></i>Pengalaman Profesional
+                                </h5>
+                                <p class="text-muted mb-0" style="font-size: 1.05rem; line-height: 1.6;">
+                                    {!! nl2br(e($toko->pengalaman_pemilik ?? 'Belum ada data pengalaman.')) !!}
+                                </p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
 
     </div>
 
