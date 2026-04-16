@@ -27,7 +27,7 @@
     .btn-wa:hover { background-color: #1ebe57; color: white; transform: scale(1.05); }
 
     /* Kotak Google Maps */
-    .maps-container { border-radius: 15px; overflow: hidden; height: 100%; min-height: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #f0f3f2;}
+    .maps-container { border-radius: 15px; overflow: hidden; height: 100%; min-height: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #f0f3f2; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;}
     .maps-iframe { width: 100%; height: 100%; border: 0; min-height: 400px; }
     .link-maps { display: block; text-align: right; margin-top: 10px; font-size: 0.9rem; font-weight: 600; color: #1ABC9C; text-decoration: none; }
     .link-maps:hover { text-decoration: underline; color: #16a085; }
@@ -56,8 +56,7 @@
                     <div class="icon-bulat"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
                         <div class="info-title">Alamat Apotek</div>
-                        <!-- Memanggil data Alamat dari Database -->
-                        <p class="info-text">{{ $toko->alamat ?? 'Jl. Lintas Porsea - Laguboti, Kecamatan Sigumpar, Kab. Toba' }}</p>
+                        <p class="info-text">{{ $toko->alamat ?? 'Belum ada data alamat.' }}</p>
                     </div>
                 </div>
 
@@ -67,11 +66,27 @@
                     <div>
                         <div class="info-title">Telepon / WhatsApp</div>
                         <p class="info-text">Konsultasi obat lebih cepat via WhatsApp</p>
-                        <!-- Memanggil data No HP dari Database dan membersihkan karakter selain angka untuk link WA -->
-                        @php $no_wa = preg_replace('/[^0-9]/', '', $toko->no_hp ?? '08123456789'); @endphp
-                        <a href="https://wa.me/{{ $no_wa }}" target="_blank" class="btn-wa">
-                            <i class="fab fa-whatsapp me-1"></i> Chat Sekarang
-                        </a>
+                        
+                        <!-- LOGIKA WHATSAPP PINTAR -->
+                        @php 
+                            $no_asli = $toko->no_hp ?? '';
+                            $no_bersih = preg_replace('/[^0-9]/', '', $no_asli);
+                            
+                            // Jika diawali angka 0, ubah jadi 62
+                            if (strlen($no_bersih) > 0 && substr($no_bersih, 0, 1) === '0') {
+                                $no_wa = '62' . substr($no_bersih, 1);
+                            } else {
+                                $no_wa = $no_bersih;
+                            }
+                        @endphp
+                        
+                        @if($no_wa != '')
+                            <a href="https://wa.me/{{ $no_wa }}" target="_blank" class="btn-wa">
+                                <i class="fab fa-whatsapp me-1"></i> Chat Sekarang
+                            </a>
+                        @else
+                            <small class="text-danger">Nomor WA belum diisi Admin.</small>
+                        @endif
                     </div>
                 </div>
 
@@ -80,8 +95,14 @@
                     <div class="icon-bulat"><i class="far fa-clock"></i></div>
                     <div>
                         <div class="info-title">Jam Operasional</div>
-                        <!-- Anda bisa membuat kolom jam_buka di database nanti, sementara saya buat statis -->
-                        <p class="info-text">Senin - Sabtu: 08:00 - 21:00<br>Minggu: 09:00 - 17:00</p>
+                        <!-- Memanggil kolom jam_operasional dari Database -->
+                        <p class="info-text">
+                            @if(isset($toko->jam_operasional) && $toko->jam_operasional != '')
+                                {!! nl2br(e($toko->jam_operasional)) !!}
+                            @else
+                                Belum diatur oleh Admin.
+                            @endif
+                        </p>
                     </div>
                 </div>
 
@@ -90,8 +111,7 @@
                     <div class="icon-bulat"><i class="far fa-envelope"></i></div>
                     <div>
                         <div class="info-title">Email Resmi</div>
-                        <!-- Memanggil data Email dari Database -->
-                        <p class="info-text">{{ $toko->email ?? 'sitohangyesika8@gmail.com' }}</p>
+                        <p class="info-text">{{ $toko->email ?? 'Belum ada email.' }}</p>
                     </div>
                 </div>
 
@@ -100,8 +120,18 @@
             <!-- KOLOM KANAN: GOOGLE MAPS -->
             <div class="col-lg-7">
                 <div class="maps-container">
-                    <!-- Masukkan iframe Embed Google Maps Anda di sini -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15949.33611005527!2d99.1234567!3d2.3456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMiwzNDU2NzguOSwgOTkuMTIzNDU2Nw!5e0!3m2!1sid!2sid!4v1234567890123!5m2!1sid!2sid" class="maps-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    
+                    <!-- LOGIKA GOOGLE MAPS -->
+                    @if(isset($toko->map_url) && $toko->map_url != '')
+                        <iframe src="{{ $toko->map_url }}" class="maps-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @else
+                        <div class="text-center text-muted p-5">
+                            <i class="fas fa-map-marked-alt fa-3x mb-3"></i>
+                            <h5>Peta Belum Tersedia</h5>
+                            <p>Admin belum memasukkan link embed Google Maps.</p>
+                        </div>
+                    @endif
+
                 </div>
                 <a href="https://maps.google.com" target="_blank" class="link-maps">Buka di Google Maps <i class="fas fa-external-link-alt ms-1" style="font-size: 0.8rem;"></i></a>
             </div>

@@ -7,79 +7,75 @@ use App\Models\Kategori;
 
 class AdminKategoriController extends Controller
 {
-    // 1. TAMPIL DATA DI TABEL ADMIN
+    // ================= 1. INDEX (Menampilkan Tabel Kategori) =================
     public function index()
     {
         $kategoris = Kategori::latest()->get();
         return view('admin.Kategori.index', compact('kategoris'));
     }
 
-    // 2. HALAMAN FORM TAMBAH
+    // ================= 2. CREATE (Menampilkan Form Tambah) =================
     public function create()
     {
         return view('admin.Kategori.create');
     }
 
-    // 3. PROSES SIMPAN DATA
-   // ... bagian atas tetap sama ...
+    // ================= 3. STORE (Menyimpan Data Baru) =================
+    public function store(Request $request)
+    {
+        // Validasi inputan admin
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string'
+        ]);
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nama_kategori' => 'required|string|max:255',
-        'icon' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:2048', // Validasi Icon
-        'deskripsi' => 'nullable|string'
-    ]);
+        // Simpan ke database
+        Kategori::create([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi'     => $request->deskripsi
+        ]);
 
-    $data = $request->all();
-
-    // Logika Upload Icon
-    if ($request->hasFile('icon')) {
-        $file = $request->file('icon');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        $file->move(public_path('images/kategori'), $nama_file);
-        $data['icon'] = $nama_file;
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori baru berhasil ditambahkan!');
     }
 
-    Kategori::create($data);
-    return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
-}
-
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'nama_kategori' => 'required|string|max:255',
-        'icon' => 'nullable|image|mimes:jpg,png,jpeg,svg|max:2048',
-        'deskripsi' => 'nullable|string'
-    ]);
-
-    $kategori = Kategori::findOrFail($id);
-    $data = $request->all();
-
-    if ($request->hasFile('icon')) {
-        // Hapus icon lama jika ada
-        if ($kategori->icon && file_exists(public_path('images/kategori/' . $kategori->icon))) {
-            unlink(public_path('images/kategori/' . $kategori->icon));
-        }
+    // ================= 4. EDIT (Menampilkan Form Edit) =================
+    // INILAH FUNGSI YANG TADI HILANG DAN MEMBUAT ERROR!
+    public function edit($id)
+    {
+        // Cari kategori berdasarkan ID yang diklik
+        $kategori = Kategori::findOrFail($id);
         
-        $file = $request->file('icon');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        $file->move(public_path('images/kategori'), $nama_file);
-        $data['icon'] = $nama_file;
+        // Arahkan ke file resources/views/admin/Kategori/edit.blade.php
+        return view('admin.Kategori.edit', compact('kategori'));
     }
 
-    $kategori->update($data);
-    return redirect()->route('admin.kategori.index')->with('success', 'Kategori diperbarui!');
-}
+    // ================= 5. UPDATE (Menyimpan Perubahan Data) =================
+    public function update(Request $request, $id)
+    {
+        // Validasi inputan admin (sama dengan saat create)
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string'
+        ]);
 
-public function destroy($id)
-{
-    $kategori = Kategori::findOrFail($id);
-    // Hapus file gambar dari folder
-    if ($kategori->icon && file_exists(public_path('images/kategori/' . $kategori->icon))) {
-        unlink(public_path('images/kategori/' . $kategori->icon));
+        // Cari kategori yang mau diedit
+        $kategori = Kategori::findOrFail($id);
+        
+        // Update datanya di database
+        $kategori->update([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi'     => $request->deskripsi
+        ]);
+
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil diperbarui!');
     }
-    $kategori->delete();
-    return redirect()->route('admin.kategori.index')->with('success', 'Kategori dihapus!');
-   }
+
+    // ================= 6. DESTROY (Menghapus Data) =================
+    public function destroy($id)
+    {
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil dihapus!');
+    }
 }
