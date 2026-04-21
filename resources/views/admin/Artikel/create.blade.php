@@ -13,8 +13,6 @@
 
 <div class="card border-0 shadow-sm" style="max-width: 800px;">
     <div class="card-body p-4 p-md-5">
-        
-        <!-- WAJIB: enctype multipart/form-data untuk upload -->
         <form action="{{ route('admin.artikel.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
@@ -23,7 +21,18 @@
                 <input type="text" name="judul" class="form-control form-control-lg border-2" value="{{ old('judul') }}" placeholder="Masukkan judul yang menarik..." required>
             </div>
 
-            <!-- INI FITUR UPLOAD FOTONYA -->
+            <!-- DROPDOWN KATEGORI ARTIKEL -->
+            <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #1ABC9C;"><i class="fas fa-tags me-2"></i>Kategori Artikel <span class="text-danger">*</span></label>
+                <select name="kategori_artikel" class="form-select border-2" required>
+                    <option value="" disabled selected>Pilih Kategori...</option>
+                    <option value="Kesehatan Umum">Kesehatan Umum</option>
+                    <option value="Edukasi">Edukasi & Pencegahan</option>
+                    <option value="Gaya Hidup Sehat">Gaya Hidup Sehat</option>
+                    <option value="Informasi Obat">Informasi Obat</option>
+                </select>
+            </div>
+
             <div class="mb-4 p-3 rounded" style="background-color: #f8f9fa; border: 1px dashed #ced4da;">
                 <label class="form-label fw-bold text-secondary"><i class="fas fa-image me-2"></i>Foto Cover Artikel / Thumbnail</label>
                 <input type="file" name="foto" class="form-control" accept="image/*">
@@ -41,7 +50,6 @@
             </div>
 
             <button type="submit" class="btn w-100 fw-bold py-3 fs-5 mt-3" style="background-color: #1ABC9C; color: white;">🚀 Terbitkan Artikel</button>
-            
         </form>
     </div>
 </div>
