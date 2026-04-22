@@ -14,6 +14,7 @@ class Artikel extends Model
     // Jika nama kolom di database Anda berbeda (misal: 'deskripsi' bukan 'ringkasan'), sesuaikan saja.
     protected $fillable = [
         'judul',
+        'kategori_artikel', 
         'ringkasan',
         'konten',
         'penulis',
