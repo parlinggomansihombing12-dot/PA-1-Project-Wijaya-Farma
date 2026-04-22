@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\File;
 class AdminArtikelController extends Controller
 {
     // ================= 1. TAMPIL TABEL =================
+   // ================= 1. TAMPIL TABEL =================
     public function index() 
     {
-        $artikels = Artikel::latest()->get();
-        return view('admin.Artikel.index', compact('artikels'));
+        $artikels = Artikel::latest()->get(); 
+        
+        // Ambil juga data kategori artikel (Pastikan Modelnya sudah ada ya!)
+        $kategori_artikel = \App\Models\KategoriArtikel::latest()->get();
+
+        // Kirimkan KEDUANYA ke halaman index
+        return view('admin.Artikel.index', compact('artikels', 'kategori_artikel'));
     }
 
     // ================= 2. TAMPIL HALAMAN TAMBAH (CREATE) =================

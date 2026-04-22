@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProdukController;
 use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\AdminArtikelController;
+use App\Http\Controllers\AdminKategoriArtikelController; // <--- INI TAMBAHAN WAJIB
 use App\Http\Controllers\AdminLayananController;
 use App\Http\Controllers\AdminTestimoniController;
 use App\Http\Controllers\AdminProfilTokoController; 
@@ -67,11 +68,16 @@ Route::middleware(['auth', 'verified'])
     Route::resource('produk', AdminProdukController::class);
     Route::resource('kategori', AdminKategoriController::class)->except(['show']);
     Route::resource('artikel', AdminArtikelController::class)->except(['show']);
+    
+    // =========================================================
+    // INI DIA RUTE YANG TADI HILANG (KATEGORI ARTIKEL)
+    // =========================================================
+    Route::resource('kategori-artikel', AdminKategoriArtikelController::class)->only(['store', 'destroy']);
+    
     Route::resource('layanan', AdminLayananController::class)->except(['show']);
     Route::resource('testimoni', AdminTestimoniController::class)->except(['show']);
 
     // ================= FITUR PROFIL TOKO ADMIN =================
-    // Nama route diubah menjadi 'profil.index' agar sinkron dengan file Blade
     Route::get('profil-toko', [AdminProfilTokoController::class, 'index'])->name('profil.index');
     Route::put('profil-toko/update', [AdminProfilTokoController::class, 'update'])->name('profil.update');
 
