@@ -8,32 +8,31 @@ use Illuminate\Support\Facades\File;
 
 class AdminArtikelController extends Controller
 {
-    // ================= 1. TAMPIL TABEL =================
-   // ================= 1. TAMPIL TABEL =================
+    // ================= 1. TAMPIL TABEL (Sudah Benar) =================
     public function index() 
     {
         $artikels = Artikel::latest()->get(); 
-        
-        // Ambil juga data kategori artikel (Pastikan Modelnya sudah ada ya!)
         $kategori_artikel = \App\Models\KategoriArtikel::latest()->get();
 
-        // Kirimkan KEDUANYA ke halaman index
         return view('admin.Artikel.index', compact('artikels', 'kategori_artikel'));
     }
 
     // ================= 2. TAMPIL HALAMAN TAMBAH (CREATE) =================
     public function create()
     {
-        return view('admin.Artikel.create');
+        // AMBIL DATA KATEGORI DARI DATABASE (INI YANG TADI HILANG)
+        $kategori_artikel = \App\Models\KategoriArtikel::all();
+        
+        // KIRIMKAN DATA TERSEBUT KE VIEW
+        return view('admin.Artikel.create', compact('kategori_artikel'));
     }
 
     // ================= 3. PROSES SIMPAN (STORE) BERSAMA FOTO =================
     public function store(Request $request)
     {
-        // Tambahkan validasi kategori_artikel
         $request->validate([
             'judul'            => 'required|string|max:255',
-            'kategori_artikel' => 'required|string|max:100', // Wajib diisi
+            'kategori_artikel' => 'required|string|max:100', 
             'konten'           => 'required|string',
             'penulis'          => 'nullable|string|max:100',
             'foto'             => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072' 
@@ -47,10 +46,9 @@ class AdminArtikelController extends Controller
             $file->move(public_path('images/artikel'), $nama_foto);
         }
 
-        // Masukkan semua data
         Artikel::create([
             'judul'            => $request->judul,
-            'kategori_artikel' => $request->kategori_artikel, // Masukkan kategori
+            'kategori_artikel' => $request->kategori_artikel, 
             'konten'           => $request->konten,
             'penulis'          => $request->penulis,
             'foto'             => $nama_foto
@@ -63,7 +61,12 @@ class AdminArtikelController extends Controller
     public function edit($id)
     {
         $artikel = Artikel::findOrFail($id);
-        return view('admin.Artikel.edit', compact('artikel'));
+        
+        // AMBIL JUGA DATA KATEGORI SAAT MAU EDIT (INI YANG TADI HILANG)
+        $kategori_artikel = \App\Models\KategoriArtikel::all();
+
+        // KIRIMKAN KEDUANYA (ARTIKEL & KATEGORI) KE VIEW
+        return view('admin.Artikel.edit', compact('artikel', 'kategori_artikel'));
     }
 
     // ================= 5. PROSES UBAH DATA (UPDATE) & GANTI FOTO =================
@@ -71,7 +74,7 @@ class AdminArtikelController extends Controller
     {
         $request->validate([
             'judul'            => 'required|string|max:255',
-            'kategori_artikel' => 'required|string|max:100', // Wajib diisi
+            'kategori_artikel' => 'required|string|max:100',
             'konten'           => 'required|string',
             'penulis'          => 'nullable|string|max:100',
             'foto'             => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072'
@@ -91,7 +94,7 @@ class AdminArtikelController extends Controller
 
         $artikel->update([
             'judul'            => $request->judul,
-            'kategori_artikel' => $request->kategori_artikel, // Update kategori
+            'kategori_artikel' => $request->kategori_artikel, 
             'konten'           => $request->konten,
             'penulis'          => $request->penulis,
             'foto'             => $nama_foto
