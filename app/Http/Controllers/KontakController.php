@@ -9,16 +9,10 @@ class KontakController extends Controller
 {
     public function index()
     {
+        // 1. Mengambil data toko dari database
         $toko = ProfilToko::first();
 
-        if (!$toko) {
-            $toko = (object) [
-                'alamat' => 'Jl. Lintas Porsea - Laguboti, Kecamatan Sigumpar, Kab. Toba',
-                'no_hp'  => '6282370771069',
-                'email'  => 'sitohangyesika8@gmail.com',
-            ];
-        }
-
+        // 2. Mengirimkan data tersebut ke halaman 'kontak.blade.php'
         return view('kontak', compact('toko'));
     }
 }

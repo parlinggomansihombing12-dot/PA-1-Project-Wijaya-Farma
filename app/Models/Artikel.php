@@ -9,15 +9,15 @@ class Artikel extends Model
 {
     use HasFactory;
 
-    /**
-     * Kolom yang dapat diisi secara massal (Mass Assignable)
-     * Sesuaikan dengan field yang ada di migrasi tabel 'artikels' kamu
-     */
+    // INILAH KUNCI RAHASIANYA! 🗝️
+    // Kita MENGIZINKAN Laravel untuk mengisi kolom-kolom ini ke database.
+    // Jika nama kolom di database Anda berbeda (misal: 'deskripsi' bukan 'ringkasan'), sesuaikan saja.
     protected $fillable = [
         'judul',
+        'kategori_artikel', 
+        'ringkasan',
         'konten',
         'penulis',
-        // Jika kamu ada kolom gambar/foto artikel, tambahkan juga di sini:
-        // 'gambar',
+        'foto', // Tambahkan jika nanti Artikel Anda punya fitur upload foto sendiri
     ];
 }

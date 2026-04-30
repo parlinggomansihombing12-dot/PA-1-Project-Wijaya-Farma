@@ -15,6 +15,17 @@
     <div class="card border-0 shadow-sm" style="max-width: 600px;">
         <div class="card-body p-4">
             
+            <!-- TAMPILKAN PESAN ERROR (Sangat penting untuk debugging) -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <!-- Form Update diarahkan ke Controller dengan method PUT -->
             <form action="{{ route('admin.produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -23,21 +34,33 @@
                 <!-- Input Nama Obat -->
                 <div class="mb-3">
                     <label for="nama_obat" class="form-label fw-bold">Nama Obat / Produk</label>
-                    <!-- Perhatikan: Kita gunakan class 'form-control' milik Bootstrap agar rapi -->
-                    <input type="text" name="nama_obat" id="nama_obat" value="{{ $produk->nama_obat }}" class="form-control" required>
+                    <input type="text" name="nama_obat" id="nama_obat" value="{{ old('nama_obat', $produk->nama_obat) }}" class="form-control" required>
+                </div>
+
+                <!-- 🟢 TAMBAHAN: INPUT KATEGORI (WAJIB ADA) -->
+                <div class="mb-3">
+                    <label for="kategori_id" class="form-label fw-bold">Kategori Produk</label>
+                    <select name="kategori_id" id="kategori_id" class="form-control" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach($kategoris as $kat)
+                            <option value="{{ $kat->id }}" {{ $produk->kategori_id == $kat->id ? 'selected' : '' }}>
+                                {{ $kat->nama_kategori }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="row">
                     <!-- Input Harga -->
                     <div class="col-md-6 mb-3">
                         <label for="harga" class="form-label fw-bold">Harga (Rp)</label>
-                        <input type="number" name="harga" id="harga" value="{{ $produk->harga }}" class="form-control" required>
+                        <input type="number" name="harga" id="harga" value="{{ old('harga', $produk->harga) }}" class="form-control" required>
                     </div>
 
                     <!-- Input Stok -->
                     <div class="col-md-6 mb-3">
                         <label for="stok" class="form-label fw-bold">Stok Awal</label>
-                        <input type="number" name="stok" id="stok" value="{{ $produk->stok }}" class="form-control" required>
+                        <input type="number" name="stok" id="stok" value="{{ old('stok', $produk->stok) }}" class="form-control" required>
                     </div>
                 </div>
 
@@ -46,22 +69,25 @@
                      <textarea name="deskripsi" class="form-control" rows="5" required>{{ old('deskripsi', $produk->deskripsi) }}</textarea>
                 </div>
 
-                <!-- Input Upload Foto (Sesuai modifikasi kita sebelumnya) -->
+                <!-- Input Upload Foto -->
                 <div class="mb-4">
                     <label for="foto" class="form-label fw-bold">Ganti Foto Produk (Opsional)</label>
                     <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
-                    <small class="text-muted">Biarkan kosong jika tidak ingin mengganti foto.</small>
+                    <small class="text-muted d-block mt-1">Biarkan kosong jika tidak ingin mengganti foto.</small>
                     
                     <!-- Menampilkan Foto Lama Jika Ada -->
                     @if($produk->foto)
-                        <div class="mt-2">
+                        <div class="mt-2 p-2 border rounded d-inline-block">
+                            <p class="small mb-1 text-muted">Foto Saat Ini:</p>
                             <img src="{{ asset('images/produk/' . $produk->foto) }}" alt="Foto Lama" class="img-thumbnail" style="height: 100px; object-fit: cover;">
                         </div>
                     @endif
                 </div>
 
                 <!-- Tombol Submit -->
-                <button type="submit" class="btn btn-success w-100 fw-bold py-2">Simpan Perubahan</button>
+                <button type="submit" class="btn btn-success w-100 fw-bold py-2">
+                    <i class="fas fa-save"></i> Simpan Perubahan
+                </button>
                 
             </form>
             
