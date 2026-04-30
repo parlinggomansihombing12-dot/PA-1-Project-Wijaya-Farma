@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
-use App\Models\Kategori; // (Jika teman Anda pakai ini, pastikan ter-import)
+use App\Models\Kategori; 
 use Illuminate\Support\Facades\File;
 
 class AdminProdukController extends Controller
@@ -17,7 +17,7 @@ class AdminProdukController extends Controller
     }
 
     // ================= 2. HALAMAN TAMBAH =================
-  public function create()
+    public function create()
     {
         // 1. Ambil SEMUA data kategori dari database
         $kategoris = \App\Models\Kategori::all(); 
@@ -26,20 +26,17 @@ class AdminProdukController extends Controller
         return view('admin.produk.create', compact('kategoris'));
     }
 
-
-    // ================= 3. PROSES SIMPAN (VALIDASI MAX HARGA DITAMBAHKAN) =================
+    // ================= 3. PROSES SIMPAN =================
     public function store(Request $request)
     {
-        
         $request->validate([
             'nama_obat'   => 'required|string|max:255',
             'kategori_id' => 'required|integer',
-            'harga'       => 'required|numeric|min:1|max:99000000', // <-- BATAS MAX 99 JUTA
-            'stok'        => 'required|numeric|min:0|max:10000',   // <-- BATAS MAX STOK 10.000
+            'harga'       => 'required|numeric|min:1|max:99000000', // BATAS MAX 99 JUTA
+            'stok'        => 'required|numeric|min:0|max:10000',    // BATAS MAX STOK 10.000
             'deskripsi'   => 'nullable|string',
             'foto'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072'
         ], [
-            // KUSTOMISASI PESAN ERROR AGAR BAHASA INDONESIA:
             'harga.max' => 'Harga obat tidak boleh lebih dari Rp 99.000.000!',
             'stok.max'  => 'Stok obat tidak boleh lebih dari 10.000 pcs!',
         ]);
@@ -63,8 +60,8 @@ class AdminProdukController extends Controller
         return redirect()->route('admin.produk.index')->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    // ================= 4. HALAMAN EDIT =================
-   public function edit($id)
+    // ================= 4. HALAMAN FORM EDIT =================
+    public function edit($id)
     {
         $produk = Produk::findOrFail($id);
         
@@ -75,15 +72,15 @@ class AdminProdukController extends Controller
         return view('admin.produk.edit', compact('produk', 'kategoris'));
     }
 
-    // ================= 5. PROSES UPDATE (VALIDASI MAX HARGA DITAMBAHKAN) =================
+    // ================= 5. PROSES UPDATE =================
     public function update(Request $request, $id)
     {
         // TERAPKAN VALIDASI YANG SAMA DI PROSES EDIT:
         $request->validate([
             'nama_obat'   => 'required|string|max:255',
             'kategori_id' => 'required|integer',
-            'harga'       => 'required|numeric|min:1|max:99000000', // <-- BATAS MAX 99 JUTA
-            'stok'        => 'required|numeric|min:0|max:10000',   // <-- BATAS MAX STOK 10.000
+            'harga'       => 'required|numeric|min:1|max:99000000', 
+            'stok'        => 'required|numeric|min:0|max:10000',   
             'deskripsi'   => 'nullable|string',
             'foto'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072'
         ], [
