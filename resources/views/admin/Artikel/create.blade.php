@@ -4,13 +4,15 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold" style="color: #2C3E50;">➕ Tulis Artikel Baru</h2>
-    <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary fw-bold">&larr; Kembali</a>
+    <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary fw-bold shadow-sm">&larr; Kembali</a>
 </div>
 
 @if($errors->any())
     <div class="alert alert-danger shadow-sm rounded-3">
         <ul class="mb-0 ps-3">
-            @foreach($errors->all() as $error) <li>{{ $error }}</li> @endforeach
+            @foreach($errors->all() as $error) 
+                <li>{{ $error }}</li> 
+            @endforeach
         </ul>
     </div>
 @endif
@@ -29,13 +31,13 @@
                 <input type="text" name="judul" class="form-control form-control-lg border-2 shadow-none" value="{{ old('judul') }}" placeholder="Masukkan judul yang menarik..." style="border-radius: 10px;" required>
             </div>
 
-            <!-- 2. DROPDOWN KATEGORI (SUDAH DIPERBAIKI HTML-NYA) -->
+            <!-- 2. DROPDOWN KATEGORI -->
             <div class="mb-4">
                 <label class="form-label fw-bold" style="color: #1ABC9C;">
                     <i class="fas fa-tags me-2"></i>Kategori Artikel <span class="text-danger">*</span>
                 </label>
                 <select name="kategori_artikel" class="form-select form-select-lg border-2 shadow-none" style="border-radius: 10px;" required>
-                    <option value="" disabled selected>Pilih Kategori...</option>
+                    <option value="" disabled {{ old('kategori_artikel') ? '' : 'selected' }}>Pilih Kategori...</option>
                     
                     @forelse($kategori_artikel as $kat)
                         <option value="{{ $kat->nama_kategori }}" {{ old('kategori_artikel') == $kat->nama_kategori ? 'selected' : '' }}>
@@ -44,11 +46,10 @@
                     @empty
                         <option value="" disabled>Belum ada kategori! Buat dulu di halaman sebelumnya.</option>
                     @endforelse
-                    
                 </select>
             </div>
 
-            <!-- 3. UPLOAD FOTO -->
+            <!-- 3. UPLOAD FOTO (DENGAN PREVIEW INSTAN) -->
             <div class="mb-4 p-4 rounded-3" style="background-color: #f8fcfb; border: 2px dashed #1ABC9C;">
                 <label class="form-label fw-bold text-secondary">
                     <i class="fas fa-image me-2"></i>Foto Cover Artikel / Thumbnail
@@ -56,7 +57,7 @@
                 <input type="file" name="foto" id="inputFoto" class="form-control border-2 shadow-none" accept="image/*" onchange="previewImage()">
                 <small class="text-muted mt-2 d-block">Maksimal 3MB. Disarankan rasio landscape (16:9).</small>
                 
-                <!-- Area Preview Foto (Otomatis muncul jika file dipilih) -->
+                <!-- Kotak Preview -->
                 <div id="previewContainer" class="mt-3 text-center" style="display: none;">
                     <p class="small text-success fw-bold mb-1">Preview Foto:</p>
                     <img id="imgPreview" src="" class="img-thumbnail shadow-sm" style="max-height: 200px; border-radius: 10px;">
@@ -76,7 +77,7 @@
                 <label class="form-label fw-bold text-secondary">
                     <i class="fas fa-user-edit me-2"></i>Nama Penulis
                 </label>
-                <input type="text" name="penulis" class="form-control border-2 shadow-none" value="{{ old('penulis') ?? 'Admin Wijaya Farma' }}" style="border-radius: 10px;">
+                <input type="text" name="penulis" class="form-control border-2 shadow-none" value="{{ old('penulis', 'Admin Wijaya Farma') }}" style="border-radius: 10px;">
             </div>
 
             <!-- 6. TOMBOL SUBMIT -->
@@ -88,7 +89,6 @@
     </div>
 </div>
 
-<!-- SCRIPT UNTUK FITUR PREVIEW FOTO INSTAN -->
 <script>
     function previewImage() {
         const image = document.querySelector('#inputFoto');

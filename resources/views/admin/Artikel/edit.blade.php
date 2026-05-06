@@ -4,12 +4,16 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold" style="color: #2C3E50;">✏️ Edit Artikel</h2>
-    <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary fw-bold">&larr; Kembali</a>
+    <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary fw-bold shadow-sm">&larr; Kembali</a>
 </div>
 
 @if($errors->any())
     <div class="alert alert-danger shadow-sm rounded-3">
-        <ul class="mb-0 ps-3">@foreach($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul>
+        <ul class="mb-0 ps-3">
+            @foreach($errors->all() as $error) 
+                <li>{{ $error }}</li> 
+            @endforeach
+        </ul>
     </div>
 @endif
 
@@ -19,28 +23,40 @@
             @csrf
             @method('PUT')
             
+            <!-- 1. JUDUL -->
             <div class="mb-4">
-                <label class="form-label fw-bold" style="color: #1ABC9C;"><i class="fas fa-heading me-2"></i>Judul Artikel <span class="text-danger">*</span></label>
+                <label class="form-label fw-bold" style="color: #1ABC9C;">
+                    <i class="fas fa-heading me-2"></i>Judul Artikel <span class="text-danger">*</span>
+                </label>
                 <input type="text" name="judul" class="form-control form-control-lg border-2 shadow-none" style="border-radius: 10px;" value="{{ old('judul', $artikel->judul) }}" required>
             </div>
 
+            <!-- 2. DROPDOWN KATEGORI -->
             <div class="mb-4">
-                <label class="form-label fw-bold" style="color: #1ABC9C;"><i class="fas fa-tags me-2"></i>Kategori Artikel <span class="text-danger">*</span></label>
-                <select name="kategori_artikel" class="form-select border-2 shadow-none" style="border-radius: 10px;" required>
-                    <option value="Kesehatan Umum" {{ old('kategori_artikel', $artikel->kategori_artikel) == 'Kesehatan Umum' ? 'selected' : '' }}>Kesehatan Umum</option>
-                    <option value="Edukasi" {{ old('kategori_artikel', $artikel->kategori_artikel) == 'Edukasi' ? 'selected' : '' }}>Edukasi & Pencegahan</option>
-                    <option value="Gaya Hidup Sehat" {{ old('kategori_artikel', $artikel->kategori_artikel) == 'Gaya Hidup Sehat' ? 'selected' : '' }}>Gaya Hidup Sehat</option>
-                    <option value="Informasi Obat" {{ old('kategori_artikel', $artikel->kategori_artikel) == 'Informasi Obat' ? 'selected' : '' }}>Informasi Obat</option>
+                <label class="form-label fw-bold" style="color: #1ABC9C;">
+                    <i class="fas fa-tags me-2"></i>Kategori Artikel <span class="text-danger">*</span>
+                </label>
+                <select name="kategori_artikel" class="form-select form-select-lg border-2 shadow-none" style="border-radius: 10px;" required>
+                    <option value="" disabled>Pilih Kategori...</option>
+                    @forelse($kategori_artikel as $kat)
+                        <option value="{{ $kat->nama_kategori }}" {{ old('kategori_artikel', $artikel->kategori_artikel) == $kat->nama_kategori ? 'selected' : '' }}>
+                            {{ $kat->nama_kategori }}
+                        </option>
+                    @empty
+                        <option value="" disabled>Belum ada kategori! Buat dulu di halaman sebelumnya.</option>
+                    @endforelse
                 </select>
             </div>
 
-            <!-- FITUR GANTI FOTO DENGAN PREVIEW INSTAN -->
+            <!-- 3. UPLOAD FOTO (DENGAN PREVIEW LAMA & BARU) -->
             <div class="mb-4 p-4 rounded-3" style="background-color: #f8f9fa; border: 1px dashed #ced4da;">
-                <label class="form-label fw-bold text-secondary"><i class="fas fa-image me-2"></i>Ganti Foto Cover (Opsional)</label>
+                <label class="form-label fw-bold text-secondary">
+                    <i class="fas fa-image me-2"></i>Ganti Foto Cover (Opsional)
+                </label>
                 
                 <div class="d-flex flex-column flex-sm-row align-items-start gap-4 mt-2">
                     
-                    <!-- Area Foto Lama / Placeholder -->
+                    <!-- Area Foto Lama -->
                     <div class="flex-shrink-0 text-center" id="oldPhotoContainer">
                         <p class="small text-muted mb-1">Foto Saat Ini:</p>
                         @if($artikel->foto)
@@ -67,16 +83,23 @@
                 </div>
             </div>
 
+            <!-- 4. KONTEN -->
             <div class="mb-4">
-                <label class="form-label fw-bold" style="color: #1ABC9C;"><i class="fas fa-align-left me-2"></i>Isi Konten Artikel <span class="text-danger">*</span></label>
+                <label class="form-label fw-bold" style="color: #1ABC9C;">
+                    <i class="fas fa-align-left me-2"></i>Isi Konten Artikel <span class="text-danger">*</span>
+                </label>
                 <textarea name="konten" class="form-control border-2 shadow-none" rows="12" style="border-radius: 10px;" required>{{ old('konten', $artikel->konten) }}</textarea>
             </div>
 
+            <!-- 5. PENULIS -->
             <div class="mb-5">
-                <label class="form-label fw-bold text-secondary"><i class="fas fa-user-edit me-2"></i>Nama Penulis</label>
+                <label class="form-label fw-bold text-secondary">
+                    <i class="fas fa-user-edit me-2"></i>Nama Penulis
+                </label>
                 <input type="text" name="penulis" class="form-control border-2 shadow-none" style="border-radius: 10px;" value="{{ old('penulis', $artikel->penulis) }}">
             </div>
 
+            <!-- 6. TOMBOL SUBMIT -->
             <button type="submit" class="btn w-100 fw-bold py-3 fs-5" style="background-color: #27ae60; color: white; border-radius: 10px; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(39, 174, 96, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                 💾 Simpan Perubahan Artikel
             </button>
@@ -84,7 +107,6 @@
     </div>
 </div>
 
-<!-- SCRIPT UNTUK PREVIEW FOTO BARU -->
 <script>
     function previewImage() {
         const image = document.querySelector('#inputFoto');
