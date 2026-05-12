@@ -16,7 +16,13 @@ class KategoriController extends Controller
         // 1. Ambil semua kategori untuk Sidebar di kiri
         $list_kategori = Kategori::all(); 
 
-        // 2. Mulai proses pemanggilan Produk untuk grid di kanan
+        // ==============================================================
+        // INI TAMBAHAN PENTINGNYA (Untuk menjaga angka 'Semua Produk')
+        // Menghitung murni SELURUH data produk di database tanpa syarat apapun
+        $total_semua_produk = Produk::count(); 
+        // ==============================================================
+
+        // 2. Mulai proses pemanggilan Produk untuk grid di kanan (Dengan Filter)
         $query = Produk::query();
 
         // Jika pengunjung mengklik salah satu kategori di sidebar
@@ -29,15 +35,16 @@ class KategoriController extends Controller
             $query->where('nama_obat', 'like', '%' . $request->cari . '%');
         }
 
-        // Eksekusi pengambilan data produk
+        // Eksekusi pengambilan data produk sesuai filter
         $list_produk = $query->latest()->get();
 
-        // 3. Kirim semua data ke halaman kategori.blade.php
+        // 3. Kirim semua data (termasuk total bersih) ke halaman kategori.blade.php
         return view('kategori', [
             'toko' => $toko,
             'list_kategori' => $list_kategori,
             'list_produk' => $list_produk,
-            'kategori_aktif' => $request->kategori // Untuk mewarnai biru menu yang sedang diklik
+            'kategori_aktif' => $request->kategori, 
+            'total_semua_produk' => $total_semua_produk // <--- PASTIKAN INI DIKIRIM!
         ]);
     }
 }

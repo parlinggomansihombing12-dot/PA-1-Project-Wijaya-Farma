@@ -485,12 +485,17 @@
                     Kategori Produk
                 </div>
                 
-                <a href="/kategori" class="kategori-link {{ empty($kategori_aktif) ? 'active' : '' }}">
-                    <div class="kategori-icon">📦</div>
-                    <span>Semua Produk</span>
-                    <span class="kategori-count">{{ $total_semua_produk ?? $list_produk->count() }}</span>
+              <!-- Tombol Semua Obat (SUDAH DIPERBAIKI HTML-NYA) -->
+                <a href="/kategori" class="kategori-item d-flex align-items-center justify-content-between text-decoration-none {{ empty($kategori_aktif) ? 'active' : '' }}" style="padding: 12px 15px; border-radius: 12px;">
+                    <div class="d-flex align-items-center">
+                        <span class="me-3" style="font-size: 1.3rem;">📦</span> 
+                        <span style="font-weight: 600;">Semua Produk</span>
+                    </div>
+                    <span class="badge rounded-pill d-flex align-items-center justify-content-center" style="background-color: #1ABC9C; color: white; width: 28px; height: 28px; font-size: 0.8rem;">
+                        {{ $total_semua_produk }}
+                    </span>
                 </a>
-
+   
                 @foreach($list_kategori as $kat)
                 <a href="/kategori?kategori={{ $kat->id }}" class="kategori-link {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
                     <div class="kategori-icon">
