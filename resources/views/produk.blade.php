@@ -8,6 +8,7 @@
         background: linear-gradient(135deg, #f0f9ff 0%, #e8f0f5 100%);
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         position: relative;
+        min-height: 100vh;
     }
     
     /* Background Pattern - Subtle Medical/Pharmacy Theme */
@@ -31,28 +32,8 @@
         z-index: 0;
     }
     
-    /* Floating animated blobs */
-    body::after {
-        content: '';
-        position: fixed;
-        top: -50%;
-        left: -20%;
-        width: 80%;
-        height: 80%;
-        background: radial-gradient(ellipse, rgba(26, 188, 156, 0.04) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 0;
-        animation: floatBlob 20s ease-in-out infinite;
-    }
-    
-    @keyframes floatBlob {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(5%, 5%) scale(1.1); }
-    }
-    
     /* Container biar konten di atas background */
-    .product-header, .container {
+    .product-header, .produk-wrapper {
         position: relative;
         z-index: 2;
     }
@@ -78,7 +59,6 @@
         pointer-events: none;
     }
     
-    /* Header pattern tambahan */
     .product-header::after {
         content: '';
         position: absolute;
@@ -118,6 +98,7 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         transition: 0.3s;
         font-size: 0.95rem;
+        flex: 1;
     }
 
     .search-box:focus {
@@ -135,6 +116,7 @@
         margin-left: 12px;
         transition: 0.3s;
         box-shadow: 0 5px 15px rgba(243,156,18,0.3);
+        white-space: nowrap;
     }
 
     .btn-cari:hover {
@@ -143,12 +125,31 @@
         color: white;
     }
 
-    /* PRODUCT CARD GRID - Desain Premium */
+    /* ============ WRAPPER FULL WIDTH ============ */
+    .produk-wrapper {
+        width: 100%;
+        padding: 0 24px;
+        margin: 0 auto;
+    }
+
+    /* ============ FLEXBOX GRID - TANPA RUANG KOSONG ============ */
+    .produk-flex {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -12px;
+    }
+
+    .produk-item {
+        flex: 0 0 25%;
+        max-width: 25%;
+        padding: 0 12px;
+        margin-bottom: 24px;
+    }
+
+    /* PRODUCT CARD - Desain Premium */
     .product-card {
         background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(0px);
         border-radius: 24px;
-        padding: 0;
         border: 1px solid rgba(255,255,255,0.3);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         height: 100%;
@@ -183,7 +184,7 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
-    /* Image Container dengan background gradien */
+    /* Image Container */
     .img-container {
         height: 210px;
         width: 100%;
@@ -200,7 +201,7 @@
     }
 
     .img-container img {
-        max-width: 75%;
+        max-width: 85%;
         max-height: 140px;
         object-fit: contain;
         transition: transform 0.3s ease;
@@ -240,6 +241,8 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .product-price {
@@ -282,7 +285,7 @@
         font-size: 13px;
         transition: 0.3s;
         border: 1.5px solid #e2e8f0;
-        margin-top: 8px;
+        margin-top: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -297,14 +300,14 @@
     }
 
     /* Empty State */
-    .empty-state {
+    .empty-state-full {
         text-align: center;
         padding: 60px 20px;
         background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(10px);
         border-radius: 48px;
-        margin-top: 20px;
+        margin: 20px auto;
         border: 1px solid rgba(255,255,255,0.5);
+        width: 100%;
     }
 
     /* Animasi muncul */
@@ -322,23 +325,51 @@
     .product-card {
         animation: fadeInUp 0.5s ease forwards;
     }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1200px) {
+        .produk-item {
+            flex: 0 0 33.333%;
+            max-width: 33.333%;
+        }
+    }
     
-    /* Efek tambahan: particles kecil di background */
-    .bg-particle {
-        position: fixed;
-        width: 4px;
-        height: 4px;
-        background: rgba(26, 188, 156, 0.2);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 0;
+    @media (max-width: 768px) {
+        .produk-wrapper {
+            padding: 0 16px;
+        }
+        .produk-item {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .produk-item {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .section-title {
+            font-size: 1.8rem;
+        }
+    }
+
+    /* Form search tetap rapi */
+    .d-flex {
+        display: flex;
+    }
+
+    .btn-reset {
+        display: inline-block;
+        width: auto;
+        padding: 10px 30px;
     }
 </style>
 @endsection
 
 @section('content')
 
-<!-- HEADER & SEARCH dengan desain baru -->
+<!-- HEADER & SEARCH -->
 <div class="product-header">
     <div class="container text-center">
         <h1 class="section-title">✨ Katalog Produk ✨</h1>
@@ -356,12 +387,12 @@
     </div>
 </div>
 
-<!-- PRODUCT GRID dengan tampilan kartu premium -->
-<div class="container pb-5">
-    <div class="row g-4">
+<!-- PRODUCT GRID - FULL WIDTH, TIDAK ADA RUANG KOSONG DI SAMPING -->
+<div class="produk-wrapper">
+    <div class="produk-flex">
         @forelse($list_produk as $index => $item)
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" style="animation-delay: {{ $index * 0.05 }}s">
-            <div class="product-card">
+        <div class="produk-item">
+            <div class="product-card" style="animation-delay: {{ $index * 0.05 }}s">
                 <!-- Badge Kategori -->
                 <div class="category-badge">
                     📂 {{ $item->kategori->nama_kategori ?? 'Umum' }}
@@ -406,21 +437,18 @@
             </div>
         </div>
         @empty
-        <div class="col-12">
-            <div class="empty-state">
-                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="100" class="mb-4 opacity-50">
-                <h3 class="text-muted mb-2">🌿 Obat tidak ditemukan</h3>
-                <p class="text-muted">Coba gunakan kata kunci pencarian yang lain.</p>
-                <a href="{{ url('/produk') }}" class="btn btn-cari mt-3" style="display: inline-block; width: auto; padding: 10px 30px;">
-                    🔄 Reset Pencarian
-                </a>
-            </div>
+        <div class="empty-state-full">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="100" class="mb-4 opacity-50">
+            <h3 class="text-muted mb-2">🌿 Obat tidak ditemukan</h3>
+            <p class="text-muted">Coba gunakan kata kunci pencarian yang lain.</p>
+            <a href="{{ url('/produk') }}" class="btn btn-cari btn-reset mt-3">
+                🔄 Reset Pencarian
+            </a>
         </div>
         @endforelse
     </div>
 </div>
 
-<!-- JavaScript untuk particles dinamis (opsional) -->
 <script>
     // Menambahkan floating particles di background
     document.addEventListener('DOMContentLoaded', function() {
@@ -428,15 +456,34 @@
         for(let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
             particle.className = 'bg-particle';
+            particle.style.position = 'fixed';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             particle.style.width = Math.random() * 6 + 2 + 'px';
             particle.style.height = particle.style.width;
+            particle.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '0';
             particle.style.animation = `floatBlob ${15 + Math.random() * 20}s infinite ease-in-out`;
             particle.style.animationDelay = Math.random() * 10 + 's';
             body.appendChild(particle);
         }
     });
 </script>
+
+<style>
+    /* Additional styles for particles */
+    .bg-particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    @keyframes floatBlob {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(10px, 10px) scale(1.2); }
+    }
+</style>
 
 @endsection
