@@ -83,15 +83,15 @@ body {
         <form action="{{ route('testimoni.store') }}" method="POST">
             @csrf
 
-            <input type="text" 
-                   name="nama_pelanggan" 
-                   class="form-control mb-3" 
-                   placeholder="Nama" required>
+            <input type="text"
+                    name="nama_pelanggan"
+                    class="form-control mb-3"
+                    placeholder="Nama" required>
 
-            <textarea name="komentar" 
-                      class="form-control mb-3" 
-                      rows="3" 
-                      placeholder="Tulis ulasan..." required></textarea>
+            <textarea name="komentar"
+                    class="form-control mb-3"
+                    rows="3"
+                    placeholder="Tulis ulasan..." required></textarea>
 
             <!-- RATING -->
             <div class="mb-3 text-center">
