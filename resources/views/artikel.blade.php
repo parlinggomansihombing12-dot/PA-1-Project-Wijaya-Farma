@@ -650,5 +650,4 @@
         50% { transform: translate(15px, 10px) scale(1.3); }
     }
 </style>
-
 @endsection
