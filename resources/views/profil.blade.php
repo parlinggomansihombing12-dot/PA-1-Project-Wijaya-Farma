@@ -448,14 +448,6 @@
                         <div class="info-text">
                             {!! nl2br(e($toko->pengalaman_pemilik ?? 'Belum ada data pengalaman.')) !!}
                         </div>
-
-                        <div class="info-title">
-                            <i class="fas fa-phone-alt"></i> Kontak
-                        </div>
-                        <div class="info-text">
-                            <i class="fab fa-whatsapp me-2 text-success"></i> 
-                            {{ $toko->whatsapp ?? '+62 XXX XXXX XXXX' }}
-                        </div>
                     </div>
                 </div>
             </div>
