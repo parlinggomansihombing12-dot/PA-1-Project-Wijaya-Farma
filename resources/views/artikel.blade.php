@@ -4,13 +4,13 @@
 @section('custom-css')
 <style>
     body { 
-        background: linear-gradient(135deg, #e8f0f5 0%, #dce6ed 100%);
+        background: linear-gradient(135deg, #f0f9ff 0%, #e8f0f5 100%);
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         position: relative;
         min-height: 100vh;
     }
     
-    /* Background Pattern halus */
+    /* Background Pattern */
     body::before {
         content: ''; 
         position: fixed; 
@@ -20,55 +20,36 @@
         height: 100%;
         background-image: 
             radial-gradient(circle at 10% 90%, rgba(26, 188, 156, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 90% 10%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
-            repeating-linear-gradient(45deg, rgba(0,0,0,0.008) 0px, rgba(0,0,0,0.008) 1px, transparent 1px, transparent 20px);
+            radial-gradient(circle at 90% 10%, rgba(52, 152, 219, 0.03) 0%, transparent 50%);
         pointer-events: none; 
         z-index: 0;
     }
     
-    /* Floating blobs subtle */
-    body::after {
-        content: ''; 
-        position: fixed; 
-        top: -20%; 
-        left: -10%; 
-        width: 60%; 
-        height: 60%;
-        background: radial-gradient(ellipse, rgba(26, 188, 156, 0.04) 0%, transparent 70%);
-        border-radius: 50%; 
-        pointer-events: none; 
-        z-index: 0; 
-        animation: floatBlob 35s ease-in-out infinite;
-    }
-    
+    /* Floating blobs */
     .bg-blob-2 {
         position: fixed; 
         bottom: -15%; 
         right: -5%; 
         width: 50%; 
         height: 50%;
-        background: radial-gradient(ellipse, rgba(241, 196, 15, 0.03) 0%, transparent 70%);
+        background: radial-gradient(ellipse, rgba(26, 188, 156, 0.05) 0%, transparent 70%);
         border-radius: 50%; 
         pointer-events: none; 
         z-index: 0; 
         animation: floatBlob2 40s ease-in-out infinite;
     }
     
-    @keyframes floatBlob { 
-        0%, 100% { transform: translate(0, 0) scale(1); } 
-        50% { transform: translate(3%, 5%) scale(1.08); } 
-    }
     @keyframes floatBlob2 { 
         0%, 100% { transform: translate(0, 0) scale(1); } 
         50% { transform: translate(-4%, -6%) scale(1.12); } 
     }
     
-    /* Header Artikel */
+    /* Header Artikel Premium */
     .articles-header {
         background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 60px 0 50px; 
-        margin-bottom: 50px; 
-        position: relative; 
+        padding: 50px 0;
+        margin-bottom: 40px;
+        position: relative;
         overflow: hidden;
     }
     
@@ -95,7 +76,7 @@
     }
     
     .articles-title { 
-        font-size: 2.5rem; 
+        font-size: 2.3rem; 
         font-weight: 800; 
         color: white; 
         margin-bottom: 10px; 
@@ -103,10 +84,10 @@
     }
     .articles-subtitle { 
         color: rgba(255,255,255,0.9); 
-        font-size: 1.1rem; 
+        font-size: 1rem; 
     }
     
-    /* ============ CONTAINER FULL WIDTH ============ */
+    /* Container */
     .articles-container-full {
         width: 100%;
         max-width: 100%;
@@ -115,49 +96,50 @@
         z-index: 2;
     }
     
-    /* ============ FLEX LAYOUT UNTUK SIDEBAR DAN KONTEN ============ */
+    /* ============ FLEX LAYOUT ============ */
     .articles-layout {
         display: flex;
         flex-wrap: wrap;
         gap: 30px;
     }
     
-    /* SIDEBAR KATEGORI - DESAIN BARU LEBIH BAGUS */
+    /* ============ SIDEBAR KATEGORI PREMIUM ============ */
     .kategori-sidebar {
         flex: 0 0 280px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(12px);
-        border-radius: 28px;
-        padding: 24px 20px;
-        box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255,255,255,0.6);
+        background: white;
+        border-radius: 24px;
+        padding: 0;
+        box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
         position: sticky;
         top: 100px;
         align-self: flex-start;
-        transition: all 0.3s ease;
+        overflow: hidden;
+        border: 1px solid #eef2f6;
     }
     
-    .kategori-sidebar h5 {
+    .sidebar-header {
+        background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+        padding: 20px;
+        color: white;
+    }
+    
+    .sidebar-header h5 {
         font-size: 1.1rem;
         font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 20px;
-        padding-bottom: 12px;
-        border-bottom: 2px solid #1abc9c;
-        display: inline-block;
-        width: 100%;
-    }
-    
-    .kategori-sidebar h5:before {
-        content: '📂 ';
-        font-size: 1rem;
-    }
-    
-    /* Tombol Kategori - Desain Grid Modern */
-    .kategori-grid {
+        margin: 0 0 5px 0;
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .sidebar-header p {
+        font-size: 0.75rem;
+        opacity: 0.85;
+        margin: 0;
+    }
+    
+    .kategori-list {
+        padding: 16px 12px;
     }
     
     .kategori-artikel-link {
@@ -165,143 +147,227 @@
         align-items: center;
         gap: 12px;
         padding: 12px 16px;
-        background: rgba(248, 250, 252, 0.8);
-        border-radius: 60px;
+        margin: 4px 0;
+        background: #f8fafc;
+        border-radius: 14px;
         font-weight: 550;
         font-size: 0.85rem;
         color: #1e293b;
         text-decoration: none;
         transition: all 0.25s ease;
-        border: 1px solid rgba(203, 213, 225, 0.4);
+        border: 1px solid transparent;
     }
     
     .kategori-artikel-link span:first-child {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .kategori-artikel-link .kat-text {
         flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-weight: 600;
     }
     
     .kat-count {
         background: #e2e8f0;
-        color: #334155;
+        color: #475569;
         font-size: 0.7rem;
         font-weight: 700;
-        padding: 2px 10px;
-        border-radius: 40px;
-        transition: all 0.2s;
+        padding: 3px 10px;
+        border-radius: 30px;
     }
     
     .kategori-artikel-link:hover {
-        background: white;
-        border-color: #1abc9c;
-        transform: translateX(5px);
-        box-shadow: 0 4px 12px rgba(26, 188, 156, 0.15);
+        background: #f0fdf4;
+        border-color: #1abc9c40;
+        transform: translateX(4px);
     }
     
     .kategori-artikel-link.active {
-        background: linear-gradient(105deg, #1abc9c15 0%, #1abc9c25 100%);
+        background: linear-gradient(135deg, #1abc9c15 0%, #1abc9c08 100%);
         border-color: #1abc9c;
         border-left: 4px solid #1abc9c;
-        font-weight: 700;
         color: #0f3b2c;
     }
     
-    /* ============ KONTEN UTAMA - GRID FULL TANPA RUANG KOSONG ============ */
+    .kategori-artikel-link.active .kat-count {
+        background: #1abc9c;
+        color: white;
+    }
+    
+    /* Tombol Reset */
+    .btn-reset-wrapper {
+        padding: 12px;
+        border-top: 1px solid #eef2f6;
+        margin-top: 8px;
+    }
+    
+    .btn-reset-kategori {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #f1f5f9;
+        padding: 10px;
+        border-radius: 40px;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+        transition: 0.2s;
+    }
+    
+    .btn-reset-kategori:hover {
+        background: #e2e8f0;
+        color: #1e293b;
+    }
+    
+    /* ============ KONTEN UTAMA ============ */
     .konten-utama {
         flex: 1;
         min-width: 0;
     }
     
-    /* SEARCH BOX */
+    /* Search Box Premium */
     .search-box-wrapper {
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
     
-    .search-box-artikel {
-        width: 100%;
-        border-radius: 60px;
-        padding: 14px 50px 14px 24px;
-        border: 1px solid #e2e8f0;
+    .search-form {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .search-input-group {
+        flex: 1;
+        display: flex;
         background: white;
-        font-size: 0.9rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        border-radius: 60px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #eef2f6;
         transition: all 0.3s;
     }
     
-    .search-box-artikel:focus {
+    .search-input-group:focus-within {
+        box-shadow: 0 4px 20px rgba(26, 188, 156, 0.1);
         border-color: #1abc9c;
+    }
+    
+    .search-box-artikel {
+        flex: 1;
+        border: none;
+        padding: 14px 20px;
+        font-size: 0.9rem;
         outline: none;
-        box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.1);
+        background: transparent;
     }
     
     .btn-search {
-        position: absolute;
-        right: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
+        background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
         border: none;
-        color: #1abc9c;
-        font-size: 1.1rem;
+        padding: 0 28px;
+        color: white;
+        font-weight: 600;
         cursor: pointer;
+        transition: 0.3s;
     }
     
-    /* SECTION TITLE */
+    .btn-search:hover {
+        background: linear-gradient(135deg, #16a085 0%, #0e7c64 100%);
+    }
+    
+    .btn-reset-search {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 60px;
+        padding: 12px 28px;
+        color: #64748b;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-reset-search:hover {
+        background: #f1f5f9;
+        color: #1e293b;
+    }
+    
+    /* Section Title */
     .section-title {
-        margin-bottom: 28px;
-        padding-bottom: 12px;
-        border-bottom: 2px solid #e2e8f0;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
     }
     
     .section-title h3 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         font-weight: 700;
         color: #1e293b;
         margin: 0;
+        position: relative;
+        display: inline-block;
     }
     
-    .section-title h3:before {
-        content: '📖 ';
-        font-weight: normal;
+    .section-title h3::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: linear-gradient(90deg, #1abc9c, #f39c12);
+        border-radius: 3px;
     }
     
-    /* ============ GRID ARTIKEL - TIDAK ADA RUANG KOSONG ============ */
+    .article-count {
+        background: white;
+        padding: 6px 16px;
+        border-radius: 40px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+        border: 1px solid #e2e8f0;
+    }
+    
+    /* ============ GRID ARTIKEL - 3 KOLOM ============ */
     .articles-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        gap: 28px;
     }
     
-    /* CARD ARTIKEL */
+    /* ============ CARD ARTIKEL - TIDAK GEPENG ============ */
     .article-card {
         background: white;
         border-radius: 24px;
         overflow: hidden;
-        transition: all 0.35s ease;
-        box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.12);
-        border: 1px solid rgba(226, 232, 240, 0.8);
+        transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eef2f6;
         height: 100%;
         display: flex;
         flex-direction: column;
     }
     
     .article-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 35px -16px rgba(0, 0, 0, 0.2);
-        border-color: #1abc9c60;
+        transform: translateY(-10px);
+        box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+        border-color: #1abc9c40;
     }
     
+    /* Image Container - Tinggi Proporsional */
     .article-image {
+        position: relative;
+        height: 220px;
         overflow: hidden;
         background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
-        position: relative;
-        height: 200px;
-        flex-shrink: 0;
     }
     
     .article-image img {
@@ -312,87 +378,130 @@
     }
     
     .article-card:hover .article-image img {
-        transform: scale(1.05);
+        transform: scale(1.08);
     }
     
+    /* Overlay Gradient */
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+    
+    /* Category Tag Premium */
     .category-tag {
         position: absolute;
-        top: 15px;
-        left: 15px;
-        background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(6px);
-        padding: 5px 14px;
+        top: 16px;
+        left: 16px;
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        padding: 6px 16px;
         border-radius: 30px;
         font-size: 0.7rem;
-        font-weight: 800;
-        color: #1abc9c;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         z-index: 2;
+        letter-spacing: 0.5px;
     }
     
+    /* Badge Baru/Terbaru */
+    .badge-new {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: #f39c12;
+        color: white;
+        padding: 5px 14px;
+        border-radius: 30px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        z-index: 2;
+        box-shadow: 0 2px 10px rgba(243,156,18,0.3);
+    }
+    
+    /* Content */
     .article-content {
-        padding: 18px 20px 20px;
+        padding: 20px 22px 24px;
         flex: 1;
         display: flex;
         flex-direction: column;
     }
     
-    .article-date {
-        font-size: 0.7rem;
-        color: #94a3b8;
-        margin-bottom: 10px;
+    /* Meta Info */
+    .article-meta {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 16px;
+        margin-bottom: 14px;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        flex-wrap: wrap;
     }
     
+    .article-date, .article-author {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    /* Title */
     .article-title {
-        font-size: 1.05rem;
-        font-weight: 750;
+        font-size: 1.15rem;
+        font-weight: 800;
         color: #0f172a;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 48px;
+        transition: color 0.2s;
     }
     
+    .article-card:hover .article-title {
+        color: #1abc9c;
+    }
+    
+    /* Excerpt - Lebih panjang agar tidak gepeng */
     .article-excerpt {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         color: #475569;
-        line-height: 1.5;
-        margin-bottom: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
         flex: 1;
+        min-height: 65px;
     }
     
+    /* Footer dengan Tombol */
     .article-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: auto;
-        padding-top: 14px;
+        padding-top: 16px;
         border-top: 1px solid #f1f5f9;
     }
     
     .read-more {
         color: #1abc9c;
         text-decoration: none;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 700;
         display: flex;
         align-items: center;
-        gap: 6px;
-        transition: 0.25s;
+        gap: 8px;
+        transition: all 0.25s;
     }
     
     .read-more:hover {
-        gap: 12px;
+        gap: 14px;
         color: #0e7c64;
     }
     
@@ -401,8 +510,8 @@
         grid-column: 1 / -1;
         text-align: center;
         padding: 60px 20px;
-        background: rgba(255,255,255,0.9);
-        border-radius: 48px;
+        background: white;
+        border-radius: 32px;
         margin: 20px 0;
     }
     
@@ -417,9 +526,15 @@
     }
     
     /* ============ RESPONSIVE ============ */
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
         .articles-grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .kategori-sidebar {
+            flex: 0 0 260px;
         }
     }
     
@@ -438,13 +553,15 @@
             width: 100%;
         }
         
-        .kategori-grid {
-            flex-direction: row;
+        .kategori-list {
+            display: flex;
             flex-wrap: wrap;
+            gap: 8px;
         }
         
         .kategori-artikel-link {
             flex: 0 0 auto;
+            margin: 0;
         }
         
         .articles-grid {
@@ -454,38 +571,34 @@
         .articles-title {
             font-size: 1.8rem;
         }
+        
+        .search-form {
+            flex-direction: column;
+        }
+        
+        .btn-reset-search {
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .article-image {
+            height: 200px;
+        }
+        
+        .article-title {
+            font-size: 1rem;
+        }
+        
+        .article-excerpt {
+            font-size: 0.8rem;
+            min-height: 60px;
+        }
     }
     
     @media (min-width: 769px) and (max-width: 900px) {
         .articles-grid {
             grid-template-columns: repeat(2, 1fr);
         }
-    }
-    
-    /* Tombol reset */
-    .btn-reset-kategori {
-        margin-top: 16px;
-        padding-top: 12px;
-        border-top: 1px solid #e2e8f0;
-    }
-    
-    .btn-reset-kategori a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        background: #f1f5f9;
-        padding: 8px 16px;
-        border-radius: 40px;
-        text-decoration: none;
-        font-size: 0.8rem;
-        color: #64748b;
-        transition: 0.2s;
-    }
-    
-    .btn-reset-kategori a:hover {
-        background: #e2e8f0;
-        color: #1e293b;
     }
 </style>
 @endsection
@@ -504,12 +617,17 @@
 <div class="articles-container-full pb-5">
     <div class="articles-layout">
         
-        <!-- SIDEBAR KATEGORI -->
+        <!-- ============ SIDEBAR KATEGORI PREMIUM ============ -->
         <aside class="kategori-sidebar">
-            <h5>Kategori Artikel</h5>
+            <div class="sidebar-header">
+                <h5>
+                    📂 Kategori
+                </h5>
+                <p>Telusuri artikel berdasarkan topik</p>
+            </div>
             
-            <div class="kategori-grid">
-                <a href="/artikel" class="kategori-artikel-link {{ empty($kategori_aktif) ? 'active' : '' }}">
+            <div class="kategori-list">
+                <a href="/artikel" class="kategori-artikel-link {{ empty($kategori_aktif) && empty(request('cari')) ? 'active' : '' }}">
                     <span>📰</span>
                     <span class="kat-text">Semua Artikel</span>
                     @if(isset($total_artikel_count) && $total_artikel_count > 0)
@@ -535,70 +653,95 @@
             
             <!-- Tombol reset jika ada filter aktif -->
             @if($kategori_aktif || request('cari'))
-            <div class="btn-reset-kategori">
-                <a href="/artikel">
+            <div class="btn-reset-wrapper">
+                <a href="/artikel" class="btn-reset-kategori">
                     🔄 Reset Filter
                 </a>
             </div>
             @endif
         </aside>
         
-        <!-- KONTEN UTAMA -->
+        <!-- ============ KONTEN UTAMA ============ -->
         <main class="konten-utama">
             
-            <!-- Search Box -->
-            <div class="search-box-wrapper position-relative">
-                <form action="/artikel" method="GET">
+            <!-- Search Box Premium -->
+            <div class="search-box-wrapper">
+                <form action="/artikel" method="GET" class="search-form">
                     @if($kategori_aktif) 
                         <input type="hidden" name="kategori" value="{{ $kategori_aktif }}"> 
                     @endif
-                    <input type="text" name="cari" class="search-box-artikel" 
-                           placeholder="Cari judul atau topik artikel..." 
-                           value="{{ request('cari') }}">
-                    <button type="submit" class="btn-search">
-                        🔍
-                    </button>
+                    <div class="search-input-group">
+                        <input type="text" name="cari" class="search-box-artikel" 
+                               placeholder="Cari judul atau topik artikel..." 
+                               value="{{ request('cari') }}">
+                        <button type="submit" class="btn-search">
+                            🔍 Cari
+                        </button>
+                    </div>
+                    @if(request('cari') || $kategori_aktif)
+                        <a href="/artikel" class="btn-reset-search">
+                            🔄 Reset
+                        </a>
+                    @endif
                 </form>
             </div>
 
             <!-- Section Title -->
             <div class="section-title">
-                <h3>{{ $kategori_aktif ? 'Kategori: ' . $kategori_aktif : 'Artikel Terbaru' }}</h3>
+                <h3>{{ $kategori_aktif ? 'Kategori: ' . $kategori_aktif : (request('cari') ? 'Hasil Pencarian: "' . request('cari') . '"' : 'Artikel Terbaru') }}</h3>
+                <div class="article-count">
+                    📊 {{ $list_artikel->count() }} artikel
+                </div>
             </div>
             
-            <!-- GRID ARTIKEL - FULL WIDTH TANPA RUANG KOSONG -->
+            <!-- GRID ARTIKEL - DESAIN CARD TIDAK GEPENG -->
             <div class="articles-grid">
                 @forelse($list_artikel as $index => $item)
                 <div class="article-card" style="animation-delay: {{ $index * 0.05 }}s">
                     
-                    <!-- Gambar dengan tinggi konsisten -->
+                    <!-- Gambar dengan overlay -->
                     <div class="article-image">
                         @if($item->foto && file_exists(public_path('images/artikel/' . $item->foto)))
                             <img src="{{ asset('images/artikel/' . $item->foto) }}" alt="{{ $item->judul }}">
                         @else
                             <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=600&auto=format&fit=crop" alt="Artikel Kesehatan">
                         @endif
+                        <div class="image-overlay"></div>
                         <div class="category-tag">{{ $item->kategori_artikel ?? 'Kesehatan' }}</div>
+                        
+                        <!-- Badge baru untuk artikel 7 hari terakhir -->
+                        @if($item->created_at && $item->created_at->diffInDays(now()) <= 7)
+                            <div class="badge-new">✨ BARU</div>
+                        @endif
                     </div>
 
                     <div class="article-content">
-                        <div class="article-date">
-                            <span>📅</span> 
-                            {{ $item->created_at ? $item->created_at->format('d M Y') : 'Baru saja' }}
-                            <span>•</span>
-                            <span>✍️</span> 
-                            {{ $item->penulis ?? 'Admin' }}
+                        <!-- Meta Info -->
+                        <div class="article-meta">
+                            <span class="article-date">
+                                📅 {{ $item->created_at ? $item->created_at->format('d M Y') : 'Baru saja' }}
+                            </span>
+                            <span class="article-author">
+                                ✍️ {{ $item->penulis ?? 'Admin Wijaya Farma' }}
+                            </span>
                         </div>
                         
+                        <!-- Title -->
                         <div class="article-title">{{ $item->judul }}</div>
                         
+                        <!-- Excerpt - Lebih panjang -->
                         <div class="article-excerpt">
-                            {{ Str::limit(strip_tags($item->konten), 100) }}
+                            {{ Str::limit(strip_tags($item->konten), 120) }}
                         </div>
                         
+                        <!-- Footer -->
                         <div class="article-footer">
                             <a href="{{ route('artikel.show', $item->id) }}" class="read-more">
-                                Baca Selengkapnya <span>→</span>
+                                Baca Selengkapnya 
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
                             </a>
                         </div>
                     </div>
@@ -609,7 +752,7 @@
                     <div style="font-size: 64px; margin-bottom: 20px;">📭</div>
                     <h4 class="text-muted fw-bold mb-2">Belum Ada Artikel</h4>
                     <p class="text-muted">Maaf, artikel untuk kategori atau pencarian ini belum tersedia.</p>
-                    <a href="/artikel" class="btn btn-cari mt-3" style="display: inline-block; width: auto; padding: 10px 30px;">
+                    <a href="/artikel" class="btn btn-cari mt-3" style="display: inline-block; width: auto; padding: 10px 30px; border-radius: 60px; background: linear-gradient(135deg, #1abc9c, #16a085); color: white; text-decoration: none;">
                         🔄 Lihat Semua Artikel
                     </a>
                 </div>
@@ -632,7 +775,7 @@
             particle.style.top = Math.random() * 100 + '%';
             particle.style.width = Math.random() * 4 + 2 + 'px';
             particle.style.height = particle.style.width;
-            particle.style.backgroundColor = 'rgba(26, 188, 156, 0.15)';
+            particle.style.backgroundColor = 'rgba(26, 188, 156, 0.12)';
             particle.style.borderRadius = '50%';
             particle.style.pointerEvents = 'none';
             particle.style.zIndex = '0';
@@ -644,7 +787,6 @@
 </script>
 
 <style>
-    /* Additional keyframe untuk particles */
     @keyframes floatBlob {
         0%, 100% { transform: translate(0, 0) scale(1); }
         50% { transform: translate(15px, 10px) scale(1.3); }
