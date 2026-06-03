@@ -18,7 +18,6 @@ class Artikel extends Model
         'ringkasan',
         'konten',
         'penulis',
-        'foto', // Tambahkan jika nanti Artikel Anda punya fitur upload foto sendiri
         'foto',
     ];
 }
