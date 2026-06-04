@@ -3,153 +3,549 @@
 @section('title', 'Layanan Kesehatan - Wijaya Farma')
 
 @section('custom-css')
-<!-- Google Fonts & Font Awesome (Dipindahkan ke section custom-css agar rapi) -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
     :root {
-        --primary-green: #1ABC9C;
+        --primary: #1ABC9C;
         --primary-dark: #16a085;
-        --dark-navy: #1a2634;
-        --text-muted: #5a6e7a;
-        --gradient-start: #e0faf5;
-        --gradient-end: #d4e6f1;
+        --primary-light: #d1fae5;
+        --secondary: #2c3e50;
+        --accent: #e67e22;
+        --accent-light: #fef3c7;
+        --dark: #1e293b;
+        --text-muted: #64748b;
+        --bg-soft: #f0fdf4;
+        --white: #ffffff;
+        --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
+        --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+        --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        background: linear-gradient(135deg, #f0fdfa 0%, #e6f4f0 100%);
         min-height: 100vh;
     }
 
-    .container-layanan { padding: 60px 20px; }
+    .container-layanan {
+        width: 100%;
+        max-width: 100%;
+        padding: 40px 30px;
+        margin: 0 auto;
+    }
 
-    /* Judul Section */
-    .section-title { font-weight: 800; font-size: 2.8rem; color: var(--dark-navy); margin-bottom: 15px; letter-spacing: -0.5px; }
-    .section-title span { background: linear-gradient(135deg, var(--primary-green), var(--primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .underline { width: 80px; height: 4px; background: linear-gradient(90deg, var(--primary-green), var(--primary-dark)); margin: 0 auto 25px; border-radius: 10px; }
-    .subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+    /* ================= HEADER SECTION ================= */
+    .header-layanan {
+        text-align: center;
+        margin-bottom: 50px;
+    }
 
-    /* Card Layanan Premium */
+    .header-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        color: var(--primary-dark);
+        padding: 6px 20px;
+        border-radius: 60px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 12px;
+        letter-spacing: -1px;
+    }
+
+    .header-title span {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .header-underline {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        margin: 0 auto 18px;
+        border-radius: 10px;
+    }
+
+    .header-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* ================= GRID 4 KOLOM ================= */
+    .layanan-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+
+    /* ================= CARD - LEBIH PANJANG ================= */
     .card-layanan {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(0px);
-        border-radius: 28px;
+        background: var(--white);
+        border-radius: 24px;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-        height: 100%;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: var(--shadow-md);
         display: flex;
         flex-direction: column;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        animation: fadeUp 0.6s ease forwards;
-        opacity: 0;
+        height: 100%;
+        border: 1px solid #eef2f6;
     }
 
     .card-layanan:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
-        background: #ffffff;
-        border-color: transparent;
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
     }
 
-    /* AREA FOTO - Stunning */
-    .foto-wrapper { width: 100%; height: 260px; overflow: hidden; background: linear-gradient(145deg, #e2f0ec, #cde2dc); position: relative; }
-    .foto-wrapper::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.05)); pointer-events: none; }
-    .foto-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.6s ease; }
-    .card-layanan:hover .foto-wrapper img { transform: scale(1.08); }
-
-    /* Badge / Icon Overlay */
-    .icon-overlay {
-        position: absolute; bottom: 15px; right: 15px; background: var(--primary-green); width: 45px; height: 45px;
-        border-radius: 30px; display: flex; align-items: center; justify-content: center; color: white;
-        font-size: 1.3rem; box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4); z-index: 2; transition: 0.3s;
+    /* Image Container - LEBIH TINGGI */
+    .card-image-wrapper {
+        position: relative;
+        height: 230px;
+        overflow: hidden;
+        background: linear-gradient(145deg, #1e3c72, #2a5298);
+        flex-shrink: 0;
     }
-    .card-layanan:hover .icon-overlay { transform: scale(1.1); background: var(--primary-dark); }
 
-    /* Info Content */
-    .card-body-layanan { padding: 28px 24px 32px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
-    .nama-layanan { font-weight: 800; font-size: 1.6rem; color: var(--dark-navy); margin-bottom: 12px; letter-spacing: -0.3px; }
-    .deskripsi-layanan { color: var(--text-muted); font-size: 0.95rem; line-height: 1.65; margin-bottom: 28px; flex-grow: 1; }
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
 
-    /* Tombol Tanya Layanan - Modern */
+    .card-layanan:hover .card-image {
+        transform: scale(1.08);
+    }
+
+    /* Overlay Gradient di Gambar */
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+
+    /* Badge di atas gambar */
+    .image-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 5px 14px;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Badge Populer di pojok kanan */
+    .popular-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 30px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .popular-badge i {
+        font-size: 0.6rem;
+        margin-right: 3px;
+    }
+
+    /* Content - PADDING LEBIH BANYAK */
+    .card-content {
+        padding: 22px 22px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Title - LEBIH BESAR */
+    .service-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 12px;
+        line-height: 1.35;
+        letter-spacing: -0.3px;
+    }
+
+    /* Description - 3 BARIS DENGAN LINE HEIGHT LEBIH BESAR */
+    .service-description {
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        line-height: 1.65;
+        margin-bottom: 22px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex: 1;
+    }
+
+    /* Divider */
+    .card-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+        margin: 8px 0 16px;
+    }
+
+    /* ================= TOMBOL STACK VERTIKAL ================= */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 5px;
+    }
+
+    /* Tombol Baca Selengkapnya - Btn1 (Warna Biru/Teal) */
+    .btn-readmore {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 12px 16px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-readmore:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(26,188,156,0.4);
+        background: linear-gradient(135deg, var(--primary-dark), #0e7c64);
+        gap: 12px;
+    }
+
+    .btn-readmore i {
+        transition: transform 0.3s;
+    }
+
+    .btn-readmore:hover i {
+        transform: translateX(5px);
+    }
+
+    /* Tombol Tanya Layanan - Btn2 */
     .btn-wa {
-        background: linear-gradient(90deg, #25D366, #1ebe57); /* Menggunakan warna khas WhatsApp */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: transparent;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 12px 16px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: 1.5px solid var(--primary);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-wa:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(26,188,156,0.2);
+        gap: 12px;
+    }
+
+    .btn-wa i {
+        transition: transform 0.3s;
+    }
+
+    .btn-wa:hover i {
+        transform: scale(1.1);
+    }
+
+    /* ================= MODAL STYLES ================= */
+    .modal-layanan {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-layanan.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 28px;
+        max-width: 550px;
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        animation: slideUp 0.4s ease;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(60px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 20;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        border: none;
+        transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+        background: #ef4444;
+        transform: rotate(90deg);
+    }
+
+    .modal-close:hover i {
+        color: white;
+    }
+
+    .modal-close i {
+        font-size: 1.2rem;
+        color: #333;
+        transition: color 0.3s;
+    }
+
+    .modal-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 28px 28px 0 0;
+    }
+
+    .modal-image-placeholder {
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 28px 28px 0 0;
+    }
+
+    .modal-image-placeholder i {
+        font-size: 4rem;
+        color: white;
+    }
+
+    .modal-body {
+        padding: 28px;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 10px;
+    }
+
+    .modal-category {
+        display: inline-block;
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .modal-description {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 25px;
+        text-align: justify;
+    }
+
+    .modal-wa-btn {
+        background: linear-gradient(90deg, #25D366, #128c7e);
         color: white;
         border: none;
-        padding: 12px 20px;
+        padding: 14px;
         border-radius: 50px;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 1rem;
         text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
         width: 100%;
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        transition: all 0.3s;
     }
-    .btn-wa i { font-size: 1.1rem; transition: transform 0.2s; }
-    .btn-wa:hover { background: linear-gradient(90deg, #1ebe57, #128c7e); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
-    .btn-wa:hover i { transform: translateX(4px); }
 
-    .empty-state { background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border-radius: 40px; padding: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .modal-wa-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+        gap: 14px;
+    }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    .card-layanan:nth-child(1) { animation-delay: 0.1s; } .card-layanan:nth-child(2) { animation-delay: 0.2s; } .card-layanan:nth-child(3) { animation-delay: 0.3s; }
+    /* Empty State */
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px;
+        background: white;
+        border-radius: 28px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1200px) {
+        .layanan-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (max-width: 900px) {
+        .layanan-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .container-layanan {
+            padding: 30px 20px;
+        }
+    }
+    
+    @media (max-width: 550px) {
+        .layanan-grid {
+            grid-template-columns: 1fr;
+        }
+        .header-title {
+            font-size: 1.8rem;
+        }
+        .card-image-wrapper {
+            height: 200px;
+        }
+    }
 </style>
 @endsection
 
 @section('content')
 
-<div class="container container-layanan">
-    <!-- Header Premium -->
-    <div class="text-center mb-5">
-        <h2 class="section-title">Layanan <span>Terbaik</span> Kami</h2>
-        <div class="underline"></div>
-        <p class="subtitle">
-            <i class="fas fa-heartbeat me-2" style="color: var(--primary-green);"></i> 
+<div class="container-layanan">
+    
+    <!-- HEADER -->
+    <div class="header-layanan">
+        <div class="header-badge">
+            <i class="fas fa-heartbeat me-1"></i> Layanan Premium
+        </div>
+        <h1 class="header-title"><span>WIJAYA</span> FARMA</h1>
+        <div class="header-underline"></div>
+        <p class="header-subtitle">
             Kami berkomitmen memberikan pelayanan kesehatan yang cepat, tepat, dan terpercaya bagi masyarakat.
         </p>
     </div>
 
-    <!-- Grid Layanan -->
-    <div class="row g-4 justify-content-center">
-        @forelse($list_layanan as $item)
-        <div class="col-lg-4 col-md-6">
-            <div class="card-layanan">
-                
-                <!-- Bagian Foto dengan icon overlay -->
-                <div class="foto-wrapper">
-                    @if($item->foto)
-                        <!-- PERBAIKAN: Memanggil dari public/images/layanan (Sesuai Controller Anda) -->
-                        <img src="{{ asset('images/layanan/' . $item->foto) }}" alt="{{ $item->nama_layanan }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop'">
-                    @else
-                        <div class="h-100 w-100 d-flex align-items-center justify-content-center bg-light">
-                            <i class="fas fa-stethoscope fa-4x" style="color: #b2bec3;"></i>
-                        </div>
-                    @endif
-                    <div class="icon-overlay">
-                        <i class="fas fa-hand-holding-heart"></i>
-                    </div>
+    <!-- GRID LAYANAN - 4 KOLOM -->
+    <div class="layanan-grid">
+        @forelse($list_layanan as $index => $item)
+        <div class="card-layanan">
+            <div class="card-image-wrapper">
+                @if($item->foto)
+                    <img src="{{ asset('images/layanan/' . $item->foto) }}" 
+                         class="card-image" 
+                         alt="{{ $item->nama_layanan }}"
+                         onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop'">
+                @else
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop" 
+                         class="card-image" 
+                         alt="Layanan Kesehatan">
+                @endif
+                <div class="image-overlay"></div>
+                <div class="image-badge">
+                    <i class="fas fa-star"></i> Layanan Unggulan
                 </div>
-
-                <!-- Bagian Teks -->
-                <div class="card-body-layanan">
-                    <h5 class="nama-layanan">{{ $item->nama_layanan }}</h5>
-                    <p class="deskripsi-layanan">
-                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 110) }}
-                    </p>
-
-                    <!-- LOGIKA WHATSAPP PINTAR (SUDAH DIPERBAIKI) -->
+                @if($loop->iteration <= 3)
+                <div class="popular-badge">
+                    <i class="fas fa-fire"></i> Populer
+                </div>
+                @endif
+            </div>
+            <div class="card-content">
+                <h3 class="service-title">{{ $item->nama_layanan }}</h3>
+                <p class="service-description">
+                    {{ \Illuminate\Support\Str::limit(strip_tags($item->deskripsi), 110) }}
+                </p>
+                
+                <div class="card-divider"></div>
+                
+                <div class="action-buttons">
+                    <!-- Btn1 - Baca Selengkapnya (berubah dari Kelas Terbaik) -->
+                    <a href="javascript:void(0)" class="btn-readmore" onclick="openModal({{ $item->id }})">
+                        <i class="fas fa-book-open"></i> Baca Selengkapnya
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    
+                    <!-- Btn2 - Tanya Layanan -->
                     @php 
-                        // Ambil no_hp dari tabel Profil Toko, BUKAN whatsapp
                         $no_asli = $toko->no_hp ?? '';
                         $no_bersih = preg_replace('/[^0-9]/', '', $no_asli);
-                        
-                        // Konversi 0 jadi 62
                         if (strlen($no_bersih) > 0 && substr($no_bersih, 0, 1) === '0') {
                             $no_wa = '62' . substr($no_bersih, 1);
                         } else {
@@ -163,21 +559,110 @@
                             <i class="fab fa-whatsapp"></i> Tanya Layanan
                         </a>
                     @else
-                        <button class="btn btn-secondary w-100 rounded-pill fw-bold py-2" disabled>Kontak Belum Tersedia</button>
+                        <a href="javascript:void(0)" class="btn-wa" style="opacity: 0.5; cursor: not-allowed;">
+                            <i class="fab fa-whatsapp"></i> Tanya Layanan
+                        </a>
                     @endif
-
                 </div>
             </div>
         </div>
         @empty
-        <div class="col-12 text-center py-5">
-            <div class="empty-state">
-                <i class="fas fa-clinic-medical fa-4x mb-3" style="color: var(--primary-green); opacity: 0.7;"></i>
-                <h4 class="text-dark">Belum Ada Layanan</h4>
-                <p class="text-muted">Layanan kesehatan akan segera hadir untuk Anda.</p>
-            </div>
+        <div class="empty-state">
+            <i class="fas fa-clinic-medical fa-4x mb-3" style="color: var(--primary); opacity: 0.6;"></i>
+            <h4 class="text-dark mb-2">Belum Ada Layanan</h4>
+            <p class="text-muted">Layanan kesehatan akan segera hadir untuk Anda.</p>
         </div>
         @endforelse
     </div>
+
 </div>
+
+<!-- MODAL POPUP -->
+@foreach($list_layanan as $item)
+<div id="modal-{{ $item->id }}" class="modal-layanan">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal({{ $item->id }})">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        @if($item->foto)
+            <img src="{{ asset('images/layanan/' . $item->foto) }}" 
+                 class="modal-image" 
+                 alt="{{ $item->nama_layanan }}"
+                 onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop'">
+        @else
+            <div class="modal-image-placeholder">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+        @endif
+        
+        <div class="modal-body">
+            <span class="modal-category">
+                <i class="fas fa-tag me-1"></i> Layanan Kesehatan
+            </span>
+            <h2 class="modal-title">{{ $item->nama_layanan }}</h2>
+            <div class="modal-description">
+                {!! nl2br(e($item->deskripsi)) !!}
+            </div>
+            
+            @php 
+                $no_asli = $toko->no_hp ?? '';
+                $no_bersih = preg_replace('/[^0-9]/', '', $no_asli);
+                if (strlen($no_bersih) > 0 && substr($no_bersih, 0, 1) === '0') {
+                    $no_wa = '62' . substr($no_bersih, 1);
+                } else {
+                    $no_wa = $no_bersih;
+                }
+            @endphp
+            
+            @if($no_wa != '')
+                <a href="https://wa.me/{{ $no_wa }}?text=Halo Apotek Wijaya Farma, saya ingin bertanya tentang layanan {{ urlencode($item->nama_layanan) }}." 
+                   target="_blank" class="modal-wa-btn">
+                    <i class="fab fa-whatsapp"></i> Tanya Layanan via WhatsApp
+                </a>
+            @else
+                <button class="modal-wa-btn" style="background: #94a3b8; cursor: not-allowed;" disabled>
+                    <i class="fab fa-whatsapp"></i> Kontak Belum Tersedia
+                </button>
+            @endif
+        </div>
+    </div>
+</div>
+@endforeach
+
+<script>
+    function openModal(id) {
+        const modal = document.getElementById('modal-' + id);
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    function closeModal(id) {
+        const modal = document.getElementById('modal-' + id);
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal-layanan')) {
+            event.target.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal-layanan.active');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+    });
+</script>
+
 @endsection
