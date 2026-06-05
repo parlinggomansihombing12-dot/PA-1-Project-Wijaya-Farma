@@ -4,61 +4,54 @@
 
 @section('custom-css')
 <style>
-    body { 
-        background: linear-gradient(135deg, #f0f9ff 0%, #e8f0f5 100%);
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        position: relative;
+    :root {
+        --primary: #1ABC9C;
+        --primary-dark: #16a085;
+        --primary-light: #d1fae5;
+        --secondary: #2c3e50;
+        --accent: #e67e22;
+        --dark: #1e293b;
+        --text-muted: #64748b;
+        --white: #ffffff;
+        --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
+        --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+        --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #f0fdfa 0%, #e6f4f0 100%);
         min-height: 100vh;
     }
-    
-    /* Background Pattern - Subtle Medical/Pharmacy Theme */
+
     body::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
-            radial-gradient(circle at 20% 80%, rgba(26, 188, 156, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
-            repeating-linear-gradient(45deg, 
-                rgba(26, 188, 156, 0.02) 0px, 
-                rgba(26, 188, 156, 0.02) 2px,
-                transparent 2px,
-                transparent 8px
-            );
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="none" stroke="%231ABC9C" stroke-width="1" d="M10 10 L90 10 M10 20 L90 20 M10 30 L90 30 M10 40 L90 40 M10 50 L90 50 M10 60 L90 60 M10 70 L90 70 M10 80 L90 80 M10 90 L90 90 M20 10 L20 90 M30 10 L30 90 M40 10 L40 90 M50 10 L50 90 M60 10 L60 90 M70 10 L70 90 M80 10 L80 90"/></svg>');
+        background-repeat: repeat;
+        background-size: 50px;
         pointer-events: none;
         z-index: 0;
     }
-    
-    /* Container biar konten di atas background */
+
     .product-header, .produk-wrapper {
         position: relative;
         z-index: 2;
     }
 
-    /* HEADER SECTION dengan Background Gradient */
+    /* HEADER SECTION */
     .product-header {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 60px 0;
-        margin-bottom: 40px;
+        background: linear-gradient(135deg, #1a2634 0%, #2c3e50 100%);
+        padding: 55px 0;
+        margin-bottom: 45px;
         position: relative;
         overflow: hidden;
     }
 
-    .product-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 70%;
-        height: 200%;
-        background: rgba(255,255,255,0.05);
-        transform: rotate(25deg);
-        pointer-events: none;
-    }
-    
     .product-header::after {
         content: '';
         position: absolute;
@@ -66,7 +59,7 @@
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #f39c12, #e67e22, #f39c12);
+        background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
     }
 
     .section-title {
@@ -74,65 +67,138 @@
         color: white;
         margin-bottom: 15px;
         font-size: 2.5rem;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        letter-spacing: -1px;
     }
 
     .product-header p {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.1rem;
+        color: rgba(255,255,255,0.85);
+        font-size: 1rem;
     }
 
-    /* SEARCH BAR */
+    /* SEARCH BAR PREMIUM */
     .search-wrapper {
-        max-width: 550px;
+        max-width: 700px;
         margin: 0 auto;
-        position: relative;
-        z-index: 2;
+    }
+
+    .search-form {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .search-input-group {
+        flex: 1;
+        display: flex;
+        background: white;
+        border-radius: 60px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+
+    .search-input-group:focus-within {
+        box-shadow: 0 8px 30px rgba(26,188,156,0.2);
+        transform: translateY(-2px);
     }
 
     .search-box {
-        border-radius: 60px;
-        padding: 14px 25px;
-        border: none !important;
-        background: white;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: 0.3s;
-        font-size: 0.95rem;
         flex: 1;
-    }
-
-    .search-box:focus {
-        transform: scale(1.02);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
+        border: none !important;
+        padding: 14px 24px;
+        font-size: 1rem;
+        outline: none;
     }
 
     .btn-cari {
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        background: linear-gradient(135deg, #f39c12, #e67e22);
         color: white;
-        border-radius: 60px;
-        padding: 12px 35px;
+        border-radius: 0 60px 60px 0;
+        padding: 14px 32px;
         font-weight: 700;
+        font-size: 1rem;
         border: none;
-        margin-left: 12px;
         transition: 0.3s;
-        box-shadow: 0 5px 15px rgba(243,156,18,0.3);
         white-space: nowrap;
+        cursor: pointer;
     }
 
     .btn-cari:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(243,156,18,0.4);
-        color: white;
+        background: linear-gradient(135deg, #e67e22, #d35400);
+        transform: scale(1.02);
     }
 
-    /* ============ WRAPPER FULL WIDTH ============ */
+    .btn-reset {
+        background: white;
+        color: #64748b;
+        border-radius: 60px;
+        padding: 14px 28px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        border: none;
+        transition: 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-reset:hover {
+        background: #f1f5f9;
+        color: #1e293b;
+        transform: translateY(-2px);
+    }
+
+    /* ============ WRAPPER - FULL WIDTH TANPA RUANG KOSONG ============ */
     .produk-wrapper {
         width: 100%;
-        padding: 0 24px;
+        padding: 0 25px;
         margin: 0 auto;
+        max-width: 1600px;
     }
 
-    /* ============ FLEXBOX GRID - TANPA RUANG KOSONG ============ */
+    /* Header Produk */
+    .produk-header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .produk-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--dark);
+        position: relative;
+    }
+
+    .produk-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 4px;
+    }
+
+    .produk-count {
+        background: white;
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        border: 1px solid #e2e8f0;
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* ============ GRID 4 KOLOM (DIPERBESAR AGAR TIDAK KOSONG) ============ */
     .produk-flex {
         display: flex;
         flex-wrap: wrap;
@@ -140,177 +206,186 @@
     }
 
     .produk-item {
-        flex: 0 0 25%;
+        flex: 0 0 25%;     /* 4 KOLOM - LEBIH BESAR DARI 5 KOLOM */
         max-width: 25%;
         padding: 0 12px;
         margin-bottom: 24px;
     }
 
-    /* PRODUCT CARD - Desain Premium */
+    /* ============ CARD PRODUK PREMIUM - DIPERBESAR ============ */
     .product-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: white;
         border-radius: 24px;
-        border: 1px solid rgba(255,255,255,0.3);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         height: 100%;
         display: flex;
         flex-direction: column;
-        box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+        box-shadow: var(--shadow-md);
         overflow: hidden;
         position: relative;
+        border: 1px solid #eef2f6;
     }
 
     .product-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 24px 48px rgba(0,0,0,0.12);
-        background: white;
-        border-color: rgba(26, 188, 156, 0.2);
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
     }
 
-    /* Badge kategori di pojok */
+    /* Badge kategori */
     .category-badge {
         position: absolute;
         top: 15px;
         left: 15px;
-        background: rgba(255,255,255,0.95);
+        background: rgba(0,0,0,0.7);
         backdrop-filter: blur(5px);
-        padding: 5px 14px;
+        padding: 6px 14px;
         border-radius: 30px;
-        font-size: 11px;
-        font-weight: 800;
-        color: #2a5298;
-        letter-spacing: 0.5px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: white;
         z-index: 2;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        letter-spacing: 0.5px;
     }
 
-    /* Image Container */
+    /* Image Container - LEBIH TINGGI */
     .img-container {
-        height: 210px;
+        height: 230px;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
         padding: 20px;
-        transition: 0.3s;
+        border-bottom: 1px solid #eef2f6;
     }
 
     .product-card:hover .img-container {
-        background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 100%);
+        background: linear-gradient(145deg, #f0fdf4 0%, #e6faf5 100%);
     }
 
     .img-container img {
-        max-width: 85%;
-        max-height: 140px;
+        max-width: 90%;
+        max-height: 160px;
         object-fit: contain;
         transition: transform 0.3s ease;
     }
 
     .product-card:hover .img-container img {
-        transform: scale(1.05);
+        transform: scale(1.08);
     }
 
-    /* Content Area */
+    /* Content Area - PADDING LEBIH BESAR */
     .product-content {
-        padding: 20px 20px 22px;
+        padding: 20px 22px 24px;
         flex: 1;
         display: flex;
         flex-direction: column;
+        gap: 12px;
     }
 
+    /* NAMA PRODUK - LEBIH BESAR */
     .product-name {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 800;
-        color: #1e293b;
-        margin-bottom: 12px;
+        color: var(--dark);
         line-height: 1.4;
-        min-height: 52px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        min-height: 54px;
     }
 
-    /* Harga & Stok */
-    .price-section {
-        background: #fef9e8;
-        border-radius: 16px;
-        padding: 12px 15px;
-        margin: 12px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
+    /* HARGA - LEBIH BESAR */
     .product-price {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #e67e22, #f39c12);
+        background: linear-gradient(135deg, #e67e22, #f97316);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+        margin: 6px 0;
     }
 
-    .product-stock {
-        font-size: 12px;
-        font-weight: 600;
-        background: white;
-        padding: 4px 12px;
-        border-radius: 40px;
-        color: #2d6a4f;
+    /* STOK - LEBIH BESAR & JELAS */
+    .stock-wrapper {
+        background: #f8fafc;
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        border: 1px solid #eef2f6;
     }
 
-    .stock-low {
-        color: #e67e22;
-        background: #fff3e0;
+    .stock-label {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
-    .stock-out {
-        color: #dc2626;
-        background: #fee2e2;
+    .stock-value {
+        font-size: 1rem;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    /* Tombol Detail */
+    .stock-value.stock-good {
+        color: #15803d;
+    }
+
+    .stock-value.stock-low {
+        color: #b45309;
+    }
+
+    .stock-value.stock-out {
+        color: #b91c1c;
+    }
+
+    /* Tombol Detail - LEBIH BESAR */
     .btn-detail {
-        background: white;
-        color: #2a5298;
+        margin-top: 8px;
+        background: #f1f5f9;
+        color: #1e293b;
         text-align: center;
-        padding: 12px;
-        border-radius: 40px;
+        padding: 14px 0;
+        border-radius: 50px;
         text-decoration: none;
-        font-weight: 700;
-        font-size: 13px;
+        font-weight: 800;
+        font-size: 0.9rem;
         transition: 0.3s;
-        border: 1.5px solid #e2e8f0;
-        margin-top: auto;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
+        border: 1px solid #e2e8f0;
     }
 
     .btn-detail:hover {
-        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border-color: transparent;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        gap: 12px;
     }
 
     /* Empty State */
     .empty-state-full {
         text-align: center;
         padding: 60px 20px;
-        background: rgba(255,255,255,0.9);
-        border-radius: 48px;
-        margin: 20px auto;
-        border: 1px solid rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.95);
+        border-radius: 40px;
         width: 100%;
     }
 
-    /* Animasi muncul */
+    /* Animasi */
     @keyframes fadeInUp {
         from {
             opacity: 0;
@@ -329,40 +404,56 @@
     /* ============ RESPONSIVE ============ */
     @media (max-width: 1200px) {
         .produk-item {
-            flex: 0 0 33.333%;
+            flex: 0 0 33.333%;   /* 3 kolom */
             max-width: 33.333%;
+        }
+        .img-container {
+            height: 200px;
         }
     }
     
     @media (max-width: 768px) {
         .produk-wrapper {
-            padding: 0 16px;
+            padding: 0 20px;
         }
         .produk-item {
-            flex: 0 0 50%;
+            flex: 0 0 50%;    /* 2 kolom */
             max-width: 50%;
+        }
+        .img-container {
+            height: 180px;
+        }
+        .search-form {
+            flex-direction: column;
+        }
+        .search-input-group {
+            border-radius: 60px;
+        }
+        .btn-reset, .btn-cari {
+            border-radius: 60px;
+        }
+        .product-name {
+            font-size: 1rem;
+        }
+        .product-price {
+            font-size: 1.3rem;
+        }
+        .produk-title {
+            font-size: 1.5rem;
         }
     }
     
-    @media (max-width: 576px) {
+    @media (max-width: 550px) {
         .produk-item {
-            flex: 0 0 100%;
+            flex: 0 0 100%;   /* 1 kolom */
             max-width: 100%;
         }
         .section-title {
             font-size: 1.8rem;
         }
-    }
-
-    /* Form search tetap rapi */
-    .d-flex {
-        display: flex;
-    }
-
-    .btn-reset {
-        display: inline-block;
-        width: auto;
-        padding: 10px 30px;
+        .img-container {
+            height: 200px;
+        }
     }
 </style>
 @endsection
@@ -373,31 +464,49 @@
 <div class="product-header">
     <div class="container text-center">
         <h1 class="section-title">✨ Katalog Produk ✨</h1>
-        <p class="mb-4">Temukan obat-obatan berkualitas untuk kesehatan keluarga anda</p>
+        <p class="mb-3">Temukan obat-obatan berkualitas untuk kesehatan keluarga anda</p>
         
         <div class="search-wrapper">
-            <form action="{{ url('/produk') }}" method="GET" class="d-flex justify-content-center">
-                <input type="text" name="cari" class="form-control search-box shadow-none" 
-                       placeholder="Cari nama obat atau kategori..." value="{{ request('cari') }}">
-                <button type="submit" class="btn btn-cari shadow-sm">
-                    🔍 Cari
-                </button>
+            <form action="{{ url('/produk') }}" method="GET" class="search-form">
+                <div class="search-input-group">
+                    <input type="text" name="cari" class="search-box" 
+                           placeholder="Cari nama obat atau kategori..." value="{{ request('cari') }}">
+                    <button type="submit" class="btn-cari">
+                        🔍 Cari
+                    </button>
+                </div>
+                @if(request('cari'))
+                <a href="{{ url('/produk') }}" class="btn-reset">
+                    🔄 Reset
+                </a>
+                @endif
             </form>
         </div>
     </div>
 </div>
 
-<!-- PRODUCT GRID - FULL WIDTH, TIDAK ADA RUANG KOSONG DI SAMPING -->
+<!-- PRODUCT GRID - 4 KOLOM (DIPERBESAR) -->
 <div class="produk-wrapper">
+    <!-- Header dengan jumlah produk -->
+    <div class="produk-header-section">
+        <div class="produk-title">
+            Semua Produk
+        </div>
+        <div class="produk-count">
+            📊 {{ $list_produk->count() }} produk
+        </div>
+    </div>
+
     <div class="produk-flex">
         @forelse($list_produk as $index => $item)
         <div class="produk-item">
-            <div class="product-card" style="animation-delay: {{ $index * 0.05 }}s">
+            <div class="product-card" style="animation-delay: {{ $index * 0.03 }}s">
                 <!-- Badge Kategori -->
                 <div class="category-badge">
                     📂 {{ $item->kategori->nama_kategori ?? 'Umum' }}
                 </div>
 
+                <!-- FOTO PRODUK -->
                 <div class="img-container">
                     @if($item->foto)
                         <img src="{{ asset('images/produk/' . $item->foto) }}" alt="{{ $item->nama_obat }}">
@@ -407,41 +516,57 @@
                 </div>
 
                 <div class="product-content">
+                    <!-- Nama Produk -->
                     <div class="product-name">{{ $item->nama_obat }}</div>
 
-                    <!-- Area Harga dan Stok -->
-                    <div class="price-section">
-                        <span class="product-price">Rp {{ number_format($item->harga, 0, ',', '.') }}</span>
+                    <!-- Harga -->
+                    <div class="product-price">Rp {{ number_format($item->harga, 0, ',', '.') }}</div>
+
+                    <!-- STOK -->
+                    @php
+                        $stockClass = '';
+                        $stockIcon = '✅';
+                        $stockText = $item->stok . ' tersedia';
                         
-                        @php
-                            $stockClass = '';
-                            $stockText = 'Stok: ' . $item->stok;
-                            if($item->stok <= 0) {
-                                $stockClass = 'stock-out';
-                                $stockText = '❌ Habis';
-                            } elseif($item->stok <= 5) {
-                                $stockClass = 'stock-low';
-                                $stockText = '⚠️ Stok: ' . $item->stok;
-                            }
-                        @endphp
-                        
-                        <div class="product-stock {{ $stockClass }}">
-                            {{ $stockText }}
-                        </div>
+                        if($item->stok <= 0) {
+                            $stockClass = 'stock-out';
+                            $stockIcon = '❌';
+                            $stockText = 'HABIS';
+                        } elseif($item->stok <= 5) {
+                            $stockClass = 'stock-low';
+                            $stockIcon = '⚠️';
+                            $stockText = 'SISA ' . $item->stok;
+                        } else {
+                            $stockClass = 'stock-good';
+                            $stockIcon = '📦';
+                            $stockText = $item->stok . ' tersedia';
+                        }
+                    @endphp
+                    
+                    <div class="stock-wrapper">
+                        <span class="stock-label">📊 STOK</span>
+                        <span class="stock-value {{ $stockClass }}">
+                            {{ $stockIcon }} {{ $stockText }}
+                        </span>
                     </div>
 
-                    <a href="/produk/{{ $item->id }}" class="btn-detail">
-                        👁️ Lihat Detail Produk
+                    <!-- Tombol Detail dengan parameter from=produk -->
+                    <a href="/produk/{{ $item->id }}?from=produk" class="btn-detail">
+                        👁️ Lihat Detail
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
                     </a>
                 </div>
             </div>
         </div>
         @empty
         <div class="empty-state-full">
-            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="100" class="mb-4 opacity-50">
-            <h3 class="text-muted mb-2">🌿 Obat tidak ditemukan</h3>
-            <p class="text-muted">Coba gunakan kata kunci pencarian yang lain.</p>
-            <a href="{{ url('/produk') }}" class="btn btn-cari btn-reset mt-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="mb-3 opacity-50">
+            <h4 class="text-muted mb-2">🌿 Obat tidak ditemukan</h4>
+            <p class="text-muted small">Coba gunakan kata kunci pencarian yang lain.</p>
+            <a href="{{ url('/produk') }}" class="btn-cari mt-2" style="display: inline-block; width: auto; border-radius: 60px;">
                 🔄 Reset Pencarian
             </a>
         </div>
@@ -450,30 +575,27 @@
 </div>
 
 <script>
-    // Menambahkan floating particles di background
     document.addEventListener('DOMContentLoaded', function() {
         const body = document.body;
-        for(let i = 0; i < 30; i++) {
+        for(let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
             particle.className = 'bg-particle';
             particle.style.position = 'fixed';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            particle.style.width = Math.random() * 6 + 2 + 'px';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
             particle.style.height = particle.style.width;
-            particle.style.backgroundColor = 'rgba(26, 188, 156, 0.2)';
+            particle.style.backgroundColor = 'rgba(26, 188, 156, 0.12)';
             particle.style.borderRadius = '50%';
             particle.style.pointerEvents = 'none';
             particle.style.zIndex = '0';
-            particle.style.animation = `floatBlob ${15 + Math.random() * 20}s infinite ease-in-out`;
-            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animation = `floatBlob ${10 + Math.random() * 15}s infinite ease-in-out`;
             body.appendChild(particle);
         }
     });
 </script>
 
 <style>
-    /* Additional styles for particles */
     .bg-particle {
         position: fixed;
         pointer-events: none;
@@ -482,7 +604,7 @@
     
     @keyframes floatBlob {
         0%, 100% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(10px, 10px) scale(1.2); }
+        50% { transform: translate(5px, 8px) scale(1.2); }
     }
 </style>
 
