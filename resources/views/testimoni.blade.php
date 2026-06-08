@@ -16,9 +16,9 @@
         --dark: #1e293b;
         --text-muted: #64748b;
         --white: #ffffff;
-        --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
-        --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
-        --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+        --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
+        --shadow-lg: 0 8px 20px rgba(0,0,0,0.08);
     }
 
     body {
@@ -28,34 +28,34 @@
     }
 
     .container-testimoni {
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 50px 30px;
+        padding: 35px 25px;
     }
 
     /* ================= HEADER SECTION ================= */
     .testimoni-header {
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
     }
 
     .header-badge {
         display: inline-block;
         background: linear-gradient(135deg, var(--primary-light), var(--primary));
         color: var(--primary-dark);
-        padding: 6px 20px;
-        border-radius: 60px;
-        font-size: 0.8rem;
+        padding: 4px 16px;
+        border-radius: 50px;
+        font-size: 0.7rem;
         font-weight: 700;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         letter-spacing: 1px;
     }
 
     .header-title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .header-title span {
@@ -66,110 +66,105 @@
     }
 
     .header-underline {
-        width: 80px;
-        height: 4px;
+        width: 60px;
+        height: 3px;
         background: linear-gradient(90deg, var(--primary), var(--accent));
-        margin: 0 auto 18px;
-        border-radius: 10px;
+        margin: 0 auto 12px;
+        border-radius: 3px;
     }
 
     .header-subtitle {
         color: var(--text-muted);
-        font-size: 1rem;
-        max-width: 550px;
+        font-size: 0.85rem;
+        max-width: 500px;
         margin: 0 auto;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
-    /* ================= STATISTIK - REAL TIME ================= */
+    /* ================= STATISTIK ================= */
     .stats-section {
         display: flex;
         justify-content: center;
-        gap: 40px;
-        margin-bottom: 50px;
+        gap: 25px;
+        margin-bottom: 35px;
         flex-wrap: wrap;
     }
 
     .stat-item {
         text-align: center;
         background: white;
-        padding: 25px 40px;
-        border-radius: 28px;
-        box-shadow: var(--shadow-md);
+        padding: 16px 28px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-sm);
         border: 1px solid #eef2f6;
-        transition: all 0.3s;
-        min-width: 180px;
+        transition: all 0.2s;
+        min-width: 130px;
     }
 
     .stat-item:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
         border-color: var(--primary);
     }
 
     .stat-number {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
         font-weight: 800;
         color: var(--primary);
         line-height: 1;
     }
 
     .stat-label {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         color: var(--text-muted);
         font-weight: 500;
-        margin-top: 8px;
+        margin-top: 6px;
     }
 
     .stat-rating {
-        font-size: 1rem;
+        font-size: 0.75rem;
         color: #fbbf24;
-        letter-spacing: 2px;
-        margin-top: 5px;
+        letter-spacing: 1px;
+        margin-top: 4px;
     }
 
     /* ================= FORM TESTIMONI ================= */
     .form-container {
-        max-width: 600px;
-        margin: 0 auto 60px;
+        max-width: 500px;
+        margin: 0 auto 40px;
     }
 
     .form-card {
         background: white;
-        border-radius: 32px;
-        padding: 35px;
-        box-shadow: var(--shadow-lg);
-        border: 1px solid rgba(26,188,156,0.15);
-        transition: all 0.3s;
-    }
-
-    .form-card:hover {
-        transform: translateY(-5px);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid rgba(26,188,156,0.1);
     }
 
     .form-title {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 25px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid var(--primary-light);
+        gap: 10px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--primary-light);
     }
 
     .form-title-icon {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        border-radius: 16px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
     .form-title h5 {
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: 700;
         color: var(--dark);
         margin: 0;
@@ -177,37 +172,37 @@
 
     .form-control-custom {
         width: 100%;
-        padding: 14px 18px;
+        padding: 10px 15px;
         border: 1.5px solid #e2e8f0;
-        border-radius: 16px;
-        font-size: 0.9rem;
-        transition: all 0.3s;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        transition: all 0.2s;
         font-family: 'Inter', sans-serif;
     }
 
     .form-control-custom:focus {
         outline: none;
         border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(26,188,156,0.1);
+        box-shadow: 0 0 0 2px rgba(26,188,156,0.1);
     }
 
     .rating-container {
         text-align: center;
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .rating-title {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         font-weight: 600;
         color: var(--text-muted);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     .rating {
         display: flex;
         flex-direction: row-reverse;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
     }
 
     .rating input {
@@ -215,7 +210,7 @@
     }
 
     .rating label {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: #cbd5e1;
         cursor: pointer;
         transition: all 0.2s;
@@ -225,53 +220,52 @@
     .rating label:hover,
     .rating label:hover ~ label {
         color: #fbbf24;
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     .btn-submit {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border: none;
-        padding: 14px 30px;
+        padding: 10px 20px;
         border-radius: 50px;
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         width: 100%;
-        transition: all 0.3s;
+        transition: all 0.2s;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
     }
 
     .btn-submit:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(26,188,156,0.4);
-        gap: 15px;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(26,188,156,0.3);
+        gap: 10px;
     }
 
-    /* ================= GRID TESTIMONI - 3 KOLOM TIDAK GEPENG ================= */
+    /* ================= GRID TESTIMONI - 4 KOLOM ================= */
     .testimoni-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
     }
 
-    /* ================= CARD TESTIMONI - TIDAK GEPENG ================= */
+    /* ================= CARD TESTIMONI ================= */
     .testimoni-card {
         background: white;
-        border-radius: 28px;
-        padding: 28px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: var(--shadow-md);
+        border-radius: 16px;
+        padding: 18px;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
         border: 1px solid #eef2f6;
         position: relative;
         overflow: hidden;
         height: 100%;
         display: flex;
         flex-direction: column;
-        min-height: 280px;
     }
 
     .testimoni-card::before {
@@ -280,86 +274,80 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 5px;
+        height: 3px;
         background: linear-gradient(90deg, var(--primary), var(--accent));
     }
 
     .testimoni-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
         border-color: var(--primary);
     }
 
-    /* Quote Icon */
     .quote-icon {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 4rem;
+        top: 12px;
+        right: 12px;
+        font-size: 2.5rem;
         color: var(--primary-light);
         opacity: 0.3;
         font-family: serif;
     }
 
-    /* Rating Bintang */
     .card-rating {
-        margin-bottom: 18px;
+        margin-bottom: 12px;
         display: flex;
-        gap: 6px;
+        gap: 4px;
     }
 
     .card-rating .star {
         color: #fbbf24;
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
     .card-rating .star-empty {
         color: #e2e8f0;
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
-    /* ISI TESTIMONI - AGAR TIDAK GEPENG */
     .comment-text {
-        font-size: 0.98rem;
-        line-height: 1.65;
+        font-size: 0.8rem;
+        line-height: 1.55;
         color: var(--dark);
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         font-weight: 500;
         position: relative;
         z-index: 1;
         flex: 1;
-        min-height: 80px;
     }
 
     .comment-text::before {
         content: '"';
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         color: var(--primary-light);
         opacity: 0.4;
         position: absolute;
-        top: -12px;
-        left: -6px;
+        top: -10px;
+        left: -5px;
         font-family: serif;
     }
 
-    /* Divider */
     .card-divider {
         height: 1px;
         background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-        margin: 12px 0 16px;
+        margin: 10px 0 12px;
     }
 
-    /* NAMA PELANGGAN */
     .customer-info {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 10px;
         margin-top: 5px;
     }
 
     .customer-avatar {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         border-radius: 50%;
         display: flex;
@@ -367,39 +355,39 @@
         justify-content: center;
         color: white;
         font-weight: 800;
-        font-size: 1.2rem;
-        box-shadow: 0 5px 15px rgba(26,188,156,0.3);
+        font-size: 1rem;
+        box-shadow: 0 3px 8px rgba(26,188,156,0.2);
         flex-shrink: 0;
     }
 
     .customer-detail h6 {
-        font-size: 1rem;
+        font-size: 0.85rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 4px;
+        margin-bottom: 3px;
     }
 
     .customer-detail p {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
         color: var(--text-muted);
         margin: 0;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
         flex-wrap: wrap;
     }
 
     .verified-badge {
         color: var(--primary);
-        font-size: 0.65rem;
+        font-size: 0.6rem;
     }
 
     .rating-text {
         background: var(--primary-light);
-        padding: 2px 8px;
-        border-radius: 30px;
+        padding: 2px 6px;
+        border-radius: 20px;
         font-weight: 700;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         color: var(--primary-dark);
     }
 
@@ -407,57 +395,60 @@
     .empty-state {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 60px;
+        padding: 40px;
         background: white;
-        border-radius: 32px;
+        border-radius: 20px;
     }
 
     /* ================= RESPONSIVE ================= */
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
         .testimoni-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-        .stats-section {
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
         }
     }
-
-    @media (max-width: 768px) {
-        .container-testimoni {
-            padding: 30px 20px;
+    
+    @media (max-width: 800px) {
+        .testimoni-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
+    
+    @media (max-width: 500px) {
         .testimoni-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        .header-title {
-            font-size: 1.8rem;
-        }
-        .form-card {
-            padding: 25px;
         }
         .stats-section {
             gap: 15px;
         }
         .stat-item {
-            padding: 15px 25px;
-            min-width: 130px;
+            padding: 12px 18px;
+            min-width: 100px;
         }
         .stat-number {
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container-testimoni {
+            padding: 25px 20px;
+        }
+        .header-title {
             font-size: 1.5rem;
         }
+        .form-card {
+            padding: 20px;
+        }
         .comment-text {
-            font-size: 0.9rem;
-            min-height: 70px;
+            font-size: 0.75rem;
         }
         .customer-detail h6 {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
         }
         .customer-avatar {
-            width: 45px;
-            height: 45px;
-            font-size: 1rem;
+            width: 36px;
+            height: 36px;
+            font-size: 0.9rem;
         }
     }
 </style>
@@ -556,7 +547,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-3">
                     <button type="submit" class="btn-submit">
                         <i class="fas fa-paper-plane"></i> Kirim Testimoni
                     </button>
@@ -566,13 +557,12 @@
         </div>
     </div>
 
-    <!-- GRID TESTIMONI - 3 KOLOM TIDAK GEPENG -->
+    <!-- GRID TESTIMONI - 4 KOLOM -->
     <div class="testimoni-grid">
         @forelse($list_testimoni as $index => $item)
         <div class="testimoni-card">
             <div class="quote-icon">“</div>
             
-            <!-- Rating Bintang -->
             <div class="card-rating">
                 @for($i = 1; $i <= 5; $i++)
                     @if($i <= ($item->rating ?? 0))
@@ -583,22 +573,20 @@
                 @endfor
             </div>
 
-            <!-- ISI TESTIMONI -->
             <p class="comment-text">
-                "{{ \Illuminate\Support\Str::limit($item->komentar, 120) }}"
+                "{{ \Illuminate\Support\Str::limit($item->komentar, 100) }}"
             </p>
 
             <div class="card-divider"></div>
 
-            <!-- NAMA PELANGGAN -->
             <div class="customer-info">
                 <div class="customer-avatar">
                     {{ strtoupper(substr($item->nama_pelanggan, 0, 1)) }}
                 </div>
                 <div class="customer-detail">
-                    <h6>{{ $item->nama_pelanggan }}</h6>
+                    <h6>{{ \Illuminate\Support\Str::limit($item->nama_pelanggan, 15) }}</h6>
                     <p>
-                        <i class="fas fa-check-circle verified-badge"></i> Verified Customer
+                        <i class="fas fa-check-circle verified-badge"></i> Verified
                         <span class="rating-text">⭐ {{ $item->rating ?? 0 }}/5</span>
                     </p>
                 </div>
@@ -606,7 +594,7 @@
         </div>
         @empty
         <div class="empty-state">
-            <i class="fas fa-comment-dots fa-4x mb-3" style="color: var(--primary); opacity: 0.6;"></i>
+            <i class="fas fa-comment-dots fa-3x mb-3" style="color: var(--primary); opacity: 0.6;"></i>
             <h4 class="text-dark mb-2">Belum Ada Testimoni</h4>
             <p class="text-muted">Jadilah yang pertama memberikan ulasan untuk Wijaya Farma!</p>
         </div>
