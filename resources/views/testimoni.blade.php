@@ -251,18 +251,18 @@
         gap: 15px;
     }
 
-    /* ================= GRID TESTIMONI - 3 KOLOM ================= */
+    /* ================= GRID TESTIMONI - 3 KOLOM TIDAK GEPENG ================= */
     .testimoni-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
 
-    /* ================= CARD TESTIMONI - ISI & NAMA LEBIH BESAR ================= */
+    /* ================= CARD TESTIMONI - TIDAK GEPENG ================= */
     .testimoni-card {
         background: white;
         border-radius: 28px;
-        padding: 30px;
+        padding: 28px;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: var(--shadow-md);
         border: 1px solid #eef2f6;
@@ -271,6 +271,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        min-height: 280px;
     }
 
     .testimoni-card::before {
@@ -294,49 +295,50 @@
         position: absolute;
         top: 20px;
         right: 20px;
-        font-size: 3.5rem;
+        font-size: 4rem;
         color: var(--primary-light);
-        opacity: 0.4;
+        opacity: 0.3;
         font-family: serif;
     }
 
-    /* Rating Bintang - LEBIH BESAR */
+    /* Rating Bintang */
     .card-rating {
-        margin-bottom: 20px;
+        margin-bottom: 18px;
         display: flex;
         gap: 6px;
     }
 
     .card-rating .star {
         color: #fbbf24;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .card-rating .star-empty {
         color: #e2e8f0;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
-    /* ISI TESTIMONI - LEBIH BESAR */
+    /* ISI TESTIMONI - AGAR TIDAK GEPENG */
     .comment-text {
-        font-size: 1.05rem;
-        line-height: 1.6;
+        font-size: 0.98rem;
+        line-height: 1.65;
         color: var(--dark);
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         font-weight: 500;
         position: relative;
         z-index: 1;
         flex: 1;
+        min-height: 80px;
     }
 
     .comment-text::before {
         content: '"';
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         color: var(--primary-light);
         opacity: 0.4;
         position: absolute;
-        top: -15px;
-        left: -8px;
+        top: -12px;
+        left: -6px;
         font-family: serif;
     }
 
@@ -344,19 +346,20 @@
     .card-divider {
         height: 1px;
         background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-        margin: 15px 0 18px;
+        margin: 12px 0 16px;
     }
 
-    /* NAMA PELANGGAN - LEBIH JELAS & BESAR */
+    /* NAMA PELANGGAN */
     .customer-info {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 14px;
+        margin-top: 5px;
     }
 
     .customer-avatar {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         border-radius: 50%;
         display: flex;
@@ -364,19 +367,20 @@
         justify-content: center;
         color: white;
         font-weight: 800;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         box-shadow: 0 5px 15px rgba(26,188,156,0.3);
+        flex-shrink: 0;
     }
 
     .customer-detail h6 {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
 
     .customer-detail p {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: var(--text-muted);
         margin: 0;
         display: flex;
@@ -387,15 +391,15 @@
 
     .verified-badge {
         color: var(--primary);
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 
     .rating-text {
         background: var(--primary-light);
-        padding: 3px 10px;
+        padding: 2px 8px;
         border-radius: 30px;
         font-weight: 700;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         color: var(--primary-dark);
     }
 
@@ -412,6 +416,7 @@
     @media (max-width: 1000px) {
         .testimoni-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
         .stats-section {
             gap: 20px;
@@ -424,6 +429,7 @@
         }
         .testimoni-grid {
             grid-template-columns: 1fr;
+            gap: 20px;
         }
         .header-title {
             font-size: 1.8rem;
@@ -442,9 +448,15 @@
             font-size: 1.5rem;
         }
         .comment-text {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            min-height: 70px;
         }
         .customer-detail h6 {
+            font-size: 0.95rem;
+        }
+        .customer-avatar {
+            width: 45px;
+            height: 45px;
             font-size: 1rem;
         }
     }
@@ -454,112 +466,6 @@
 @section('content')
 
 <div class="container-testimoni">
-
-<HEAD
-/* warna utama */
-.teks-hijau {
-    color: #14B8A6;
-}
-
-/* form */
-.form-card {
-    border-radius: 18px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* card testimoni */
-.card-testimoni {
-    border: none;
-    border-radius: 18px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-
-.card-testimoni:hover {
-    transform: translateY(-6px);
-}
-
-/* bintang */
-.bintang {
-    color: #fbbf24;
-    font-size: 1.2rem;
-}
-
-/* button */
-.btn-hijau {
-    background-color: #14B8A6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 20px;
-    transition: 0.3s;
-}
-
-.btn-hijau:hover {
-    background-color: #0f9f8f;
-}
-
-/* rating */
-.rating input {
-    display: none;
-}
-
-.rating label {
-    font-size: 1.5rem;
-    color: #ccc;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.rating input:checked ~ label,
-.rating label:hover,
-.rating label:hover ~ label {
-    color: #fbbf24;
-}
-</style>
-
-<div class="container py-5">
-
-    <!-- JUDUL -->
-    <h2 class="text-center fw-bold teks-hijau mb-5">
-        💬 Apa Kata Pelanggan Kami?
-    </h2>
-
-    <!-- FORM -->
-    <div class="card form-card p-4 mb-5 mx-auto" style="max-width:600px;">
-        <h5 class="fw-bold mb-3 teks-hijau">Tambah Ulasan</h5>
-
-        <form action="{{ route('testimoni.store') }}" method="POST">
-            @csrf
-
-            <input type="text"
-                    name="nama_pelanggan"
-                    class="form-control mb-3"
-                    placeholder="Nama" required>
-
-            <textarea name="komentar"
-                    class="form-control mb-3"
-                    rows="3"
-                    placeholder="Tulis ulasan..." required></textarea>
-
-            <!-- RATING -->
-            <div class="mb-3 text-center">
-                <div class="rating">
-                    <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
-                    <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
-                    <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
-                    <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
-                    <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <button class="btn btn-hijau">
-                    Kirim Testimoni
-                </button>
-            </div>
-
-        </form>
 
     <!-- HEADER -->
     <div class="testimoni-header">
@@ -573,7 +479,7 @@
         </p>
     </div>
 
-    <!-- STATISTIK - REAL TIME (Otomatis bertambah jika testimoni bertambah) -->
+    <!-- STATISTIK -->
     @php
         $total_testimoni = $list_testimoni->count();
         $total_rating = $list_testimoni->sum('rating');
@@ -660,10 +566,10 @@
         </div>
     </div>
 
-    <!-- GRID TESTIMONI -->
+    <!-- GRID TESTIMONI - 3 KOLOM TIDAK GEPENG -->
     <div class="testimoni-grid">
         @forelse($list_testimoni as $index => $item)
-        <div class="testimoni-card" style="animation-delay: {{ $index * 0.05 }}s">
+        <div class="testimoni-card">
             <div class="quote-icon">“</div>
             
             <!-- Rating Bintang -->
@@ -677,14 +583,14 @@
                 @endfor
             </div>
 
-            <!-- ISI TESTIMONI - LEBIH BESAR -->
+            <!-- ISI TESTIMONI -->
             <p class="comment-text">
-                {{ $item->komentar }}
+                "{{ \Illuminate\Support\Str::limit($item->komentar, 120) }}"
             </p>
 
             <div class="card-divider"></div>
 
-            <!-- NAMA PELANGGAN - LEBIH JELAS & BESAR -->
+            <!-- NAMA PELANGGAN -->
             <div class="customer-info">
                 <div class="customer-avatar">
                     {{ strtoupper(substr($item->nama_pelanggan, 0, 1)) }}

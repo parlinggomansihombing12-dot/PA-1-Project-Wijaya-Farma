@@ -13,14 +13,11 @@
         --primary-light: #d1fae5;
         --secondary: #2c3e50;
         --accent: #e67e22;
-        --accent-light: #fef3c7;
         --dark: #1e293b;
         --text-muted: #64748b;
-        --bg-soft: #f0fdf4;
         --white: #ffffff;
-        --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
-        --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
-        --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+        --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
     }
 
     * {
@@ -38,34 +35,34 @@
     .container-layanan {
         width: 100%;
         max-width: 100%;
-        padding: 40px 30px;
+        padding: 30px 25px;
         margin: 0 auto;
     }
 
     /* ================= HEADER SECTION ================= */
     .header-layanan {
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
     }
 
     .header-badge {
         display: inline-block;
         background: linear-gradient(135deg, var(--primary-light), var(--primary));
         color: var(--primary-dark);
-        padding: 6px 20px;
-        border-radius: 60px;
-        font-size: 0.8rem;
+        padding: 4px 16px;
+        border-radius: 50px;
+        font-size: 0.7rem;
         font-weight: 700;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         letter-spacing: 1px;
     }
 
     .header-title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 12px;
-        letter-spacing: -1px;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
     }
 
     .header-title span {
@@ -76,35 +73,35 @@
     }
 
     .header-underline {
-        width: 80px;
-        height: 4px;
+        width: 60px;
+        height: 3px;
         background: linear-gradient(90deg, var(--primary), var(--accent));
-        margin: 0 auto 18px;
-        border-radius: 10px;
+        margin: 0 auto 12px;
+        border-radius: 5px;
     }
 
     .header-subtitle {
         color: var(--text-muted);
-        font-size: 1rem;
-        max-width: 650px;
+        font-size: 0.85rem;
+        max-width: 550px;
         margin: 0 auto;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
-    /* ================= GRID 4 KOLOM ================= */
+    /* ================= GRID 5 KOLOM ================= */
     .layanan-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
     }
 
-    /* ================= CARD - LEBIH PANJANG ================= */
+    /* ================= CARD ================= */
     .card-layanan {
         background: var(--white);
-        border-radius: 24px;
+        border-radius: 18px;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -112,15 +109,15 @@
     }
 
     .card-layanan:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
         border-color: var(--primary);
     }
 
-    /* Image Container - LEBIH TINGGI */
+    /* Image Container */
     .card-image-wrapper {
         position: relative;
-        height: 230px;
+        height: 150px;
         overflow: hidden;
         background: linear-gradient(145deg, #1e3c72, #2a5298);
         flex-shrink: 0;
@@ -130,153 +127,141 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform 0.4s ease;
     }
 
     .card-layanan:hover .card-image {
-        transform: scale(1.08);
+        transform: scale(1.05);
     }
 
-    /* Overlay Gradient di Gambar */
     .image-overlay {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        height: 60px;
-        background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        height: 40px;
+        background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
     }
 
-    /* Badge di atas gambar */
     .image-badge {
         position: absolute;
-        top: 15px;
-        left: 15px;
+        top: 10px;
+        left: 10px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
-        padding: 5px 14px;
-        border-radius: 30px;
-        font-size: 0.7rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.55rem;
         font-weight: 700;
         z-index: 2;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* Badge Populer di pojok kanan */
     .popular-badge {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 10px;
+        right: 10px;
         background: linear-gradient(135deg, #f39c12, #e67e22);
         color: white;
-        padding: 4px 12px;
-        border-radius: 30px;
-        font-size: 0.65rem;
+        padding: 3px 8px;
+        border-radius: 20px;
+        font-size: 0.55rem;
         font-weight: 700;
         z-index: 2;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .popular-badge i {
-        font-size: 0.6rem;
-        margin-right: 3px;
-    }
-
-    /* Content - PADDING LEBIH BANYAK */
+    /* Content */
     .card-content {
-        padding: 22px 22px 24px;
+        padding: 14px;
         flex: 1;
         display: flex;
         flex-direction: column;
     }
 
-    /* Title - LEBIH BESAR */
     .service-title {
-        font-size: 1.3rem;
+        font-size: 0.95rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         line-height: 1.35;
-        letter-spacing: -0.3px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 40px;
     }
 
-    /* Description - 3 BARIS DENGAN LINE HEIGHT LEBIH BESAR */
     .service-description {
         color: var(--text-muted);
-        font-size: 0.88rem;
-        line-height: 1.65;
-        margin-bottom: 22px;
+        font-size: 0.7rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         flex: 1;
     }
 
-    /* Divider */
     .card-divider {
         height: 1px;
         background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-        margin: 8px 0 16px;
+        margin: 8px 0 10px;
     }
 
-    /* ================= TOMBOL STACK VERTIKAL ================= */
+    /* ================= TOMBOL - RAPI ================= */
     .action-buttons {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
         margin-top: 5px;
     }
 
-    /* Tombol Baca Selengkapnya - Btn1 (Warna Biru/Teal) */
     .btn-readmore {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         font-weight: 700;
-        font-size: 0.85rem;
-        padding: 12px 16px;
-        border-radius: 50px;
+        font-size: 0.7rem;
+        padding: 9px 0;
+        border-radius: 40px;
         text-decoration: none;
-        transition: all 0.3s;
+        transition: all 0.2s;
         border: none;
         cursor: pointer;
         width: 100%;
     }
 
     .btn-readmore:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(26,188,156,0.4);
+        transform: translateY(-2px);
+        gap: 8px;
         background: linear-gradient(135deg, var(--primary-dark), #0e7c64);
-        gap: 12px;
     }
 
     .btn-readmore i {
-        transition: transform 0.3s;
+        transition: transform 0.2s;
     }
 
     .btn-readmore:hover i {
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
 
-    /* Tombol Tanya Layanan - Btn2 */
     .btn-wa {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         background: transparent;
         color: var(--primary);
         font-weight: 700;
-        font-size: 0.85rem;
-        padding: 12px 16px;
-        border-radius: 50px;
+        font-size: 0.7rem;
+        padding: 9px 0;
+        border-radius: 40px;
         text-decoration: none;
-        transition: all 0.3s;
-        border: 1.5px solid var(--primary);
+        transition: all 0.2s;
+        border: 1px solid var(--primary);
         cursor: pointer;
         width: 100%;
     }
@@ -284,20 +269,18 @@
     .btn-wa:hover {
         background: var(--primary);
         color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(26,188,156,0.2);
-        gap: 12px;
+        transform: translateY(-2px);
     }
 
     .btn-wa i {
-        transition: transform 0.3s;
+        transition: transform 0.2s;
     }
 
     .btn-wa:hover i {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
-    /* ================= MODAL STYLES ================= */
+    /* ================= MODAL STYLES (TANPA TOMBOL WA) ================= */
     .modal-layanan {
         display: none;
         position: fixed;
@@ -305,8 +288,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(8px);
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
         z-index: 1000;
         justify-content: center;
         align-items: center;
@@ -318,33 +301,26 @@
 
     .modal-content {
         background: white;
-        border-radius: 28px;
-        max-width: 550px;
+        border-radius: 20px;
+        max-width: 450px;
         width: 90%;
-        max-height: 85vh;
+        max-height: 80vh;
         overflow-y: auto;
         position: relative;
-        animation: slideUp 0.4s ease;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        animation: slideUp 0.3s ease;
     }
 
     @keyframes slideUp {
-        from {
-            transform: translateY(60px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
     }
 
     .modal-close {
         position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 40px;
-        height: 40px;
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
         background: white;
         border-radius: 50%;
         display: flex;
@@ -352,9 +328,9 @@
         justify-content: center;
         cursor: pointer;
         z-index: 20;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         border: none;
-        transition: all 0.3s;
+        transition: all 0.2s;
     }
 
     .modal-close:hover {
@@ -367,120 +343,102 @@
     }
 
     .modal-close i {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: #333;
-        transition: color 0.3s;
     }
 
     .modal-image {
         width: 100%;
-        height: 220px;
+        height: 160px;
         object-fit: cover;
-        border-radius: 28px 28px 0 0;
+        border-radius: 20px 20px 0 0;
     }
 
     .modal-image-placeholder {
         width: 100%;
-        height: 220px;
+        height: 160px;
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 28px 28px 0 0;
+        border-radius: 20px 20px 0 0;
     }
 
     .modal-image-placeholder i {
-        font-size: 4rem;
+        font-size: 3rem;
         color: white;
     }
 
     .modal-body {
-        padding: 28px;
+        padding: 20px;
     }
 
     .modal-title {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 800;
         color: var(--dark);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     .modal-category {
         display: inline-block;
         background: var(--primary-light);
         color: var(--primary-dark);
-        padding: 4px 12px;
+        padding: 3px 10px;
         border-radius: 20px;
-        font-size: 0.7rem;
+        font-size: 0.6rem;
         font-weight: 700;
-        margin-bottom: 18px;
+        margin-bottom: 12px;
     }
 
     .modal-description {
         color: var(--text-muted);
-        font-size: 0.95rem;
-        line-height: 1.7;
-        margin-bottom: 25px;
+        font-size: 0.8rem;
+        line-height: 1.6;
+        margin-bottom: 0;
         text-align: justify;
-    }
-
-    .modal-wa-btn {
-        background: linear-gradient(90deg, #25D366, #128c7e);
-        color: white;
-        border: none;
-        padding: 14px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 1rem;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        transition: all 0.3s;
-    }
-
-    .modal-wa-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(37,211,102,0.35);
-        gap: 14px;
     }
 
     /* Empty State */
     .empty-state {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 60px;
+        padding: 40px;
         background: white;
-        border-radius: 28px;
+        border-radius: 20px;
     }
 
     /* ================= RESPONSIVE ================= */
-    @media (max-width: 1200px) {
+    @media (max-width: 1300px) {
+        .layanan-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+    
+    @media (max-width: 1100px) {
         .layanan-grid {
             grid-template-columns: repeat(3, 1fr);
         }
     }
     
-    @media (max-width: 900px) {
+    @media (max-width: 800px) {
         .layanan-grid {
             grid-template-columns: repeat(2, 1fr);
         }
         .container-layanan {
-            padding: 30px 20px;
+            padding: 25px 20px;
         }
     }
     
-    @media (max-width: 550px) {
+    @media (max-width: 500px) {
         .layanan-grid {
             grid-template-columns: 1fr;
         }
         .header-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
         .card-image-wrapper {
-            height: 200px;
+            height: 160px;
         }
     }
 </style>
@@ -502,7 +460,7 @@
         </p>
     </div>
 
-    <!-- GRID LAYANAN - 4 KOLOM -->
+    <!-- GRID LAYANAN - 5 KOLOM -->
     <div class="layanan-grid">
         @forelse($list_layanan as $index => $item)
         <div class="card-layanan">
@@ -511,15 +469,15 @@
                     <img src="{{ asset('images/layanan/' . $item->foto) }}" 
                          class="card-image" 
                          alt="{{ $item->nama_layanan }}"
-                         onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop'">
+                         onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=300&auto=format&fit=crop'">
                 @else
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop" 
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=300&auto=format&fit=crop" 
                          class="card-image" 
                          alt="Layanan Kesehatan">
                 @endif
                 <div class="image-overlay"></div>
                 <div class="image-badge">
-                    <i class="fas fa-star"></i> Layanan Unggulan
+                    <i class="fas fa-star"></i> Unggulan
                 </div>
                 @if($loop->iteration <= 3)
                 <div class="popular-badge">
@@ -530,19 +488,19 @@
             <div class="card-content">
                 <h3 class="service-title">{{ $item->nama_layanan }}</h3>
                 <p class="service-description">
-                    {{ \Illuminate\Support\Str::limit(strip_tags($item->deskripsi), 110) }}
+                    {{ \Illuminate\Support\Str::limit(strip_tags($item->deskripsi), 70) }}
                 </p>
                 
                 <div class="card-divider"></div>
                 
                 <div class="action-buttons">
-                    <!-- Btn1 - Baca Selengkapnya (berubah dari Kelas Terbaik) -->
+                    <!-- Tombol Baca -->
                     <a href="javascript:void(0)" class="btn-readmore" onclick="openModal({{ $item->id }})">
                         <i class="fas fa-book-open"></i> Baca Selengkapnya
                         <i class="fas fa-arrow-right"></i>
                     </a>
                     
-                    <!-- Btn2 - Tanya Layanan -->
+                    <!-- Tombol Tanya via WhatsApp -->
                     @php 
                         $no_asli = $toko->no_hp ?? '';
                         $no_bersih = preg_replace('/[^0-9]/', '', $no_asli);
@@ -556,11 +514,11 @@
                     @if($no_wa != '')
                         <a href="https://wa.me/{{ $no_wa }}?text=Halo Apotek Wijaya Farma, saya ingin bertanya tentang layanan {{ urlencode($item->nama_layanan) }}." 
                            target="_blank" class="btn-wa">
-                            <i class="fab fa-whatsapp"></i> Tanya Layanan
+                            <i class="fab fa-whatsapp"></i> Tanya via WhatsApp
                         </a>
                     @else
                         <a href="javascript:void(0)" class="btn-wa" style="opacity: 0.5; cursor: not-allowed;">
-                            <i class="fab fa-whatsapp"></i> Tanya Layanan
+                            <i class="fab fa-whatsapp"></i> Tanya via WhatsApp
                         </a>
                     @endif
                 </div>
@@ -568,7 +526,7 @@
         </div>
         @empty
         <div class="empty-state">
-            <i class="fas fa-clinic-medical fa-4x mb-3" style="color: var(--primary); opacity: 0.6;"></i>
+            <i class="fas fa-clinic-medical fa-3x mb-3" style="color: var(--primary); opacity: 0.6;"></i>
             <h4 class="text-dark mb-2">Belum Ada Layanan</h4>
             <p class="text-muted">Layanan kesehatan akan segera hadir untuk Anda.</p>
         </div>
@@ -577,7 +535,7 @@
 
 </div>
 
-<!-- MODAL POPUP -->
+<!-- MODAL POPUP - TANPA TOMBOL WHATSAPP -->
 @foreach($list_layanan as $item)
 <div id="modal-{{ $item->id }}" class="modal-layanan">
     <div class="modal-content">
@@ -589,7 +547,7 @@
             <img src="{{ asset('images/layanan/' . $item->foto) }}" 
                  class="modal-image" 
                  alt="{{ $item->nama_layanan }}"
-                 onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=500&auto=format&fit=crop'">
+                 onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=400&auto=format&fit=crop'">
         @else
             <div class="modal-image-placeholder">
                 <i class="fas fa-stethoscope"></i>
@@ -604,27 +562,7 @@
             <div class="modal-description">
                 {!! nl2br(e($item->deskripsi)) !!}
             </div>
-            
-            @php 
-                $no_asli = $toko->no_hp ?? '';
-                $no_bersih = preg_replace('/[^0-9]/', '', $no_asli);
-                if (strlen($no_bersih) > 0 && substr($no_bersih, 0, 1) === '0') {
-                    $no_wa = '62' . substr($no_bersih, 1);
-                } else {
-                    $no_wa = $no_bersih;
-                }
-            @endphp
-            
-            @if($no_wa != '')
-                <a href="https://wa.me/{{ $no_wa }}?text=Halo Apotek Wijaya Farma, saya ingin bertanya tentang layanan {{ urlencode($item->nama_layanan) }}." 
-                   target="_blank" class="modal-wa-btn">
-                    <i class="fab fa-whatsapp"></i> Tanya Layanan via WhatsApp
-                </a>
-            @else
-                <button class="modal-wa-btn" style="background: #94a3b8; cursor: not-allowed;" disabled>
-                    <i class="fab fa-whatsapp"></i> Kontak Belum Tersedia
-                </button>
-            @endif
+            <!-- TOMBOL WHATSAPP DI DALAM MODAL DIHAPUS -->
         </div>
     </div>
 </div>
