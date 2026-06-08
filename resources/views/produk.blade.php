@@ -198,7 +198,7 @@
         box-shadow: var(--shadow-sm);
     }
 
-    /* ============ GRID 4 KOLOM (DIPERBESAR AGAR TIDAK KOSONG) ============ */
+    /* ============ GRID 4 KOLOM ============ */
     .produk-flex {
         display: flex;
         flex-wrap: wrap;
@@ -206,13 +206,13 @@
     }
 
     .produk-item {
-        flex: 0 0 25%;     /* 4 KOLOM - LEBIH BESAR DARI 5 KOLOM */
+        flex: 0 0 25%;
         max-width: 25%;
         padding: 0 12px;
         margin-bottom: 24px;
     }
 
-    /* ============ CARD PRODUK PREMIUM - DIPERBESAR ============ */
+    /* ============ CARD PRODUK PREMIUM ============ */
     .product-card {
         background: white;
         border-radius: 24px;
@@ -248,7 +248,7 @@
         letter-spacing: 0.5px;
     }
 
-    /* Image Container - LEBIH TINGGI */
+    /* Image Container */
     .img-container {
         height: 230px;
         width: 100%;
@@ -275,7 +275,7 @@
         transform: scale(1.08);
     }
 
-    /* Content Area - PADDING LEBIH BESAR */
+    /* Content Area */
     .product-content {
         padding: 20px 22px 24px;
         flex: 1;
@@ -284,7 +284,7 @@
         gap: 12px;
     }
 
-    /* NAMA PRODUK - LEBIH BESAR */
+    /* NAMA PRODUK */
     .product-name {
         font-size: 1.2rem;
         font-weight: 800;
@@ -297,7 +297,7 @@
         min-height: 54px;
     }
 
-    /* HARGA - LEBIH BESAR */
+    /* HARGA */
     .product-price {
         font-size: 1.5rem;
         font-weight: 800;
@@ -308,7 +308,7 @@
         margin: 6px 0;
     }
 
-    /* STOK - LEBIH BESAR & JELAS */
+    /* STOK */
     .stock-wrapper {
         background: #f8fafc;
         border-radius: 14px;
@@ -349,7 +349,7 @@
         color: #b91c1c;
     }
 
-    /* Tombol Detail - LEBIH BESAR */
+    /* Tombol Detail */
     .btn-detail {
         margin-top: 8px;
         background: #f1f5f9;
@@ -401,10 +401,53 @@
         animation: fadeInUp 0.5s ease forwards;
     }
 
+    /* ============ PAGINATION PREMIUM STYLES ============ */
+    .pagination-premium {
+        margin-top: 30px;
+    }
+    
+    .pagination-premium .pagination {
+        margin-bottom: 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border-radius: 50px;
+        overflow: hidden;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .pagination-premium .page-link {
+        color: var(--dark);
+        font-weight: 700;
+        padding: 12px 22px;
+        border: none;
+        background: white;
+        border-radius: 50px;
+        margin: 0 2px;
+        transition: all 0.3s;
+    }
+    
+    .pagination-premium .page-item.active .page-link {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        box-shadow: 0 4px 12px rgba(26,188,156,0.3);
+    }
+    
+    .pagination-premium .page-item.disabled .page-link {
+        color: #cbd5e1;
+        background-color: white;
+        cursor: not-allowed;
+    }
+    
+    .pagination-premium .page-link:hover:not(.active):not(.disabled) {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
     /* ============ RESPONSIVE ============ */
     @media (max-width: 1200px) {
         .produk-item {
-            flex: 0 0 33.333%;   /* 3 kolom */
+            flex: 0 0 33.333%;
             max-width: 33.333%;
         }
         .img-container {
@@ -417,7 +460,7 @@
             padding: 0 20px;
         }
         .produk-item {
-            flex: 0 0 50%;    /* 2 kolom */
+            flex: 0 0 50%;
             max-width: 50%;
         }
         .img-container {
@@ -441,11 +484,15 @@
         .produk-title {
             font-size: 1.5rem;
         }
+        .pagination-premium .page-link {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
     }
     
     @media (max-width: 550px) {
         .produk-item {
-            flex: 0 0 100%;   /* 1 kolom */
+            flex: 0 0 100%;
             max-width: 100%;
         }
         .section-title {
@@ -485,7 +532,7 @@
     </div>
 </div>
 
-<!-- PRODUCT GRID - 4 KOLOM (DIPERBESAR) -->
+<!-- PRODUCT GRID - 4 KOLOM -->
 <div class="produk-wrapper">
     <!-- Header dengan jumlah produk -->
     <div class="produk-header-section">
@@ -493,7 +540,7 @@
             Semua Produk
         </div>
         <div class="produk-count">
-            📊 {{ $list_produk->count() }} produk
+            📊 {{ $list_produk->total() ?? $list_produk->count() }} produk
         </div>
     </div>
 
@@ -516,13 +563,9 @@
                 </div>
 
                 <div class="product-content">
-                    <!-- Nama Produk -->
                     <div class="product-name">{{ $item->nama_obat }}</div>
-
-                    <!-- Harga -->
                     <div class="product-price">Rp {{ number_format($item->harga, 0, ',', '.') }}</div>
 
-                    <!-- STOK -->
                     @php
                         $stockClass = '';
                         $stockIcon = '✅';
@@ -550,7 +593,6 @@
                         </span>
                     </div>
 
-                    <!-- Tombol Detail dengan parameter from=produk -->
                     <a href="/produk/{{ $item->id }}?from=produk" class="btn-detail">
                         👁️ Lihat Detail
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -572,7 +614,17 @@
         </div>
         @endforelse
     </div>
-</div>
+
+    <!-- ============================================================== -->
+    <!-- PAGINATION / NAVIGASI HALAMAN -->
+    <!-- ============================================================== -->
+    @if(method_exists($list_produk, 'links'))
+        <div class="pagination-premium d-flex justify-content-center mt-5 pt-4">
+            {{ $list_produk->appends(request()->query())->links('pagination::bootstrap-5') }}
+        </div>
+    @endif
+
+</div> <!-- Penutup produk-wrapper -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
