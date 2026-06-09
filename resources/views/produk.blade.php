@@ -108,7 +108,7 @@
         margin-bottom: 16px;
     }
 
-    /* ================= CARD PRODUK - KECIL & RAPI ================= */
+    /* ================= CARD PRODUK ================= */
     .product-card {
         background: white;
         border-radius: 14px;
@@ -119,6 +119,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
 
     .product-card:hover {
@@ -219,6 +220,114 @@
         color: white;
     }
 
+    /* ================= PAGINATION PREMIUM ================= */
+    .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 30px;
+        padding: 15px 0;
+        border-top: 1px solid #eef2f6;
+    }
+
+    /* Info Pagination di KIRI */
+    .pagination-info {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        background: #f8fafc;
+        padding: 6px 15px;
+        border-radius: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .pagination-info i {
+        color: var(--primary);
+        font-size: 0.7rem;
+    }
+
+    .pagination-info strong {
+        color: var(--primary-dark);
+        font-weight: 800;
+    }
+
+    /* Tombol Pagination di TENGAH */
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+    }
+
+    /* HAPUS TULISAN "SHOWING" BAWAHAN LARAVEL */
+    .pagination-wrapper p.text-sm {
+        display: none !important;
+    }
+    
+    /* Hapus seluruh info bawaan Laravel */
+    .pagination-wrapper div:first-child {
+        display: none !important;
+    }
+    
+    .pagination-wrapper nav {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination {
+        display: flex;
+        gap: 6px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .page-item {
+        display: inline;
+    }
+
+    .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        height: 34px;
+        padding: 0 12px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .page-link:hover {
+        background: var(--primary-light);
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .active .page-link {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-color: transparent;
+        color: white;
+        box-shadow: 0 2px 6px rgba(26,188,156,0.3);
+    }
+
+    .disabled .page-link {
+        background: #f1f5f9;
+        color: #cbd5e1;
+        cursor: not-allowed;
+        transform: none;
+    }
+
     /* ================= RESPONSIVE ================= */
     @media (max-width: 1300px) { .produk-item { flex: 0 0 20%; max-width: 20%; } }
     @media (max-width: 1100px) { .produk-item { flex: 0 0 25%; max-width: 25%; } }
@@ -230,6 +339,19 @@
         .section-title { font-size: 1.4rem; }
         .product-header { padding: 25px 0; }
         .search-wrapper { max-width: 90%; }
+        .pagination-container {
+            flex-direction: column;
+            justify-content: center;
+        }
+        .pagination-wrapper {
+            width: 100%;
+        }
+        .page-link {
+            min-width: 30px;
+            height: 30px;
+            padding: 0 8px;
+            font-size: 0.65rem;
+        }
     }
 </style>
 @endsection
@@ -265,7 +387,7 @@
     <div class="produk-flex">
         @forelse($list_produk as $item)
         <div class="produk-item">
-            <div class="product-card" style="position: relative;">
+            <div class="product-card">
                 <div class="category-badge">📂 {{ $item->kategori->nama_kategori ?? 'Umum' }}</div>
                 <div class="img-container">
                     @if($item->foto)
@@ -298,10 +420,26 @@
         @endforelse
     </div>
 
-    @if(method_exists($list_produk, 'links'))
-        <div class="d-flex justify-content-center mt-4">
+    <!-- PAGINATION PREMIUM - HANYA SATU "SHOWING" DI KIRI -->
+    @if(method_exists($list_produk, 'links') && $list_produk instanceof \Illuminate\Pagination\AbstractPaginator)
+    <div class="pagination-container">
+        <!-- Info Showing di KIRI (SATU-SATUNYA) -->
+        <div class="pagination-info">
+            <i class="fas fa-chart-line"></i>
+            Showing 
+            <strong>{{ $list_produk->firstItem() ?? 0 }}</strong> 
+            to 
+            <strong>{{ $list_produk->lastItem() ?? 0 }}</strong> 
+            of 
+            <strong>{{ $list_produk->total() }}</strong> 
+            results
+        </div>
+        
+        <!-- Tombol Pagination di TENGAH (TANPA "SHOWING") -->
+        <div class="pagination-wrapper">
             {{ $list_produk->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
+    </div>
     @endif
 </div>
 

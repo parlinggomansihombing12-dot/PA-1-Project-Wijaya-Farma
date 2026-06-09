@@ -11,137 +11,214 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        :root {
+            --primary: #1ABC9C;
+            --primary-dark: #16a085;
+            --primary-light: #d1fae5;
+            --secondary: #2c3e50;
+            --dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body { 
             background-color: #f8fafc; 
             overflow-x: hidden; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
         
-        /* Premium Modern Sidebar */
+        /* ================= SIDEBAR ================= */
         .sidebar { 
             background: linear-gradient(185deg, #1e293b 0%, #0f172a 100%); 
             min-height: 100vh; 
             color: #cbd5e1; 
-            padding-top: 30px; 
-            box-shadow: 5px 0 25px rgba(15, 23, 42, 0.15); 
-            position: sticky; 
+            padding-top: 15px; 
+            box-shadow: 2px 0 15px rgba(0,0,0,0.05); 
+            position: fixed;
             top: 0; 
+            left: 0;
+            width: 220px;
             height: 100vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            z-index: 1000;
         }
         
-        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         
-        /* Brand Styling */
+        /* Brand Logo */
         .brand-logo { 
-            letter-spacing: 2px; 
-            color: #ffffff; 
-            font-size: 1.45rem;
-            padding: 0 24px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .brand-logo i {
-            background: linear-gradient(135deg, #0ea5e9, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.7rem;
-        }
-
-        /* Menu Container */
-        .sidebar-menu {
-            padding: 0 16px;
-            margin-bottom: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        /* Menu Category Header */
-        .menu-header {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #64748b;
-            font-weight: 700;
-            margin-top: 20px;
-            margin-bottom: 5px;
-            padding-left: 16px;
+            padding: 0 12px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
-        /* Nav Links */
-        .sidebar a { 
-            color: #94a3b8; 
-            text-decoration: none; 
-            padding: 15px 20px;
+        .brand-logo a {
+            text-decoration: none;
             display: flex;
             align-items: center;
-            font-weight: 600;
-            font-size: 1.05rem;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            justify-content: center;
+            gap: 8px;
         }
         
-        .sidebar a i { 
-            width: 32px; 
-            font-size: 1.25rem;
-            transition: transform 0.3s ease;
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* Hover State */
-        .sidebar a:hover { 
-            background-color: rgba(255, 255, 255, 0.05); 
-            color: #ffffff; 
-            transform: translateX(4px);
-        }
-        .sidebar a:hover i {
-            transform: scale(1.15);
-        }
-        
-        /* Active State */
-        .sidebar a.active { 
-            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); 
-            color: #ffffff; 
-            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
-        }
-        .sidebar a.active i {
-            color: #ffffff !important;
-        }
-        
-        /* Footer/Logout Area */
-        .sidebar-footer {
-            padding: 25px 20px 35px 20px;
-            background: linear-gradient(360deg, rgba(15, 23, 42, 0.5) 0%, transparent 100%);
-        }
-        .btn-logout-custom {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.05) 100%);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.25);
-            padding: 15px;
-            border-radius: 12px;
-            width: 100%;
-            font-weight: 700;
+        .brand-icon i {
             font-size: 1rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
         }
-        .btn-logout-custom:hover {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        
+        .brand-text {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Menu Sidebar */
+        .sidebar-menu {
+            flex: 1;
+            padding: 0 10px;
+        }
+        
+        .menu-header {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            font-weight: 700;
+            margin: 15px 0 5px 8px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            margin: 2px 0;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+        
+        .sidebar-item i {
+            width: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 2px 8px rgba(26,188,156,0.25);
+        }
+        
+        .sidebar-item.active i {
+            color: white;
+        }
+        
+        /* ================= NAVBAR ATAS ================= */
+        .navbar-top {
+            background: white;
+            padding: 12px 20px;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 220px;
+            width: calc(100% - 220px);
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        .navbar-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        /* Tombol Logout di Navbar */
+        .btn-logout-nav {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn-logout-nav:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            gap: 10px;
+            color: white;
         }
-
-        .content { 
-            padding: 40px; 
-            background-color: #f8fafc; 
-            min-height: 100vh; 
+        
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            margin-left: 220px;
+            margin-top: 70px;
+            padding: 15px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            width: calc(100% - 220px);
+        }
+        
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            .navbar-top {
+                margin-left: 0;
+                width: 100%;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 70px;
+                width: 100%;
+            }
         }
     </style>
 
@@ -151,77 +228,94 @@
 </head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        
-        <!-- SIDEBAR -->
-        <div class="col-md-2 sidebar p-0">
-            <div>
-                <!-- Brand Logo -->
-                <h4 class="text-center mb-4 mt-3 fw-bold brand-logo d-flex align-items-center justify-content-center">
-                    <i class="fas fa-capsules me-2"></i>WIJAYA FARMA
-                </h4>
-                
-                <!-- MENU SIDEBAR -->
-                <div class="sidebar-menu">
-                    
-                    <div class="menu-header">Utama</div>
-                    
-                    <a href="/admin/dashboard" class="{{ request()->is('admin/dashboard*') ? 'active' : '' }}">
-                        <i class="fas fa-home me-2"></i> Dashboard
-                    </a>
-                    
-                    <div class="menu-header">Manajemen Produk</div>
-                    
-                    <a href="/admin/produk" class="{{ request()->is('admin/produk*') ? 'active' : '' }}">
-                        <i class="fas fa-box-open me-2"></i> Kelola Produk
-                    </a>
-                    
-                    <a href="/admin/kategori" class="{{ request()->is('admin/kategori*') ? 'active' : '' }}">
-                        <i class="fas fa-tags me-2"></i> Kelola Kategori
-                    </a>
-                     
-                    <div class="menu-header">Informasi & Layanan</div>
+<!-- NAVBAR ATAS DENGAN TOMBOL LOGOUT -->
+<div class="navbar-top">
+    <h5 class="navbar-title">
+        <i class="fas fa-capsules me-2" style="color: var(--primary);"></i> 
+        Panel Administrator
+    </h5>
+    
+    <form method="POST" action="{{ route('logout') }}" class="m-0">
+        @csrf
+        <button type="submit" class="btn-logout-nav">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</div>
 
-                    <a href="/admin/profil-toko" class="{{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
-                       <i class="fas fa-store-alt me-2"></i> Profil Toko
-                    </a>
-                    
-                    <a href="/admin/layanan" class="{{ request()->is('admin/layanan*') ? 'active' : '' }}">
-                        <i class="fas fa-notes-medical me-2"></i> Kelola Layanan
-                    </a>
-                    
-                    <a href="/admin/artikel" class="{{ request()->is('admin/artikel*') ? 'active' : '' }}">
-                        <i class="fas fa-newspaper me-2"></i> Kelola Artikel
-                    </a>
-                    
-                    <a href="/admin/testimoni" class="{{ request()->is('admin/testimoni*') ? 'active' : '' }}">
-                        <i class="fas fa-star me-2"></i> Kelola Testimoni
-                    </a>
-                    
-                    <a href="/admin/kontak" class="{{ request()->is('admin/kontak*') ? 'active' : '' }}">
-                        <i class="fas fa-address-book me-2"></i> Kelola Kontak
-                    </a>
+<!-- SIDEBAR (TANPA TOMBOL LOGOUT) -->
+<div class="sidebar">
+    <div>
+        <!-- Brand Logo -->
+        <div class="brand-logo">
+            <a href="/admin/dashboard">
+                <div class="brand-icon">
+                    <i class="fas fa-capsules"></i>
                 </div>
-            </div>
-            
-            <!-- FOOTER SIDEBAR (LOGOUT) -->
-            <div class="sidebar-footer">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-logout-custom">
-                        <i class="fas fa-sign-out-alt me-2"></i> KELUAR
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- KONTEN UTAMA -->
-        <div class="col-md-10 content">
-            @yield('content')
+                <div class="brand-text">ADMIN</div>
+            </a>
         </div>
         
+        <!-- MENU SIDEBAR -->
+        <div class="sidebar-menu">
+            
+            <div class="menu-header">Utama</div>
+            
+            <a href="/admin/dashboard" class="sidebar-item {{ request()->is('admin/dashboard*') ? 'active' : '' }}">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            
+            <div class="menu-header">Manajemen</div>
+            
+            <a href="/admin/produk" class="sidebar-item {{ request()->is('admin/produk*') ? 'active' : '' }}">
+                <i class="fas fa-box-open"></i>
+                <span>Produk</span>
+            </a>
+            
+            <a href="/admin/kategori" class="sidebar-item {{ request()->is('admin/kategori*') ? 'active' : '' }}">
+                <i class="fas fa-tags"></i>
+                <span>Kategori</span>
+            </a>
+             
+            <div class="menu-header">Konten</div>
+
+            <a href="/admin/profil-toko" class="sidebar-item {{ request()->is('admin/profil-toko*') ? 'active' : '' }}">
+                <i class="fas fa-store-alt"></i>
+                <span>Profil Toko</span>
+            </a>
+            
+            <a href="/admin/layanan" class="sidebar-item {{ request()->is('admin/layanan*') ? 'active' : '' }}">
+                <i class="fas fa-notes-medical"></i>
+                <span>Layanan</span>
+            </a>
+            
+            <a href="/admin/artikel" class="sidebar-item {{ request()->is('admin/artikel*') ? 'active' : '' }}">
+                <i class="fas fa-newspaper"></i>
+                <span>Artikel</span>
+            </a>
+            
+            <a href="/admin/testimoni" class="sidebar-item {{ request()->is('admin/testimoni*') ? 'active' : '' }}">
+                <i class="fas fa-star"></i>
+                <span>Testimoni</span>
+            </a>
+            
+            <a href="/admin/kontak" class="sidebar-item {{ request()->is('admin/kontak*') ? 'active' : '' }}">
+                <i class="fas fa-address-book"></i>
+                <span>Kontak</span>
+            </a>
+        </div>
     </div>
+    
+    <!-- FOOTER SIDEBAR (KOSONG - TANPA LOGOUT) -->
+    <div class="sidebar-footer" style="padding: 15px 12px 20px;">
+        <!-- Tombol Logout sudah dipindahkan ke navbar atas -->
+    </div>
+</div>
+
+<!-- KONTEN UTAMA -->
+<div class="main-content">
+    @yield('content')
 </div>
 
 <!-- JS BOOTSTRAP -->

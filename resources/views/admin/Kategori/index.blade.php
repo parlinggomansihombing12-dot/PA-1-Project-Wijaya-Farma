@@ -6,119 +6,291 @@
     :root {
         --primary: #1ABC9C;
         --primary-dark: #16a085;
-        --primary-light: #e8f8f5;
+        --primary-light: #d1fae5;
         --accent: #e67e22;
         --dark: #1e293b;
         --text-muted: #64748b;
         --white: #ffffff;
-        --shadow-sm: 0 4px 10px rgba(0,0,0,0.03);
-        --shadow-md: 0 10px 25px rgba(0,0,0,0.05);
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
     }
 
-    .content-area {
-        background: #f8fafc;
+    .content {
+        padding: 15px;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
     }
 
     /* ================= HEADER ================= */
     .page-header {
-        display: flex; justify-content: space-between; align-items: center;
-        flex-wrap: wrap; gap: 15px; margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
     }
+
     .page-title {
-        font-size: 1.5rem; font-weight: 800; color: var(--dark);
-        margin: 0; display: flex; align-items: center; gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-    .page-title i { color: var(--primary); font-size: 1.6rem; }
+
+    .page-title i {
+        color: var(--primary);
+        font-size: 1.1rem;
+    }
 
     /* ================= TOMBOL TAMBAH ================= */
     .btn-tambah {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white; border: none; padding: 12px 25px; border-radius: 40px;
-        font-weight: 700; font-size: 0.95rem; transition: all 0.3s;
-        display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
-        box-shadow: 0 5px 15px rgba(26,188,156,0.2);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 0.75rem;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
     }
-    .btn-tambah:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(26,188,156,0.3); color: white; gap: 14px;}
+
+    .btn-tambah:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26,188,156,0.3);
+        gap: 10px;
+        color: white;
+    }
 
     /* ================= ALERT ================= */
     .alert-custom {
-        background: #d1fae5; border-left: 5px solid var(--primary);
-        border-radius: 12px; padding: 15px 20px; margin-bottom: 25px;
-        display: flex; align-items: center; justify-content: space-between;
+        background: #d1fae5;
+        border-left: 3px solid var(--primary);
+        border-radius: 10px;
+        padding: 10px 16px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-    .alert-custom span { color: #065f46; font-size: 0.95rem; font-weight: 600; }
+
+    .alert-custom span {
+        color: #065f46;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .alert-custom i {
+        cursor: pointer;
+        color: #065f46;
+        font-size: 0.8rem;
+    }
 
     /* ================= CARD TABEL ================= */
-    .card-table { background: white; border-radius: 20px; border: 1px solid #eef2f6; overflow: hidden; box-shadow: var(--shadow-sm); }
-    .table-responsive { overflow-x: auto; }
-    .table-custom { width: 100%; margin-bottom: 0; }
-    
-    .table-custom thead th {
-        background: #f8fafc; color: #475569; font-weight: 800; font-size: 0.8rem;
-        text-transform: uppercase; letter-spacing: 0.5px; padding: 18px 20px; border-bottom: 2px solid #e2e8f0;
+    .card-table {
+        background: white;
+        border-radius: 16px;
+        border: 1px solid #eef2f6;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
     }
-    .table-custom tbody td { padding: 18px 20px; vertical-align: middle; font-size: 0.95rem; color: #334155; border-bottom: 1px solid #f1f5f9; }
-    .table-custom tbody tr:hover { background: #f8fafc; }
 
-    /* ================= FOTO & NAMA KATEGORI ================= */
-    .kategori-wrapper { display: flex; align-items: center; gap: 15px; }
-    .kategori-name { font-weight: 800; color: var(--dark); font-size: 1rem; }
-    
-    .foto-kategori {
-        width: 55px; height: 55px; border-radius: 12px; object-fit: contain; background: white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.06); padding: 5px; border: 1px solid #e2e8f0; transition: 0.3s;
+    .table-responsive {
+        overflow-x: auto;
     }
-    .table-custom tbody tr:hover .foto-kategori { transform: scale(1.1) rotate(5deg); }
-    
-    /* Placeholder Icon jika admin tidak upload gambar */
-    .icon-placeholder {
-        width: 55px; height: 55px; border-radius: 12px; background: var(--primary-light);
-        display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary);
-        box-shadow: 0 4px 10px rgba(26,188,156,0.1); border: 1px solid rgba(26,188,156,0.2);
+
+    .table-custom {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .table-custom thead th {
+        background: #f8fafc;
+        color: var(--text-muted);
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 12px 12px;
+        border-bottom: 1px solid #eef2f6;
+    }
+
+    .table-custom tbody td {
+        padding: 12px 12px;
+        vertical-align: middle;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid #eef2f6;
+    }
+
+    .table-custom tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    /* ================= KATEGORI WRAPPER ================= */
+    .kategori-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .kategori-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--primary-light);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .kategori-icon i {
+        font-size: 1rem;
+        color: var(--primary);
+    }
+
+    .kategori-name {
+        font-weight: 700;
+        color: var(--dark);
+        font-size: 0.8rem;
     }
 
     /* ================= DESKRIPSI ================= */
-    .kategori-desc { font-size: 0.85rem; color: var(--text-muted); max-width: 350px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6;}
+    .kategori-desc {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
     /* ================= TOMBOL AKSI ================= */
-    .btn-action-group { display: flex; justify-content: center; gap: 10px; }
-    
-    .btn-edit {
-        background: #fef3c7; color: #d97706; padding: 8px 18px; border-radius: 30px;
-        font-size: 0.8rem; font-weight: 800; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border: 1px solid transparent;
+    .btn-action-group {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
     }
-    .btn-edit:hover { background: white; color: #d97706; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2); border-color: #f59e0b;}
+
+    .btn-edit {
+        background: #fef3c7;
+        color: #b45309;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+    }
+
+    .btn-edit:hover {
+        background: #f59e0b;
+        color: white;
+        transform: translateY(-2px);
+        gap: 7px;
+    }
 
     .btn-hapus {
-        background: #fee2e2; color: #dc2626; border: none; padding: 8px 18px; border-radius: 30px;
-        font-size: 0.8rem; font-weight: 800; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid transparent;
+        background: #fee2e2;
+        color: #991b1b;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
     }
-    .btn-hapus:hover { background: white; color: #dc2626; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(220, 38, 38, 0.2); border-color: #ef4444;}
+
+    .btn-hapus:hover {
+        background: #ef4444;
+        color: white;
+        transform: translateY(-2px);
+        gap: 7px;
+    }
 
     /* ================= EMPTY STATE ================= */
-    .empty-state { text-align: center; padding: 60px 20px; }
-    .empty-state i { font-size: 4rem; color: #cbd5e1; margin-bottom: 20px; }
-    .empty-state h5 { font-weight: 800; color: #475569; margin-bottom: 10px;}
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+    }
 
+    .empty-state i {
+        font-size: 3rem;
+        color: #cbd5e1;
+        margin-bottom: 15px;
+    }
+
+    .empty-state p {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        margin-bottom: 15px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+        .content {
+            padding: 10px;
+        }
+        .page-title {
+            font-size: 1rem;
+        }
+        .btn-tambah {
+            padding: 6px 16px;
+            font-size: 0.7rem;
+        }
+        .table-custom thead th,
+        .table-custom tbody td {
+            padding: 10px 8px;
+        }
+        .kategori-name {
+            font-size: 0.75rem;
+        }
+        .kategori-icon {
+            width: 30px;
+            height: 30px;
+        }
+        .btn-edit, .btn-hapus {
+            padding: 4px 10px;
+            font-size: 0.6rem;
+        }
+    }
 </style>
 @endsection
 
 @section('content')
-<div class="content-area">
+<div class="content">
     
     <!-- HEADER HALAMAN -->
     <div class="page-header">
-        <h2 class="page-title"><i class="fas fa-tags"></i> Data Kategori Obat</h2>
-        <a href="{{ route('admin.kategori.create') }}" class="btn-tambah"><i class="fas fa-plus"></i> Tambah Kategori Baru</a>
+        <h2 class="page-title">
+            <i class="fas fa-tags"></i> Kelola Kategori
+        </h2>
+        <a href="{{ route('admin.kategori.create') }}" class="btn-tambah">
+            <i class="fas fa-plus"></i> Tambah Kategori
+        </a>
     </div>
 
     <!-- PESAN SUKSES -->
     @if(session('success'))
-        <div class="alert-custom">
-            <span><i class="fas fa-check-circle me-2"></i> {{ session('success') }}</span>
-            <i class="fas fa-times" style="cursor: pointer;" onclick="this.parentElement.style.display='none'"></i>
-        </div>
+    <div class="alert-custom">
+        <span><i class="fas fa-check-circle me-2"></i> {{ session('success') }}</span>
+        <i class="fas fa-times" onclick="this.parentElement.style.display='none'"></i>
+    </div>
     @endif
 
     <!-- CARD TABEL -->
@@ -127,43 +299,35 @@
             <table class="table-custom">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 50px;">No</th>
-                        <th>Kategori & Foto</th> <!-- Header ini saya gabung -->
+                        <th class="text-center" style="width: 60px;">No</th>
+                        <th>Nama Kategori</th>
                         <th>Deskripsi</th>
-                        <th class="text-center" style="width: 220px;">Aksi</th>
+                        <th class="text-center" style="width: 160px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($kategoris as $item)
                     <tr>
-                        <td class="text-center fw-bold text-muted">{{ $loop->iteration }}</td>
-                        
-                        <!-- KODE PINTAR (MENAMPILKAN GAMBAR ASLI DARI DATABASE) -->
+                        <td class="text-center text-muted">{{ $loop->iteration }}</td>
                         <td>
                             <div class="kategori-wrapper">
-                                @if(isset($item->icon) && $item->icon != '')
-                                    <img src="{{ asset('images/kategori/' . $item->icon) }}" class="foto-kategori" alt="{{ $item->nama_kategori }}">
-                                @else
-                                    <div class="icon-placeholder"><i class="fas fa-folder-open"></i></div>
-                                @endif
-                                <div class="kategori-name">{{ $item->nama_kategori }}</div>
+                                <div class="kategori-icon">
+                                    <i class="fas fa-folder"></i>
+                                </div>
+                                <span class="kategori-name">{{ $item->nama_kategori }}</span>
                             </div>
                         </td>
-                        
-                        <!-- DESKRIPSI -->
                         <td>
-                            <div class="kategori-desc" title="{{ $item->deskripsi ?? 'Tidak ada deskripsi' }}">
-                                {{ $item->deskripsi ?? '-' }}
+                            <div class="kategori-desc" title="{{ $item->deskripsi ?? '-' }}">
+                                {{ \Illuminate\Support\Str::limit($item->deskripsi ?? '-', 50) }}
                             </div>
                         </td>
-
-                        <!-- AKSI CRUD -->
-                        <td>
+                        <td class="text-center">
                             <div class="btn-action-group">
                                 <a href="{{ route('admin.kategori.edit', $item->id) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Peringatan: Menghapus kategori ini juga akan menghapus/menyembunyikan produk di dalamnya! Lanjutkan?')" style="display: inline;">
+                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-hapus">
@@ -176,10 +340,11 @@
                     @empty
                     <tr>
                         <td colspan="4" class="empty-state">
-                            <i class="fas fa-tags opacity-50"></i>
-                            <h5>Belum ada kategori yang dibuat</h5>
-                            <p class="text-muted">Mulailah dengan menambahkan grup obat pertama Anda.</p>
-                            <a href="{{ route('admin.kategori.create') }}" class="btn-tambah mt-3"><i class="fas fa-plus"></i> Buat Kategori Pertama</a>
+                            <i class="fas fa-folder-open"></i>
+                            <p>Belum ada data kategori</p>
+                            <a href="{{ route('admin.kategori.create') }}" class="btn-tambah" style="display: inline-flex;">
+                                <i class="fas fa-plus"></i> Tambah Kategori
+                            </a>
                         </td>
                     </tr>
                     @endforelse

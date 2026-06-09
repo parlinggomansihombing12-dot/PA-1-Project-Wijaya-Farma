@@ -10,11 +10,21 @@ use Illuminate\Support\Facades\File;
 class AdminProdukController extends Controller
 {
     // ================= 1. TAMPIL DATA =================
-    public function index()
-    {
-        $produks = Produk::latest()->get();
-        return view('admin.produk.index', compact('produks'));
-    }
+    // app/Http/Controllers/AdminProdukController.php
+
+public function index(Request $request)
+{
+    $search = $request->get('search');
+    
+    $produks = Produk::with('kategori')
+        ->when($search, function($query, $search) {
+            return $query->where('nama_obat', 'like', '%' . $search . '%');
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(15);
+    
+    return view('admin.produk.index', compact('produks'));
+}
 
     // ================= 2. HALAMAN TAMBAH =================
     public function create()
