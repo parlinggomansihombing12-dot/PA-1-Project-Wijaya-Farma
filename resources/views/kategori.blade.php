@@ -15,6 +15,7 @@
         --white: #ffffff;
         --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
         --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
+        --shadow-lg: 0 8px 25px rgba(0,0,0,0.08);
     }
 
     body {
@@ -27,29 +28,20 @@
     body::before {
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: 0; left: 0; width: 100%; height: 100%;
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="none" stroke="%231ABC9C" stroke-width="1" d="M10 10 L90 10 M10 20 L90 20 M10 30 L90 30 M10 40 L90 40 M10 50 L90 50 M10 60 L90 60 M10 70 L90 70 M10 80 L90 80 M10 90 L90 90 M20 10 L20 90 M30 10 L30 90 M40 10 L40 90 M50 10 L50 90 M60 10 L60 90 M70 10 L70 90 M80 10 L80 90"/></svg>');
-        background-repeat: repeat;
-        background-size: 40px;
-        z-index: -1;
-        pointer-events: none;
+        background-repeat: repeat; background-size: 40px; z-index: -1; pointer-events: none;
     }
 
-    .container-fluid, .main-content-area {
-        position: relative;
-        z-index: 2;
-    }
+    .container-fluid, .main-content-area { position: relative; z-index: 2; }
 
-    /* ============ SIDEBAR KATEGORI - SEPERTI GOAPOTEK ============ */
+    /* ============ SIDEBAR KATEGORI PREMIUM ============ */
     .sidebar-kategori {
         background: white;
         border-radius: 0 20px 20px 0;
         position: sticky;
-        top: 70px;
-        height: calc(100vh - 70px);
+        top: 85px;
+        height: calc(100vh - 95px);
         overflow-y: auto;
         z-index: 100;
         box-shadow: 2px 0 20px rgba(0,0,0,0.03);
@@ -58,195 +50,178 @@
     }
 
     /* Custom Scrollbar */
-    .sidebar-kategori::-webkit-scrollbar {
-        width: 4px;
-    }
-    .sidebar-kategori::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    .sidebar-kategori::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 10px;
-    }
+    .sidebar-kategori::-webkit-scrollbar { width: 4px; }
+    .sidebar-kategori::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+    .sidebar-kategori::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-    .sidebar-inner {
-        padding: 25px 15px 30px 15px;
-    }
+    .sidebar-inner { padding: 25px 16px 30px 16px; }
 
-    .sidebar-header {
-        padding: 0 10px 18px;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #eef2f6;
+    .sidebar-header { 
+        padding: 0 12px 20px; 
+        margin-bottom: 15px; 
+        border-bottom: 2px solid var(--primary-light);
     }
-
-    .sidebar-title {
-        font-size: 0.7rem;
-        font-weight: 800;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin: 0;
+    .sidebar-title { 
+        font-size: 0.7rem; 
+        font-weight: 800; 
+        color: var(--primary); 
+        text-transform: uppercase; 
+        letter-spacing: 1.5px; 
+        margin: 0; 
     }
-
-    .sidebar-subtitle {
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: var(--dark);
-        margin: 5px 0 0;
+    .sidebar-subtitle { 
+        font-size: 1.2rem; 
+        font-weight: 800; 
+        color: var(--dark); 
+        margin: 5px 0 0; 
     }
 
     /* Tombol Semua Produk */
     .all-produk-btn {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        margin: 15px 8px 20px 8px;
-        padding: 10px 15px;
+        margin: 15px 0 20px 0;
+        padding: 12px 16px;
         border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        transition: all 0.2s;
+        transition: all 0.3s;
+        box-shadow: 0 3px 10px rgba(26,188,156,0.2);
     }
-
-    .all-produk-btn:hover {
-        transform: translateY(-2px);
-    }
-
-    .all-produk-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .all-produk-icon {
-        background: rgba(255,255,255,0.2);
-        width: 35px;
-        height: 35px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-    }
-
-    .all-produk-text span {
-        font-size: 0.65rem;
-        font-weight: 500;
-        opacity: 0.9;
-    }
-
-    .all-produk-text h5 {
-        font-size: 0.85rem;
-        font-weight: 800;
-        margin: 0;
-    }
-
-    .all-produk-badge {
-        background: rgba(255,255,255,0.25);
+    .all-produk-btn:hover { 
+        transform: translateY(-2px); 
+        box-shadow: 0 6px 15px rgba(26,188,156,0.3);
         color: white;
-        padding: 4px 10px;
-        border-radius: 30px;
-        font-weight: 800;
-        font-size: 0.8rem;
     }
 
-    /* List Kategori - SEPERTI GOAPOTEK */
-    .kategori-list {
-        margin-top: 5px;
+    .all-produk-left { display: flex; align-items: center; gap: 10px; }
+    .all-produk-icon { 
+        background: rgba(255,255,255,0.2); 
+        width: 38px; height: 38px; 
+        border-radius: 10px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 1.1rem; 
+    }
+    .all-produk-text span { font-size: 0.65rem; font-weight: 500; opacity: 0.9; }
+    .all-produk-text h5 { font-size: 0.85rem; font-weight: 800; margin: 0; }
+
+    .all-produk-badge { 
+        background: rgba(255,255,255,0.25); 
+        color: white; 
+        padding: 4px 10px; 
+        border-radius: 30px; 
+        font-weight: 800; 
+        font-size: 0.8rem; 
     }
 
-    .kategori-label {
-        font-size: 0.6rem;
-        font-weight: 800;
-        color: #94a3b8;
-        text-transform: uppercase;
-        padding: 10px 12px 5px;
-        letter-spacing: 1px;
+    /* List Kategori */
+    .kategori-list { margin-top: 10px; }
+    .kategori-label { 
+        font-size: 0.65rem; 
+        font-weight: 800; 
+        color: #94a3b8; 
+        text-transform: uppercase; 
+        padding: 12px 12px 8px; 
+        letter-spacing: 1px; 
     }
 
     .kategori-link {
         display: flex;
         align-items: center;
-        padding: 8px 12px;
-        margin: 2px 6px;
+        padding: 10px 12px;
+        margin: 3px 0;
         color: #475569;
         text-decoration: none;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 0.8rem;
-        transition: all 0.2s;
+        transition: all 0.25s;
         border-radius: 10px;
-        gap: 12px;
+        gap: 10px;
+    }
+    .kategori-link:hover { 
+        background: #f0fdf4; 
+        color: var(--primary); 
+        transform: translateX(4px); 
+    }
+    .kategori-link.active { 
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+        color: white; 
+        box-shadow: 0 2px 8px rgba(26,188,156,0.2);
     }
 
-    .kategori-link:hover {
-        background: #f0fdf4;
-        color: var(--primary);
-        transform: translateX(3px);
-    }
-
-    .kategori-link.active {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-    }
-
+    /* Foto Kategori di Sidebar */
     .kategori-icon {
-        width: 28px;
-        height: 28px;
-        background: #f1f5f9;
+        width: 32px;
+        height: 32px;
+        background: #f8fafc;
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.9rem;
         flex-shrink: 0;
-    }
-
-    .kategori-link.active .kategori-icon {
-        background: rgba(255,255,255,0.2);
-    }
-
-    /* NAMA KATEGORI - DIPOTONG RAPI (SEPERTI GOAPOTEK) */
-    .kategori-name {
-        flex: 1;
-        font-weight: 500;
-        font-size: 0.8rem;
-        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; /* Tambahin ... jika terlalu panjang */
+        border: 1px solid #eef2f6;
+    }
+    .kategori-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 4px;
+    }
+    .kategori-icon i {
+        font-size: 0.9rem;
+        color: var(--primary);
     }
 
-    .kategori-count {
-        background: #e2e8f0;
-        padding: 2px 8px;
-        border-radius: 20px;
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #64748b;
-        flex-shrink: 0;
+    /* NAMA KATEGORI - TAMPIL LENGKAP (TIDAK DIPOTONG) */
+    .kategori-name { 
+        flex: 1; 
+        font-weight: 600; 
+        font-size: 0.8rem; 
+        color: inherit;
+        /* Hapus white-space: nowrap agar bisa 2 baris jika perlu */
+        white-space: normal;
+        line-height: 1.35;
     }
 
-    .kategori-link.active .kategori-count {
-        background: rgba(255,255,255,0.25);
-        color: white;
+    .kategori-count { 
+        background: #e2e8f0; 
+        padding: 2px 8px; 
+        border-radius: 20px; 
+        font-size: 0.65rem; 
+        font-weight: 700; 
+        color: #64748b; 
+        flex-shrink: 0; 
+        margin-left: 5px;
+    }
+    .kategori-link.active .kategori-count { 
+        background: rgba(255,255,255,0.25); 
+        color: white; 
     }
 
     /* ============ MAIN CONTENT ============ */
-    .main-content-area {
-        padding: 25px 30px;
-        background: transparent;
-        height: calc(100vh - 70px);
-        overflow-y: auto;
+    .main-content-area { 
+        padding: 25px 30px; 
+        background: transparent; 
+        min-height: 100vh;
     }
 
-    /* Search Box */
+    /* Search Bar Premium */
     .search-wrapper {
         background: white;
         padding: 5px 5px 5px 20px;
         border-radius: 60px;
         box-shadow: var(--shadow-sm);
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         border: 1px solid #eef2f6;
+        transition: all 0.3s;
     }
-
+    .search-wrapper:focus-within {
+        box-shadow: 0 4px 20px rgba(26,188,156,0.1);
+        border-color: var(--primary);
+    }
     .search-input {
         border: none !important;
         outline: none !important;
@@ -254,15 +229,19 @@
         padding: 10px 0;
         font-size: 0.85rem;
     }
-
     .search-btn {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         border: none;
         border-radius: 50px;
-        padding: 9px 28px;
+        padding: 8px 28px;
         color: white;
         font-weight: 700;
         font-size: 0.8rem;
+        transition: 0.2s;
+    }
+    .search-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 3px 10px rgba(26,188,156,0.3);
     }
 
     /* Header Kategori */
@@ -271,15 +250,16 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
-
     .category-title {
         font-size: 1.3rem;
         font-weight: 800;
         color: var(--dark);
         position: relative;
+        margin: 0;
     }
-
     .category-title::after {
         content: '';
         position: absolute;
@@ -290,7 +270,6 @@
         background: linear-gradient(90deg, var(--primary), var(--accent));
         border-radius: 3px;
     }
-
     .product-count {
         color: var(--text-muted);
         font-size: 0.75rem;
@@ -299,30 +278,28 @@
         padding: 6px 16px;
         border-radius: 40px;
         border: 1px solid #e2e8f0;
+        box-shadow: var(--shadow-sm);
     }
 
-    /* Card Produk */
-    .row.g-4 {
-        margin: 0 -8px;
-    }
-    .row.g-4 > [class*="col-"] {
-        padding: 0 8px;
-    }
+    /* Grid Produk - 6 Kolom */
+    .row.g-4 { margin: 0 -8px; }
+    .row.g-4 > [class*="col-"] { padding: 0 8px; }
 
+    /* Card Produk Premium */
     .card-produk {
         background: white;
-        border-radius: 14px;
-        transition: all 0.3s;
+        border-radius: 16px;
+        transition: all 0.3s ease;
         height: 100%;
         display: flex;
         flex-direction: column;
         box-shadow: var(--shadow-sm);
         border: 1px solid #eef2f6;
         overflow: hidden;
+        position: relative;
     }
-
     .card-produk:hover {
-        transform: translateY(-4px);
+        transform: translateY(-5px);
         box-shadow: var(--shadow-md);
         border-color: var(--primary);
     }
@@ -345,38 +322,40 @@
     }
 
     .img-container {
-        height: 120px;
+        height: 150px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #f8fafc;
+        background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
         padding: 12px;
         position: relative;
     }
-
     .img-container img {
         max-width: 85%;
-        max-height: 85px;
+        max-height: 110px;
         object-fit: contain;
+        transition: transform 0.25s;
+    }
+    .card-produk:hover .img-container img {
+        transform: scale(1.05);
     }
 
     .card-content {
-        padding: 10px 12px 14px;
+        padding: 12px 12px 15px;
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
-
     .brand-name {
         font-size: 0.55rem;
         font-weight: 800;
         color: var(--primary);
         letter-spacing: 1px;
+        text-transform: uppercase;
     }
-
     .nama-obat {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 800;
         color: var(--dark);
         line-height: 1.35;
@@ -384,34 +363,37 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 34px;
+        min-height: 35px;
     }
-
     .harga-obat {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 800;
         color: #e67e22;
+        margin: 3px 0;
     }
-
     .stok-info {
         font-size: 0.6rem;
         font-weight: 700;
         display: flex;
         align-items: center;
     }
-
     .stok-tersedia {
         background: #d1fae5;
         color: #065f46;
-        padding: 3px 8px;
+        padding: 3px 10px;
         border-radius: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
     }
-
     .stok-habis {
         background: #fee2e2;
         color: #991b1b;
-        padding: 3px 8px;
+        padding: 3px 10px;
         border-radius: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
     }
 
     .btn-lihat {
@@ -424,27 +406,60 @@
         font-size: 0.65rem;
         color: #1e293b;
         border: 1px solid #e2e8f0;
-        margin-top: 5px;
-        transition: 0.2s;
+        margin-top: 8px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
     }
-
     .btn-lihat:hover {
         background: var(--primary);
         color: white;
+        gap: 6px;
     }
 
-    /* Responsive Grid */
+    /* Pagination */
+    .pagination {
+        justify-content: center;
+        gap: 6px;
+        margin-top: 35px;
+    }
+    .pagination .page-link {
+        border-radius: 10px;
+        background: white;
+        color: var(--primary);
+        border: 1px solid #e2e8f0;
+        padding: 6px 14px;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-color: transparent;
+        color: white;
+    }
+    .pagination .page-link:hover {
+        background: var(--primary);
+        color: white;
+        border-color: transparent;
+    }
+
+    /* ============ RESPONSIVE ============ */
     @media (min-width: 1400px) {
-        .col-xl-3 { flex: 0 0 16.666%; max-width: 16.666%; }
+        .col-xl-2 { flex: 0 0 16.666%; max-width: 16.666%; }
     }
     @media (max-width: 1399px) and (min-width: 1200px) {
-        .col-xl-3 { flex: 0 0 20%; max-width: 20%; }
+        .col-xl-2 { flex: 0 0 20%; max-width: 20%; }
     }
     @media (max-width: 1199px) and (min-width: 992px) {
-        .col-lg-4 { flex: 0 0 25%; max-width: 25%; }
+        .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
     }
     @media (max-width: 991px) and (min-width: 768px) {
-        .col-md-6 { flex: 0 0 33.333%; max-width: 33.333%; }
+        .col-md-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+    }
+    @media (max-width: 767px) and (min-width: 576px) {
+        .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
     }
 
     @media (max-width: 992px) {
@@ -454,22 +469,33 @@
             height: auto;
             max-height: 280px;
             border-radius: 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .main-content-area {
             padding: 20px;
-            height: auto;
         }
+    }
+    @media (max-width: 768px) {
+        .category-title { font-size: 1.1rem; }
+        .img-container { height: 140px; }
+        .nama-obat { font-size: 0.75rem; }
+        .harga-obat { font-size: 0.85rem; }
+    }
+    @media (max-width: 500px) {
+        .col-sm-6 { flex: 0 0 100%; max-width: 100%; }
+        .search-wrapper { padding: 5px 5px 5px 15px; }
+        .search-btn { padding: 6px 18px; font-size: 0.7rem; }
+        .sidebar-inner { padding: 15px 12px; }
+        .kategori-name { font-size: 0.75rem; }
     }
 </style>
 @endsection
 
 @section('content')
-
 <div class="container-fluid">
     <div class="row g-0">
         
-        <!-- ============ SIDEBAR KATEGORI - SEPERTI GOAPOTEK ============ -->
+        <!-- ============ SIDEBAR KATEGORI ============ -->
         <div class="col-md-3 col-lg-2 d-none d-md-block p-0">
             <div class="sidebar-kategori">
                 <div class="sidebar-inner">
@@ -487,7 +513,7 @@
                             </div>
                         </div>
                         <div class="all-produk-badge">
-                            {{ $total_semua_produk }}
+                            {{ $total_semua_produk ?? '0' }}
                         </div>
                     </a>
 
@@ -497,20 +523,17 @@
                     
                     <div class="kategori-list">
                         @foreach($list_kategori as $kat)
-                        <a href="/kategori?kategori={{ $kat->id }}" class="kategori-link {{ $kategori_aktif == $kat->id ? 'active' : '' }}">
+                        <a href="/kategori?kategori={{ $kat->id }}" class="kategori-link {{ isset($kategori_aktif) && $kategori_aktif == $kat->id ? 'active' : '' }}">
                             <div class="kategori-icon">
-                                @if($kat->nama_kategori == 'Obat Perut') 💊
-                                @elseif($kat->nama_kategori == 'Obat Gigi') 🦷
-                                @elseif($kat->nama_kategori == 'Obat Kepala') 🤕
-                                @elseif($kat->nama_kategori == 'Perlengkapan bayi') 🍼
-                                @elseif(str_contains($kat->nama_kategori, 'TETES MATA')) 👁️
-                                @elseif(str_contains($kat->nama_kategori, 'Perawatan Luka')) 🩹
-                                @else 🌿
+                                @if($kat->foto)
+                                    <img src="{{ asset('images/kategori/' . $kat->foto) }}" alt="{{ $kat->nama_kategori }}">
+                                @else
+                                    <i class="fas fa-tag"></i>
                                 @endif
                             </div>
-                            <!-- NAMA KATEGORI DIPOTONG RAPI (seperti GoApotek) -->
-                            <span class="kategori-name">{{ Str::limit($kat->nama_kategori, 22) }}</span>
-                            <span class="kategori-count">{{ $kat->produk_count ?? $kat->produks->count() }}</span>
+                            <!-- NAMA KATEGORI TAMPIL LENGKAP (TIDAK DIPOTONG) -->
+                            <span class="kategori-name">{{ $kat->nama_kategori }}</span>
+                            <span class="kategori-count">{{ $kat->produks ? $kat->produks->count() : 0 }}</span>
                         </a>
                         @endforeach
                     </div>
@@ -524,7 +547,7 @@
             <!-- Search Bar -->
             <div class="search-wrapper">
                 <form action="/kategori" method="GET" class="d-flex align-items-center gap-2">
-                    @if($kategori_aktif)
+                    @if(isset($kategori_aktif) && $kategori_aktif)
                         <input type="hidden" name="kategori" value="{{ $kategori_aktif }}">
                     @endif
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
@@ -535,8 +558,8 @@
                            placeholder="Cari nama obat..." 
                            value="{{ request('cari') }}">
                     <button type="submit" class="btn search-btn">🔍 Cari</button>
-                    @if(request('cari') || $kategori_aktif)
-                        <a href="/kategori" class="btn btn-outline-secondary rounded-pill px-3" style="font-weight: 600; font-size: 0.7rem;">Reset</a>
+                    @if(request('cari') || (isset($kategori_aktif) && $kategori_aktif))
+                        <a href="/kategori" class="btn btn-outline-secondary rounded-pill px-3" style="font-weight: 600; font-size: 0.65rem;">Reset</a>
                     @endif
                 </form>
             </div>
@@ -544,7 +567,7 @@
             <!-- Header Kategori -->
             <div class="category-header">
                 <h4 class="category-title">
-                    {{ $kategori_aktif ? $list_kategori->where('id', $kategori_aktif)->first()->nama_kategori : 'Semua Obat' }}
+                    {{ isset($kategori_aktif) && $kategori_aktif ? ($list_kategori->where('id', $kategori_aktif)->first()->nama_kategori ?? 'Semua Obat') : 'Semua Obat' }}
                 </h4>
                 <div class="product-count">📊 {{ $list_produk->count() }} produk</div>
             </div>
@@ -552,11 +575,14 @@
             <!-- Grid Produk -->
             <div class="row g-4">
                 @forelse($list_produk as $item)
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="card-produk" style="position: relative;">
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="card-produk">
+                        <!-- Badge Obat Keras -->
                         @if(($item->is_keras ?? false) || in_array($item->nama_obat, ['Promag', 'Mylanta', 'Paramex', 'Cataflam']))
-                        <div class="badge-keras">K</div>
+                        <div class="badge-keras" title="Obat Keras">K</div>
                         @endif
+                        
+                        <!-- Foto Produk -->
                         <div class="img-container">
                             @if($item->foto)
                                 <img src="{{ asset('images/produk/' . $item->foto) }}" alt="{{ $item->nama_obat }}">
@@ -564,6 +590,7 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="no-image">
                             @endif
                         </div>
+                        
                         <div class="card-content">
                             <div class="brand-name">WIJAYA FARMA</div>
                             <div class="nama-obat">{{ $item->nama_obat }}</div>
@@ -575,7 +602,9 @@
                                 @endif
                             </div>
                             <div class="harga-obat">Rp {{ number_format($item->harga, 0, ',', '.') }}</div>
-                            <a href="/produk/{{ $item->id }}?from=kategori" class="btn-lihat">👁️ Detail →</a>
+                            <a href="/produk/{{ $item->id }}?from=kategori" class="btn-lihat">
+                                👁️ Detail <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -584,20 +613,40 @@
                     <div class="text-center py-5">
                         <i class="fas fa-box-open fa-3x mb-3 opacity-25"></i>
                         <h5>🌿 Produk tidak ditemukan</h5>
+                        <p class="text-muted small">Coba cari dengan kata kunci lain atau pilih kategori berbeda.</p>
                         <a href="/kategori" class="btn search-btn mt-2">Reset Filter</a>
                     </div>
                 </div>
                 @endforelse
             </div>
 
+            <!-- Pagination -->
             @if(method_exists($list_produk, 'links') && $list_produk instanceof \Illuminate\Pagination\AbstractPaginator)
             <div class="d-flex justify-content-center mt-4">
-                {{ $list_produk->appends(request()->query())->links() }}
+                {{ $list_produk->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
             @endif
         </div>
-
     </div>
 </div>
+
+<!-- SCRIPT UNTUK NAVBAR SCROLL -->
+<script>
+(function() {
+    function updateNavbar() {
+        var nav = document.getElementById('mainNavbar');
+        if (!nav) return;
+        
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }
+    
+    window.addEventListener('scroll', updateNavbar);
+    updateNavbar();
+})();
+</script>
 
 @endsection

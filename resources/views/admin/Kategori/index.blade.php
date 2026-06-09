@@ -134,13 +134,31 @@
         background: #f8fafc;
     }
 
-    /* ================= KATEGORI WRAPPER ================= */
+    /* ================= KATEGORI FOTO & WRAPPER ================= */
     .kategori-wrapper {
         display: flex;
         align-items: center;
         gap: 12px;
     }
 
+    /* Ini khusus foto asli (TAMBAHAN BARU) */
+    .foto-kategori {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        object-fit: contain; /* Contain agar logo obat tidak terpotong */
+        background-color: white;
+        border: 1px solid #eef2f6;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 3px;
+        transition: transform 0.3s;
+    }
+    
+    .table-custom tbody tr:hover .foto-kategori {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    /* Ini placeholder jika foto kosong */
     .kategori-icon {
         width: 36px;
         height: 36px;
@@ -243,31 +261,13 @@
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 768px) {
-        .content {
-            padding: 10px;
-        }
-        .page-title {
-            font-size: 1rem;
-        }
-        .btn-tambah {
-            padding: 6px 16px;
-            font-size: 0.7rem;
-        }
-        .table-custom thead th,
-        .table-custom tbody td {
-            padding: 10px 8px;
-        }
-        .kategori-name {
-            font-size: 0.75rem;
-        }
-        .kategori-icon {
-            width: 30px;
-            height: 30px;
-        }
-        .btn-edit, .btn-hapus {
-            padding: 4px 10px;
-            font-size: 0.6rem;
-        }
+        .content { padding: 10px; }
+        .page-title { font-size: 1rem; }
+        .btn-tambah { padding: 6px 16px; font-size: 0.7rem; }
+        .table-custom thead th, .table-custom tbody td { padding: 10px 8px; }
+        .kategori-name { font-size: 0.75rem; }
+        .kategori-icon, .foto-kategori { width: 30px; height: 30px; }
+        .btn-edit, .btn-hapus { padding: 4px 10px; font-size: 0.6rem; }
     }
 </style>
 @endsection
@@ -300,7 +300,7 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 60px;">No</th>
-                        <th>Nama Kategori</th>
+                        <th>Kategori & Ikon</th> <!-- Sedikit diperjelas header-nya -->
                         <th>Deskripsi</th>
                         <th class="text-center" style="width: 160px;">Aksi</th>
                     </tr>
@@ -311,9 +311,16 @@
                         <td class="text-center text-muted">{{ $loop->iteration }}</td>
                         <td>
                             <div class="kategori-wrapper">
-                                <div class="kategori-icon">
-                                    <i class="fas fa-folder"></i>
-                                </div>
+                                <!-- LOGIKA PINTAR UNTUK MENAMPILKAN FOTO -->
+                                @if($item->foto)
+                                    <img src="{{ asset('images/kategori/' . $item->foto) }}" class="foto-kategori" alt="{{ $item->nama_kategori }}">
+                                @else
+                                    <div class="kategori-icon">
+                                        <i class="fas fa-folder"></i>
+                                    </div>
+                                @endif
+                                <!-- ===================================== -->
+
                                 <span class="kategori-name">{{ $item->nama_kategori }}</span>
                             </div>
                         </td>
@@ -327,7 +334,7 @@
                                 <a href="{{ route('admin.kategori.edit', $item->id) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')" style="display: inline;">
+                                <form action="{{ route('admin.kategori.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini? Semua produk di dalamnya akan kehilangan label kategorinya.')" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-hapus">

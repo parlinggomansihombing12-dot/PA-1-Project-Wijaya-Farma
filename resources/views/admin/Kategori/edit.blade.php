@@ -7,9 +7,16 @@
         <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary fw-bold">&larr; Kembali</a>
     </div>
 
+    @if($errors->any())
+        <div class="alert alert-danger shadow-sm rounded-3">
+            <ul class="mb-0 ps-3">@foreach($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul>
+        </div>
+    @endif
+
     <div class="card border-0 shadow-sm" style="max-width: 600px;">
         <div class="card-body p-4">
-            <!-- PENTING: Tambahkan enctype="multipart/form-data" -->
+            
+            <!-- FORM UPDATE -->
             <form action="{{ route('admin.kategori.update', $kategori->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -19,20 +26,21 @@
                     <input type="text" name="nama_kategori" class="form-control" value="{{ $kategori->nama_kategori }}" required>
                 </div>
 
-                <!-- EDIT ICON BARU -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Ganti Icon Kategori</label>
+                <!-- INI PERBAIKANNYA: Logika pengecekan foto dan nama inputnya -->
+                <div class="mb-3 p-3 rounded bg-light border">
+                    <label class="form-label fw-bold text-primary">Ganti Foto Kategori</label>
                     
-                    <!-- Menampilkan Icon Lama Jika Ada -->
-                    @if($kategori->icon)
-                        <div class="mb-2">
-                            <small class="text-muted d-block mb-1">Icon saat ini:</small>
-                            <img src="{{ asset('images/kategori/' . $kategori->icon) }}" alt="icon" style="height: 50px; border: 1px solid #ddd; padding: 5px; border-radius: 5px;">
+                    <!-- Mengecek apakah kategori ini punya 'foto' di database -->
+                    @if($kategori->foto)
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-2">Foto Saat Ini:</small>
+                            <img src="{{ asset('images/kategori/' . $kategori->foto) }}" alt="foto kategori" class="img-thumbnail" style="height: 60px; object-fit: contain; background: white;">
                         </div>
                     @endif
 
-                    <input type="file" name="icon" class="form-control" accept="image/*">
-                    <small class="text-muted">Kosongkan jika tidak ingin mengubah icon.</small>
+                    <!-- name diubah menjadi 'foto' -->
+                    <input type="file" name="foto" class="form-control" accept="image/*">
+                    <small class="text-muted mt-2 d-block">Kosongkan saja jika tidak ingin mengubah foto. Jika Anda meng-upload file baru, foto yang lama akan otomatis terhapus.</small>
                 </div>
 
                 <div class="mb-4">

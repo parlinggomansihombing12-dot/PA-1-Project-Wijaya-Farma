@@ -34,7 +34,7 @@
             overflow-x: hidden;
         }
         
-        /* ================= NAVBAR - LEBIH KECIL & RAPI ================= */
+        /* ================= NAVBAR ================= */
         .navbar-custom { 
             background: rgba(26, 188, 156, 0.95);
             backdrop-filter: blur(10px);
@@ -48,13 +48,15 @@
             border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
+        /* Saat discroll - berubah menjadi putih */
         .navbar-custom.scrolled {
             background: rgba(255, 255, 255, 0.98);
             padding: 8px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
         }
 
-        /* Logo - LEBIH KECIL */
+        /* Logo */
         .navbar-brand { 
             display: flex;
             align-items: center;
@@ -70,11 +72,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
         
         .brand-icon i {
             font-size: 1.3rem;
             color: white;
+            transition: all 0.3s;
         }
         
         .navbar-custom.scrolled .brand-icon {
@@ -89,6 +93,7 @@
             font-size: 1.1rem;
             font-weight: 800;
             color: white;
+            transition: all 0.3s;
         }
         
         .navbar-custom.scrolled .brand-name {
@@ -98,13 +103,14 @@
         .brand-tagline {
             font-size: 0.55rem;
             color: rgba(255,255,255,0.7);
+            transition: all 0.3s;
         }
         
         .navbar-custom.scrolled .brand-tagline {
             color: var(--teks-abu);
         }
 
-        /* Menu Link - LEBIH KECIL */
+        /* Menu Link */
         .nav-link { 
             display: flex;
             align-items: center;
@@ -115,6 +121,7 @@
             padding: 8px 14px !important;
             font-size: 0.85rem; 
             border-radius: 40px;
+            transition: all 0.3s;
         }
         
         .navbar-custom.scrolled .nav-link { 
@@ -125,6 +132,7 @@
         .nav-link.active { 
             background: rgba(255,255,255,0.15);
             color: white !important; 
+            transform: translateY(-2px);
         }
         
         .navbar-custom.scrolled .nav-link:hover,
@@ -137,7 +145,7 @@
             font-size: 0.8rem;
         }
 
-        /* Tombol Login - LEBIH KECIL */
+        /* Tombol Login */
         .btn-login { 
             display: flex;
             align-items: center;
@@ -183,6 +191,16 @@
         
         .navbar-toggler-icon::before { top: -7px; }
         .navbar-toggler-icon::after { bottom: -7px; }
+        
+        .navbar-custom.scrolled .navbar-toggler {
+            background: rgba(26, 188, 156, 0.1);
+        }
+        
+        .navbar-custom.scrolled .navbar-toggler-icon,
+        .navbar-custom.scrolled .navbar-toggler-icon::before,
+        .navbar-custom.scrolled .navbar-toggler-icon::after {
+            background: var(--tema-hijau);
+        }
         
         /* Mobile menu */
         @media (max-width: 1200px) {
@@ -281,23 +299,45 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    (function() {
+        // Ambil elemen navbar
         const nav = document.getElementById('mainNavbar');
         const scrollIndicator = document.getElementById('scrollIndicator');
         
-        window.addEventListener('scroll', function() {
+        if (!nav) return;
+        
+        // Fungsi untuk update navbar
+        function updateNavbar() {
+            // Cek posisi scroll
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
             
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            scrollIndicator.style.width = scrolled + '%';
-        });
-    });
+            // Update scroll indicator
+            if (scrollIndicator) {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollIndicator.style.width = scrolled + '%';
+            }
+        }
+        
+        // Jalankan saat scroll (pasif untuk performa)
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        
+        // Jalankan sekali saat halaman dimuat
+        updateNavbar();
+        
+        // Untuk halaman kategori yang mungkin memiliki konten dinamis
+        if (window.MutationObserver) {
+            const observer = new MutationObserver(function() {
+                updateNavbar();
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    })();
 </script>
 
 @yield('custom-js')

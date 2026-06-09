@@ -38,11 +38,11 @@
         z-index: 0;
     }
     
-    /* Header Artikel - DIPERKECIL */
+    /* Header Artikel */
     .articles-header {
         background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 35px 0;
-        margin-bottom: 35px;
+        padding: 40px 0;
+        margin-bottom: 40px;
         position: relative;
         overflow: hidden;
     }
@@ -81,18 +81,18 @@
     .articles-layout {
         display: flex;
         flex-wrap: wrap;
-        gap: 25px;
+        gap: 30px;
     }
     
-    /* ============ SIDEBAR KATEGORI - LEBIH KECIL ============ */
+    /* ============ SIDEBAR KATEGORI ============ */
     .kategori-sidebar {
-        flex: 0 0 250px;
+        flex: 0 0 260px;
         background: white;
         border-radius: 20px;
         padding: 0;
         box-shadow: var(--shadow-sm);
         position: sticky;
-        top: 90px;
+        top: 100px;
         align-self: flex-start;
         overflow: hidden;
         border: 1px solid #eef2f6;
@@ -100,17 +100,17 @@
     
     .sidebar-header {
         background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
-        padding: 15px;
+        padding: 18px 16px;
         color: white;
     }
     
     .sidebar-header h5 {
         font-size: 0.9rem;
         font-weight: 800;
-        margin: 0 0 3px 0;
+        margin: 0 0 4px 0;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
     
     .sidebar-header p {
@@ -120,15 +120,15 @@
     }
     
     .kategori-list {
-        padding: 12px;
+        padding: 16px 12px;
     }
     
     .kategori-artikel-link {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 12px;
-        margin: 3px 0;
+        padding: 10px 12px;
+        margin: 4px 0;
         background: #f8fafc;
         border-radius: 10px;
         font-weight: 500;
@@ -146,9 +146,8 @@
     .kategori-artikel-link .kat-text {
         flex: 1;
         font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        line-height: 1.35;
     }
     
     .kat-count {
@@ -180,9 +179,9 @@
     
     /* Tombol Reset */
     .btn-reset-wrapper {
-        padding: 10px;
+        padding: 12px;
         border-top: 1px solid #eef2f6;
-        margin-top: 5px;
+        margin-top: 8px;
     }
     
     .btn-reset-kategori {
@@ -211,14 +210,14 @@
         min-width: 0;
     }
     
-    /* Search Box - LEBIH KECIL */
+    /* Search Box */
     .search-box-wrapper {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
     }
     
     .search-form {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
     }
     
@@ -226,7 +225,7 @@
         flex: 1;
         display: flex;
         background: white;
-        border-radius: 50px;
+        border-radius: 60px;
         overflow: hidden;
         box-shadow: var(--shadow-sm);
         border: 1px solid #eef2f6;
@@ -234,15 +233,15 @@
     }
     
     .search-input-group:focus-within {
-        box-shadow: 0 2px 10px rgba(26,188,156,0.1);
+        box-shadow: 0 4px 15px rgba(26,188,156,0.1);
         border-color: #1abc9c;
     }
     
     .search-box-artikel {
         flex: 1;
         border: none;
-        padding: 10px 18px;
-        font-size: 0.8rem;
+        padding: 12px 20px;
+        font-size: 0.85rem;
         outline: none;
         background: transparent;
     }
@@ -250,10 +249,10 @@
     .btn-search {
         background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
         border: none;
-        padding: 0 22px;
+        padding: 0 28px;
         color: white;
         font-weight: 600;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         cursor: pointer;
         transition: 0.2s;
     }
@@ -265,8 +264,8 @@
     .btn-reset-search {
         background: white;
         border: 1px solid #e2e8f0;
-        border-radius: 50px;
-        padding: 9px 22px;
+        border-radius: 60px;
+        padding: 10px 24px;
         color: #64748b;
         font-weight: 600;
         font-size: 0.75rem;
@@ -277,18 +276,18 @@
         gap: 6px;
     }
     
-    /* Section Title - LEBIH KECIL */
+    /* Section Title */
     .section-title {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 12px;
     }
     
     .section-title h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 700;
         color: #1e293b;
         margin: 0;
@@ -298,9 +297,9 @@
     .section-title h3::after {
         content: '';
         position: absolute;
-        bottom: -6px;
+        bottom: -8px;
         left: 0;
-        width: 35px;
+        width: 40px;
         height: 2px;
         background: linear-gradient(90deg, #1abc9c, #f39c12);
         border-radius: 2px;
@@ -308,7 +307,7 @@
     
     .article-count {
         background: white;
-        padding: 4px 14px;
+        padding: 5px 16px;
         border-radius: 30px;
         font-size: 0.7rem;
         font-weight: 600;
@@ -316,19 +315,19 @@
         border: 1px solid #e2e8f0;
     }
     
-    /* ============ GRID ARTIKEL - 4 KOLOM ============ */
+    /* ============ GRID ARTIKEL - 3 KOLOM ============ */
     .articles-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
     }
     
-    /* ============ CARD ARTIKEL - LEBIH KECIL ============ */
+    /* ============ CARD ARTIKEL ============ */
     .article-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 18px;
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.35s ease;
         box-shadow: var(--shadow-sm);
         border: 1px solid #eef2f6;
         height: 100%;
@@ -337,15 +336,15 @@
     }
     
     .article-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-6px);
         box-shadow: var(--shadow-md);
-        border-color: #1abc9c40;
+        border-color: #1abc9c;
     }
     
     /* Image Container */
     .article-image {
         position: relative;
-        height: 140px;
+        height: 180px;
         overflow: hidden;
         background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
     }
@@ -366,18 +365,18 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 40px;
-        background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        height: 50px;
+        background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
     }
     
     .category-tag {
         position: absolute;
-        top: 10px;
-        left: 10px;
+        top: 12px;
+        left: 12px;
         background: linear-gradient(135deg, #1abc9c, #16a085);
-        padding: 3px 10px;
+        padding: 4px 12px;
         border-radius: 20px;
-        font-size: 0.55rem;
+        font-size: 0.6rem;
         font-weight: 700;
         color: white;
         z-index: 2;
@@ -385,11 +384,11 @@
     
     .badge-new {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 12px;
+        right: 12px;
         background: #f39c12;
         color: white;
-        padding: 3px 8px;
+        padding: 3px 10px;
         border-radius: 20px;
         font-size: 0.55rem;
         font-weight: 700;
@@ -398,7 +397,7 @@
     
     /* Content */
     .article-content {
-        padding: 12px;
+        padding: 16px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -407,24 +406,30 @@
     .article-meta {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-        font-size: 0.6rem;
+        gap: 12px;
+        margin-bottom: 10px;
+        font-size: 0.65rem;
         color: #94a3b8;
         flex-wrap: wrap;
     }
     
+    .article-date, .article-author {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
     .article-title {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
         font-weight: 800;
         color: #0f172a;
-        margin-bottom: 8px;
-        line-height: 1.35;
+        margin-bottom: 10px;
+        line-height: 1.4;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 34px;
+        min-height: 42px;
     }
     
     .article-card:hover .article-title {
@@ -432,16 +437,16 @@
     }
     
     .article-excerpt {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         color: #475569;
-        line-height: 1.5;
-        margin-bottom: 12px;
+        line-height: 1.55;
+        margin-bottom: 15px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         flex: 1;
-        min-height: 32px;
+        min-height: 36px;
     }
     
     .article-footer {
@@ -449,36 +454,36 @@
         justify-content: space-between;
         align-items: center;
         margin-top: auto;
-        padding-top: 10px;
+        padding-top: 12px;
         border-top: 1px solid #f1f5f9;
     }
     
     .read-more {
         color: #1abc9c;
         text-decoration: none;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         font-weight: 700;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         transition: all 0.2s;
     }
     
     .read-more:hover {
-        gap: 8px;
+        gap: 10px;
         color: #0e7c64;
     }
     
     .read-more svg {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
     }
     
     /* Empty State */
     .empty-state-artikel {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 40px;
+        padding: 50px;
         background: white;
         border-radius: 20px;
     }
@@ -494,13 +499,7 @@
     }
     
     /* ============ RESPONSIVE ============ */
-    @media (max-width: 1200px) {
-        .articles-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-    
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
         .articles-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -519,6 +518,7 @@
             flex: 0 0 auto;
             position: static;
             width: 100%;
+            margin-bottom: 20px;
         }
         
         .kategori-list {
@@ -545,11 +545,15 @@
         }
         
         .article-image {
-            height: 160px;
+            height: 200px;
         }
         
         .article-title {
             font-size: 0.9rem;
+        }
+        
+        .article-excerpt {
+            font-size: 0.8rem;
         }
     }
 </style>
@@ -571,7 +575,9 @@
         <!-- ============ SIDEBAR KATEGORI ============ -->
         <aside class="kategori-sidebar">
             <div class="sidebar-header">
-                <h5>📂 Kategori</h5>
+                <h5>
+                    <i class="fas fa-folder-open"></i> Kategori
+                </h5>
                 <p>Telusuri artikel berdasarkan topik</p>
             </div>
             
@@ -588,7 +594,7 @@
                     @if($kat->kategori_artikel != '')
                         <a href="/artikel?kategori={{ urlencode($kat->kategori_artikel) }}" class="kategori-artikel-link {{ $kategori_aktif == $kat->kategori_artikel ? 'active' : '' }}">
                             <span>🏷️</span>
-                            <span class="kat-text">{{ \Illuminate\Support\Str::limit($kat->kategori_artikel, 20) }}</span>
+                            <span class="kat-text">{{ $kat->kategori_artikel }}</span>
                             @php
                                 $count = isset($kategori_counts[$kat->kategori_artikel]) ? $kategori_counts[$kat->kategori_artikel] : 0;
                             @endphp
@@ -603,7 +609,7 @@
             @if($kategori_aktif || request('cari'))
             <div class="btn-reset-wrapper">
                 <a href="/artikel" class="btn-reset-kategori">
-                    🔄 Reset Filter
+                    <i class="fas fa-times"></i> Reset Filter
                 </a>
             </div>
             @endif
@@ -636,13 +642,21 @@
 
             <!-- Section Title -->
             <div class="section-title">
-                <h3>{{ $kategori_aktif ? 'Kategori: ' . \Illuminate\Support\Str::limit($kategori_aktif, 30) : (request('cari') ? 'Hasil: "' . request('cari') . '"' : 'Artikel Terbaru') }}</h3>
+                <h3>
+                    @if($kategori_aktif)
+                        <i class="fas fa-tag"></i> Kategori: {{ $kategori_aktif }}
+                    @elseif(request('cari'))
+                        <i class="fas fa-search"></i> Hasil: "{{ request('cari') }}"
+                    @else
+                        <i class="fas fa-newspaper"></i> Artikel Terbaru
+                    @endif
+                </h3>
                 <div class="article-count">
                     📊 {{ $list_artikel->count() }} artikel
                 </div>
             </div>
             
-            <!-- GRID ARTIKEL - 4 KOLOM -->
+            <!-- GRID ARTIKEL - 3 KOLOM -->
             <div class="articles-grid">
                 @forelse($list_artikel as $index => $item)
                 <div class="article-card" style="animation-delay: {{ $index * 0.03 }}s">
@@ -654,7 +668,7 @@
                             <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=400&auto=format&fit=crop" alt="Artikel Kesehatan">
                         @endif
                         <div class="image-overlay"></div>
-                        <div class="category-tag">{{ \Illuminate\Support\Str::limit($item->kategori_artikel ?? 'Kesehatan', 15) }}</div>
+                        <div class="category-tag">{{ $item->kategori_artikel ?? 'Kesehatan' }}</div>
                         
                         @if($item->created_at && $item->created_at->diffInDays(now()) <= 7)
                             <div class="badge-new">✨ BARU</div>
@@ -664,17 +678,17 @@
                     <div class="article-content">
                         <div class="article-meta">
                             <span class="article-date">
-                                📅 {{ $item->created_at ? $item->created_at->format('d M Y') : 'Baru saja' }}
+                                <i class="far fa-calendar-alt"></i> {{ $item->created_at ? $item->created_at->format('d M Y') : 'Baru saja' }}
                             </span>
                             <span class="article-author">
-                                ✍️ {{ \Illuminate\Support\Str::limit($item->penulis ?? 'Admin', 15) }}
+                                <i class="fas fa-user-edit"></i> {{ $item->penulis ?? 'Admin' }}
                             </span>
                         </div>
                         
-                        <div class="article-title">{{ \Illuminate\Support\Str::limit($item->judul, 50) }}</div>
+                        <div class="article-title">{{ $item->judul }}</div>
                         
                         <div class="article-excerpt">
-                            {{ Str::limit(strip_tags($item->konten), 80) }}
+                            {{ Str::limit(strip_tags($item->konten), 100) }}
                         </div>
                         
                         <div class="article-footer">
@@ -730,6 +744,6 @@
         0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
         50% { transform: translate(10px, -15px) scale(1.3); opacity: 0.3; }
     }
-</style>
+</script>
 
 @endsection
