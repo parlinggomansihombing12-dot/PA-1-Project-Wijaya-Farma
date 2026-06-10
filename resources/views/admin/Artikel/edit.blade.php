@@ -348,8 +348,8 @@
                         <i class="fas fa-heading"></i> Judul Artikel <span class="required">*</span>
                     </label>
                     <input type="text" name="judul" class="form-control-custom" 
-                           value="{{ old('judul', $artikel->judul) }}" 
-                           placeholder="Masukkan judul artikel..." required>
+                        value="{{ old('judul', $artikel->judul) }}" 
+                        placeholder="Masukkan judul artikel..." required>
                 </div>
 
                 <!-- KATEGORI -->
@@ -412,7 +412,7 @@
                         <i class="fas fa-align-left"></i> Isi Konten Artikel <span class="required">*</span>
                     </label>
                     <textarea name="konten" class="form-control-custom" rows="12" 
-                              placeholder="Tulis isi artikel kesehatan Anda di sini..." required>{{ old('konten', $artikel->konten) }}</textarea>
+                    placeholder="Tulis isi artikel kesehatan Anda di sini..." required>{{ old('konten', $artikel->konten) }}</textarea>
                 </div>
 
                 <!-- PENULIS -->
@@ -421,8 +421,8 @@
                         <i class="fas fa-user-edit"></i> Nama Penulis
                     </label>
                     <input type="text" name="penulis" class="form-control-custom" 
-                           value="{{ old('penulis', $artikel->penulis) }}" 
-                           placeholder="Nama penulis artikel">
+                        value="{{ old('penulis', $artikel->penulis) }}" 
+                        placeholder="Nama penulis artikel">
                 </div>
 
                 <!-- TOMBOL UPDATE -->

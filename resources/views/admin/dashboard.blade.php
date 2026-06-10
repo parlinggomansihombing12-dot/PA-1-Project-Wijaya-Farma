@@ -451,41 +451,58 @@
         </div>
     </div>
 
-    <!-- AKTIVITAS TERBARU -->
-    <div class="recent-section">
-        <div class="recent-header">
-            <h4><i class="fas fa-history"></i> Aktivitas Terbaru</h4>
-            <span class="badge-status badge-success"><i class="fas fa-sync-alt"></i> Live</span>
-        </div>
-        <div class="table-responsive">
-            <table class="recent-table">
-                <thead>
-                    <tr>
-                        <th>Waktu</th>
-                        <th>Aktivitas</th>
-                        <th>User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><i class="far fa-clock me-1"></i> {{ now()->format('H:i') }}</td>
-                        <td>Login ke sistem</td>
-                        <td>{{ Auth::user()->name }}</td>
-                    </tr>
-                    <tr>
-                        <td><i class="far fa-clock me-1"></i> {{ now()->subMinutes(5)->format('H:i') }}</td>
-                        <td>Mengakses halaman dashboard</td>
-                        <td>{{ Auth::user()->name }}</td>
-                    </tr>
-                    <tr>
-                        <td><i class="far fa-clock me-1"></i> {{ now()->subHours(2)->format('H:i') }}</td>
-                        <td>Membuka menu kelola produk</td>
-                        <td>{{ Auth::user()->name }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+   <!-- AKTIVITAS TERBARU - REAL TIME -->
+<div class="recent-section">
+    <div class="recent-header">
+        <h4><i class="fas fa-history"></i> Aktivitas Terbaru</h4>
+        <span class="badge-status badge-success">
+            <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Live
+        </span>
     </div>
+    <div class="table-responsive">
+        <table class="recent-table">
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Aktivitas</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recentActivities as $activity)
+                <tr>
+                    <td>
+                        <i class="far fa-clock me-1"></i> 
+                        {{ $activity->created_at->format('H:i') }}
+                        <br>
+                        <small class="text-muted">{{ $activity->created_at->format('d M Y') }}</small>
+                    </td>
+                    <td>
+                        @if($activity->method == 'POST')
+                            <span class="badge-status" style="background: #d1fae5; color: #065f46;">CREATE</span>
+                        @elseif($activity->method == 'PUT' || $activity->method == 'PATCH')
+                            <span class="badge-status" style="background: #fef3c7; color: #b45309;">UPDATE</span>
+                        @elseif($activity->method == 'DELETE')
+                            <span class="badge-status" style="background: #fee2e2; color: #991b1b;">DELETE</span>
+                        @else
+                            <span class="badge-status" style="background: #e2e8f0; color: #475569;">VIEW</span>
+                        @endif
+                        <span class="ms-2">{{ $activity->activity }}</span>
+                    </td>
+                    <td>{{ $activity->user->name }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="3" class="text-center py-4 text-muted">
+                        <i class="fas fa-inbox fa-2x mb-2 opacity-25"></i>
+                        <p>Belum ada aktivitas yang tercatat</p>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </div>
 @endsection

@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+public function up(): void
 {
     Schema::table('kategoris', function (Blueprint $table) {
         $table->renameColumn('icon', 'foto'); // Mengubah nama kolom

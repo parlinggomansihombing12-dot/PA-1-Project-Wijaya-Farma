@@ -351,8 +351,8 @@
                 <div class="image-section">
                     @if($item->foto)
                         <img src="{{ asset('images/produk/' . $item->foto) }}" 
-                             class="product-image" 
-                             alt="{{ $item->nama_obat }}">
+                        class="product-image" 
+                            alt="{{ $item->nama_obat }}">
                     @else
                         <div class="image-placeholder">
                             <i class="fas fa-pills"></i>
@@ -419,7 +419,7 @@
                         
                         @if($no_wa != '')
                             <a href="https://wa.me/{{ $no_wa }}?text=Halo Apotek Wijaya Farma, saya ingin bertanya tentang produk {{ urlencode($item->nama_obat) }}." 
-                               target="_blank" class="btn-wa">
+                            target="_blank" class="btn-wa">
                                 <i class="fab fa-whatsapp"></i> Tanya via WhatsApp
                             </a>
                         @endif
