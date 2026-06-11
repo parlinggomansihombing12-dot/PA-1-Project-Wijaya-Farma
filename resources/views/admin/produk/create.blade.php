@@ -314,7 +314,7 @@
                 <div class="form-group">
                     <label class="form-label">Nama Obat / Produk <span class="required">*</span></label>
                     <input type="text" name="nama_obat" class="form-control-custom @error('nama_obat') is-invalid @enderror" 
-                           required placeholder="Contoh: Paracetamol 500mg" value="{{ old('nama_obat') }}">
+                        required placeholder="Contoh: Paracetamol 500mg" value="{{ old('nama_obat') }}">
                 </div>
 
                 <!-- Kategori -->

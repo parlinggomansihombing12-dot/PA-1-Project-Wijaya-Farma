@@ -626,8 +626,8 @@
                     @endif
                     <div class="search-input-group">
                         <input type="text" name="cari" class="search-box-artikel" 
-                               placeholder="Cari judul atau topik artikel..." 
-                               value="{{ request('cari') }}">
+                            placeholder="Cari judul atau topik artikel..." 
+                            value="{{ request('cari') }}">
                         <button type="submit" class="btn-search">
                             🔍 Cari
                         </button>
@@ -720,6 +720,25 @@
     </div>
 </div>
 
+<!-- ============ SCRIPT UNTUK NAVBAR SCROLL (DITAMBAHKAN) ============ -->
+<script>
+(function() {
+    function updateNavbar() {
+        var nav = document.getElementById('mainNavbar');
+        if (!nav) return;
+        
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }
+    
+    window.addEventListener('scroll', updateNavbar);
+    updateNavbar();
+})();
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         for(let i = 0; i < 15; i++) {
@@ -744,6 +763,6 @@
         0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
         50% { transform: translate(10px, -15px) scale(1.3); opacity: 0.3; }
     }
-</script>
+</style>
 
 @endsection
