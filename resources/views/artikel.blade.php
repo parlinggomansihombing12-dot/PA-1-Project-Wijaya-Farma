@@ -6,24 +6,26 @@
     :root {
         --primary: #1ABC9C;
         --primary-dark: #16a085;
-        --primary-light: #d1fae5;
+        --primary-light: #CCFBF1;
+        --primary-soft: #E6F7F3;
+        --primary-ultra-soft: #F2FCF9;
         --secondary: #2c3e50;
         --accent: #e67e22;
         --dark: #1e293b;
-        --text-muted: #64748b;
+        --text-muted: #5A6E7A;
         --white: #ffffff;
-        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-        --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
-        --shadow-lg: 0 8px 25px rgba(0,0,0,0.08);
+        --shadow-sm: 0 2px 12px rgba(26,188,156,0.05);
+        --shadow-md: 0 4px 20px rgba(26,188,156,0.08);
+        --shadow-lg: 0 8px 30px rgba(26,188,156,0.12);
     }
 
     body { 
-        background: linear-gradient(135deg, #f0f9ff 0%, #e8f0f5 100%);
+        background: linear-gradient(135deg, #F2FCF9 0%, #EAF8F4 100%);
         font-family: 'Inter', sans-serif;
         min-height: 100vh;
     }
     
-    /* Background Pattern */
+    /* Background Pattern - SENTUHAN HIJAU */
     body::before {
         content: ''; 
         position: fixed; 
@@ -32,39 +34,28 @@
         width: 100%; 
         height: 100%;
         background-image: 
-            radial-gradient(circle at 10% 90%, rgba(26, 188, 156, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 90% 10%, rgba(52, 152, 219, 0.03) 0%, transparent 50%);
+            radial-gradient(circle at 10% 90%, rgba(26, 188, 156, 0.04) 0%, transparent 50%),
+            radial-gradient(circle at 90% 10%, rgba(26, 188, 156, 0.03) 0%, transparent 50%);
         pointer-events: none; 
         z-index: 0;
     }
     
-    /* Header Artikel */
+    /* ================= HEADER ================= */
     .articles-header {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 40px 0;
-        margin-bottom: 40px;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .articles-header::after {
-        content: ''; 
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        right: 0; 
-        height: 3px;
-        background: linear-gradient(90deg, #1abc9c, #f39c12, #1abc9c);
+        background: transparent;
+        padding: 40px 0 20px 0;
+        margin-bottom: 20px;
+        text-align: center;
     }
     
     .articles-title { 
         font-size: 1.8rem; 
         font-weight: 800; 
-        color: white; 
+        color: var(--dark);
         margin-bottom: 8px; 
     }
     .articles-subtitle { 
-        color: rgba(255,255,255,0.85); 
+        color: var(--text-muted);
         font-size: 0.85rem; 
     }
     
@@ -82,6 +73,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 30px;
+        align-items: flex-start;
     }
     
     /* ============ SIDEBAR KATEGORI ============ */
@@ -95,41 +87,42 @@
         top: 100px;
         align-self: flex-start;
         overflow: hidden;
-        border: 1px solid #eef2f6;
+        border: 1px solid rgba(26,188,156,0.1);
+        margin-top: 0;
     }
     
     .sidebar-header {
         background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
-        padding: 18px 16px;
+        padding: 15px 16px;
         color: white;
     }
     
     .sidebar-header h5 {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 800;
-        margin: 0 0 4px 0;
+        margin: 0 0 3px 0;
         display: flex;
         align-items: center;
         gap: 8px;
     }
     
     .sidebar-header p {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         opacity: 0.85;
         margin: 0;
     }
     
     .kategori-list {
-        padding: 16px 12px;
+        padding: 12px;
     }
     
     .kategori-artikel-link {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 12px;
-        margin: 4px 0;
-        background: #f8fafc;
+        padding: 8px 12px;
+        margin: 3px 0;
+        background: #F8FAFC;
         border-radius: 10px;
         font-weight: 500;
         font-size: 0.75rem;
@@ -140,7 +133,7 @@
     }
     
     .kategori-artikel-link span:first-child {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
     
     .kategori-artikel-link .kat-text {
@@ -151,22 +144,22 @@
     }
     
     .kat-count {
-        background: #e2e8f0;
+        background: #E2E8F0;
         color: #475569;
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         font-weight: 700;
-        padding: 2px 8px;
+        padding: 2px 6px;
         border-radius: 20px;
     }
     
     .kategori-artikel-link:hover {
-        background: #f0fdf4;
-        border-color: #1abc9c40;
+        background: #F0FDF4;
+        border-color: rgba(26,188,156,0.25);
         transform: translateX(3px);
     }
     
     .kategori-artikel-link.active {
-        background: linear-gradient(135deg, #1abc9c15 0%, #1abc9c08 100%);
+        background: linear-gradient(135deg, rgba(26,188,156,0.08) 0%, rgba(26,188,156,0.04) 100%);
         border-color: #1abc9c;
         border-left: 3px solid #1abc9c;
         color: #0f3b2c;
@@ -179,9 +172,9 @@
     
     /* Tombol Reset */
     .btn-reset-wrapper {
-        padding: 12px;
-        border-top: 1px solid #eef2f6;
-        margin-top: 8px;
+        padding: 10px;
+        border-top: 1px solid rgba(26,188,156,0.1);
+        margin-top: 5px;
     }
     
     .btn-reset-kategori {
@@ -189,18 +182,18 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-        background: #f1f5f9;
-        padding: 8px;
+        background: #F1F5F9;
+        padding: 6px;
         border-radius: 30px;
         text-decoration: none;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 600;
         color: #64748b;
         transition: 0.2s;
     }
     
     .btn-reset-kategori:hover {
-        background: #e2e8f0;
+        background: #E2E8F0;
         color: #1e293b;
     }
     
@@ -228,7 +221,7 @@
         border-radius: 60px;
         overflow: hidden;
         box-shadow: var(--shadow-sm);
-        border: 1px solid #eef2f6;
+        border: 1px solid rgba(26,188,156,0.1);
         transition: all 0.2s;
     }
     
@@ -263,7 +256,7 @@
     
     .btn-reset-search {
         background: white;
-        border: 1px solid #e2e8f0;
+        border: 1px solid rgba(26,188,156,0.2);
         border-radius: 60px;
         padding: 10px 24px;
         color: #64748b;
@@ -274,6 +267,11 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
+    }
+    
+    .btn-reset-search:hover {
+        border-color: #1abc9c;
+        color: #1abc9c;
     }
     
     /* Section Title */
@@ -306,13 +304,13 @@
     }
     
     .article-count {
-        background: white;
+        background: rgba(26,188,156,0.08);
         padding: 5px 16px;
         border-radius: 30px;
         font-size: 0.7rem;
         font-weight: 600;
-        color: #64748b;
-        border: 1px solid #e2e8f0;
+        color: #5A6E7A;
+        border: 1px solid rgba(26,188,156,0.15);
     }
     
     /* ============ GRID ARTIKEL - 3 KOLOM ============ */
@@ -329,7 +327,7 @@
         overflow: hidden;
         transition: all 0.35s ease;
         box-shadow: var(--shadow-sm);
-        border: 1px solid #eef2f6;
+        border: 1px solid rgba(26,188,156,0.1);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -346,7 +344,7 @@
         position: relative;
         height: 180px;
         overflow: hidden;
-        background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+        background: linear-gradient(145deg, #F1F5F9, #E2E8F0);
     }
     
     .article-image img {
@@ -455,7 +453,7 @@
         align-items: center;
         margin-top: auto;
         padding-top: 12px;
-        border-top: 1px solid #f1f5f9;
+        border-top: 1px solid rgba(26,188,156,0.1);
     }
     
     .read-more {
@@ -486,6 +484,7 @@
         padding: 50px;
         background: white;
         border-radius: 20px;
+        border: 1px solid rgba(26,188,156,0.1);
     }
     
     /* Animasi */
@@ -496,6 +495,12 @@
     
     .article-card {
         animation: fadeInUp 0.4s ease forwards;
+    }
+    
+    /* Particle Animation */
+    @keyframes floatParticle {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
+        50% { transform: translate(10px, -15px) scale(1.3); opacity: 0.3; }
     }
     
     /* ============ RESPONSIVE ============ */
@@ -519,6 +524,7 @@
             position: static;
             width: 100%;
             margin-bottom: 20px;
+            margin-top: 0;
         }
         
         .kategori-list {
@@ -594,7 +600,7 @@
                     @if($kat->kategori_artikel != '')
                         <a href="/artikel?kategori={{ urlencode($kat->kategori_artikel) }}" class="kategori-artikel-link {{ $kategori_aktif == $kat->kategori_artikel ? 'active' : '' }}">
                             <span>🏷️</span>
-                            <span class="kat-text">{{ $kat->kategori_artikel }}</span>
+                            <span class="kat-text">{{ \Illuminate\Support\Str::limit($kat->kategori_artikel, 25) }}</span>
                             @php
                                 $count = isset($kategori_counts[$kat->kategori_artikel]) ? $kategori_counts[$kat->kategori_artikel] : 0;
                             @endphp
@@ -644,7 +650,7 @@
             <div class="section-title">
                 <h3>
                     @if($kategori_aktif)
-                        <i class="fas fa-tag"></i> Kategori: {{ $kategori_aktif }}
+                        <i class="fas fa-tag"></i> Kategori: {{ \Illuminate\Support\Str::limit($kategori_aktif, 30) }}
                     @elseif(request('cari'))
                         <i class="fas fa-search"></i> Hasil: "{{ request('cari') }}"
                     @else
@@ -668,7 +674,7 @@
                             <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=400&auto=format&fit=crop" alt="Artikel Kesehatan">
                         @endif
                         <div class="image-overlay"></div>
-                        <div class="category-tag">{{ $item->kategori_artikel ?? 'Kesehatan' }}</div>
+                        <div class="category-tag">{{ \Illuminate\Support\Str::limit($item->kategori_artikel ?? 'Kesehatan', 15) }}</div>
                         
                         @if($item->created_at && $item->created_at->diffInDays(now()) <= 7)
                             <div class="badge-new">✨ BARU</div>
@@ -681,11 +687,11 @@
                                 <i class="far fa-calendar-alt"></i> {{ $item->created_at ? $item->created_at->format('d M Y') : 'Baru saja' }}
                             </span>
                             <span class="article-author">
-                                <i class="fas fa-user-edit"></i> {{ $item->penulis ?? 'Admin' }}
+                                <i class="fas fa-user-edit"></i> {{ \Illuminate\Support\Str::limit($item->penulis ?? 'Admin', 15) }}
                             </span>
                         </div>
                         
-                        <div class="article-title">{{ $item->judul }}</div>
+                        <div class="article-title">{{ \Illuminate\Support\Str::limit($item->judul, 50) }}</div>
                         
                         <div class="article-excerpt">
                             {{ Str::limit(strip_tags($item->konten), 100) }}
@@ -720,25 +726,7 @@
     </div>
 </div>
 
-<!-- ============ SCRIPT UNTUK NAVBAR SCROLL (DITAMBAHKAN) ============ -->
-<script>
-(function() {
-    function updateNavbar() {
-        var nav = document.getElementById('mainNavbar');
-        if (!nav) return;
-        
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    }
-    
-    window.addEventListener('scroll', updateNavbar);
-    updateNavbar();
-})();
-</script>
-
+<!-- Particle Animation Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         for(let i = 0; i < 15; i++) {
@@ -757,12 +745,5 @@
         }
     });
 </script>
-
-<style>
-    @keyframes floatParticle {
-        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
-        50% { transform: translate(10px, -15px) scale(1.3); opacity: 0.3; }
-    }
-</style>
 
 @endsection

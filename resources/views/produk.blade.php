@@ -11,25 +11,29 @@
         --accent: #e67e22;
         --dark: #1e293b;
         --text-muted: #64748b;
+        --white: #ffffff;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+        --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
+        --shadow-lg: 0 8px 25px rgba(0,0,0,0.08);
     }
 
-    /* ================= HEADER ================= */
+    /* ================= HEADER - WARNA SAMA DENGAN BACKGROUND BAWAH ================= */
     .product-header {
-        background: linear-gradient(135deg, #1a2634 0%, #2c3e50 100%);
-        padding: 35px 0;
-        margin-bottom: 30px;
+        background: transparent;
+        padding: 40px 0 20px 0;
+        margin-bottom: 20px;
         text-align: center;
     }
 
     .section-title {
         font-size: 1.8rem;
         font-weight: 800;
-        color: white;
-        margin-bottom: 8px;
+        color: var(--dark);
+        margin-bottom: 10px;
     }
 
     .product-header p {
-        color: rgba(255,255,255,0.8);
+        color: var(--text-muted);
         font-size: 0.85rem;
     }
 
@@ -42,26 +46,52 @@
     .search-input-group {
         display: flex;
         background: white;
-        border-radius: 50px;
+        border-radius: 60px;
         overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid #e2e8f0;
     }
 
     .search-box {
         flex: 1;
         border: none;
-        padding: 10px 18px;
+        padding: 12px 20px;
         font-size: 0.85rem;
         outline: none;
+        background: transparent;
     }
 
     .btn-cari {
-        background: linear-gradient(135deg, #f39c12, #e67e22);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border: none;
-        padding: 10px 24px;
+        padding: 12px 28px;
         font-size: 0.85rem;
         font-weight: 700;
         cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-cari:hover {
+        background: linear-gradient(135deg, var(--primary-dark), #0e7c64);
+        transform: translateY(-2px);
+    }
+
+    .btn-reset {
+        background: #f1f5f9;
+        padding: 8px 20px;
+        border-radius: 60px;
+        font-size: 0.7rem;
+        text-decoration: none;
+        color: var(--text-muted);
+        border: 1px solid #e2e8f0;
+        display: inline-block;
+        transition: 0.2s;
+    }
+
+    .btn-reset:hover {
+        background: #e2e8f0;
+        color: var(--dark);
     }
 
     /* ================= PRODUK WRAPPER ================= */
@@ -69,29 +99,43 @@
         padding: 0 20px;
         max-width: 1400px;
         margin: 0 auto;
+        background: transparent;
     }
 
     .produk-header-section {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     .produk-title {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 800;
         color: var(--dark);
+        position: relative;
+    }
+
+    .produk-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 3px;
     }
 
     .produk-count {
-        background: white;
-        padding: 4px 14px;
+        background: #f8fafc;
+        padding: 5px 16px;
         border-radius: 30px;
         font-size: 0.75rem;
         font-weight: 700;
         color: var(--text-muted);
         border: 1px solid #e2e8f0;
+        box-shadow: var(--shadow-sm);
     }
 
     /* ================= GRID 6 KOLOM ================= */
@@ -105,15 +149,15 @@
         flex: 0 0 16.666%;
         max-width: 16.666%;
         padding: 0 8px;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
     }
 
     /* ================= CARD PRODUK ================= */
     .product-card {
         background: white;
-        border-radius: 14px;
-        transition: all 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
         overflow: hidden;
         border: 1px solid #eef2f6;
         height: 100%;
@@ -123,41 +167,48 @@
     }
 
     .product-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary);
     }
 
     .category-badge {
         position: absolute;
-        top: 8px;
-        left: 8px;
-        background: rgba(0,0,0,0.6);
-        padding: 2px 8px;
+        top: 10px;
+        left: 10px;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(4px);
+        padding: 3px 10px;
         border-radius: 20px;
-        font-size: 0.55rem;
+        font-size: 0.6rem;
         font-weight: 700;
         color: white;
         z-index: 1;
     }
 
     .img-container {
-        height: 120px;
+        height: 130px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #f8fafc;
-        padding: 10px;
+        padding: 12px;
         position: relative;
     }
 
     .img-container img {
         max-width: 85%;
-        max-height: 85px;
+        max-height: 95px;
         object-fit: contain;
+        transition: transform 0.2s;
+    }
+
+    .product-card:hover .img-container img {
+        transform: scale(1.05);
     }
 
     .product-content {
-        padding: 10px;
+        padding: 12px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -168,16 +219,16 @@
         font-size: 0.8rem;
         font-weight: 800;
         color: var(--dark);
-        line-height: 1.3;
+        line-height: 1.35;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 34px;
+        min-height: 35px;
     }
 
     .product-price {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         font-weight: 800;
         color: #e67e22;
     }
@@ -185,7 +236,7 @@
     .stock-wrapper {
         background: #f8fafc;
         border-radius: 8px;
-        padding: 5px 8px;
+        padding: 6px 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -204,20 +255,25 @@
     .btn-detail {
         background: #f1f5f9;
         text-align: center;
-        padding: 7px;
+        padding: 8px;
         border-radius: 40px;
         text-decoration: none;
         font-weight: 700;
         font-size: 0.7rem;
         color: #1e293b;
         border: 1px solid #e2e8f0;
-        margin-top: 5px;
-        transition: 0.2s;
+        margin-top: 6px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
     }
 
     .btn-detail:hover {
         background: var(--primary);
         color: white;
+        gap: 8px;
     }
 
     /* ================= PAGINATION PREMIUM ================= */
@@ -227,12 +283,11 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 15px;
-        margin-top: 30px;
+        margin-top: 35px;
         padding: 15px 0;
         border-top: 1px solid #eef2f6;
     }
 
-    /* Info Pagination di KIRI */
     .pagination-info {
         font-size: 0.7rem;
         color: var(--text-muted);
@@ -254,19 +309,16 @@
         font-weight: 800;
     }
 
-    /* Tombol Pagination di TENGAH */
     .pagination-wrapper {
         display: flex;
         justify-content: center;
         flex: 1;
     }
 
-    /* HAPUS TULISAN "SHOWING" BAWAHAN LARAVEL */
     .pagination-wrapper p.text-sm {
         display: none !important;
     }
     
-    /* Hapus seluruh info bawaan Laravel */
     .pagination-wrapper div:first-child {
         display: none !important;
     }
@@ -336,8 +388,8 @@
     @media (max-width: 400px) { .produk-item { flex: 0 0 100%; max-width: 100%; } }
 
     @media (max-width: 768px) {
-        .section-title { font-size: 1.4rem; }
-        .product-header { padding: 25px 0; }
+        .section-title { font-size: 1.5rem; }
+        .product-header { padding: 30px 0 15px 0; }
         .search-wrapper { max-width: 90%; }
         .pagination-container {
             flex-direction: column;
@@ -352,6 +404,8 @@
             padding: 0 8px;
             font-size: 0.65rem;
         }
+        .produk-title { font-size: 1.1rem; }
+        .img-container { height: 120px; }
     }
 </style>
 @endsection
@@ -371,7 +425,7 @@
             </div>
             @if(request('cari'))
             <div class="mt-2">
-                <a href="{{ url('/produk') }}" class="btn-reset" style="background: white; padding: 6px 18px; border-radius: 50px; font-size: 0.75rem; text-decoration: none; color: #64748b;">🔄 Reset</a>
+                <a href="{{ url('/produk') }}" class="btn-reset">🔄 Reset</a>
             </div>
             @endif
         </form>
@@ -413,17 +467,17 @@
             </div>
         </div>
         @empty
-        <div class="empty-state-full" style="text-align: center; padding: 40px; width: 100%;">
+        <div class="empty-state-full" style="text-align: center; padding: 50px; width: 100%;">
+            <i class="fas fa-box-open fa-3x mb-3 opacity-25"></i>
             <h4>🌿 Obat tidak ditemukan</h4>
-            <a href="{{ url('/produk') }}" class="btn-cari" style="display: inline-block; border-radius: 50px; margin-top: 10px;">🔄 Reset</a>
+            <a href="{{ url('/produk') }}" class="btn-cari" style="display: inline-block; border-radius: 50px; margin-top: 15px;">🔄 Reset</a>
         </div>
         @endforelse
     </div>
 
-    <!-- PAGINATION PREMIUM - HANYA SATU "SHOWING" DI KIRI -->
+    <!-- PAGINATION PREMIUM -->
     @if(method_exists($list_produk, 'links') && $list_produk instanceof \Illuminate\Pagination\AbstractPaginator)
     <div class="pagination-container">
-        <!-- Info Showing di KIRI (SATU-SATUNYA) -->
         <div class="pagination-info">
             <i class="fas fa-chart-line"></i>
             Showing 
@@ -435,12 +489,30 @@
             results
         </div>
         
-        <!-- Tombol Pagination di TENGAH (TANPA "SHOWING") -->
         <div class="pagination-wrapper">
             {{ $list_produk->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
     </div>
     @endif
 </div>
+
+<!-- SCRIPT UNTUK NAVBAR SCROLL -->
+<script>
+(function() {
+    function updateNavbar() {
+        var nav = document.getElementById('mainNavbar');
+        if (!nav) return;
+        
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }
+    
+    window.addEventListener('scroll', updateNavbar);
+    updateNavbar();
+})();
+</script>
 
 @endsection

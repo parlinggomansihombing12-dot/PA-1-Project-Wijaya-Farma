@@ -9,21 +9,23 @@
 <style>
     :root {
         --primary: #1ABC9C;
-        --primary-dark: #16a085;
-        --primary-light: #d1fae5;
-        --secondary: #2c3e50;
-        --accent: #e67e22;
-        --dark: #1e293b;
-        --text-muted: #64748b;
-        --white: #ffffff;
-        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-        --shadow-md: 0 4px 15px rgba(0,0,0,0.06);
-        --shadow-lg: 0 8px 20px rgba(0,0,0,0.08);
+        --primary-dark: #16A085;
+        --primary-light: #CCFBF1;
+        --primary-soft: #E6F7F3;
+        --primary-ultra-soft: #F2FCF9;
+        --accent: #E67E22;
+        --dark: #1E293B;
+        --text-muted: #5A6E7A;
+        --text-light: #8A9AAA;
+        --white: #FFFFFF;
+        --shadow-sm: 0 2px 12px rgba(26,188,156,0.05);
+        --shadow-md: 0 4px 20px rgba(26,188,156,0.08);
+        --shadow-lg: 0 8px 30px rgba(26,188,156,0.12);
     }
 
     body {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #f0fdfa 0%, #e6f4f0 100%);
+        background: linear-gradient(135deg, #F2FCF9 0%, #EAF8F4 100%);
         min-height: 100vh;
     }
 
@@ -34,9 +36,9 @@
         margin: 0;
     }
 
-    /* ================= HERO SECTION - DIPERKECIL ================= */
+    /* ================= HERO SECTION - SEKARANG SAMA DENGAN BAWAH ================= */
     .hero-kontak {
-        background: linear-gradient(135deg, #1a2634 0%, #2c3e50 100%);
+        background: linear-gradient(135deg, #F2FCF9 0%, #EAF8F4 100%);
         padding: 45px 0;
         text-align: center;
         position: relative;
@@ -56,14 +58,14 @@
     .hero-title {
         font-size: 2rem;
         font-weight: 800;
-        color: white;
+        color: var(--dark);
         margin-bottom: 10px;
         letter-spacing: -0.5px;
     }
 
     .hero-subtitle {
         font-size: 0.85rem;
-        color: rgba(255,255,255,0.85);
+        color: var(--text-muted);
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.5;
@@ -71,63 +73,64 @@
 
     /* ================= MAIN CONTENT ================= */
     .main-content {
-        padding: 35px 30px;
+        padding: 40px 30px;
         max-width: 1200px;
         margin: 0 auto;
         width: 100%;
     }
 
-    /* ================= STATS - DIPERKECIL ================= */
+    /* ================= STATS CARD ================= */
     .stats-kontak {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 45px;
     }
 
     .stat-card-kontak {
-        background: white;
-        border-radius: 16px;
-        padding: 20px 15px;
+        background: var(--white);
+        border-radius: 24px;
+        padding: 22px 15px;
         text-align: center;
         box-shadow: var(--shadow-sm);
-        transition: all 0.2s;
-        border: 1px solid #eef2f6;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(26,188,156,0.1);
     }
 
     .stat-card-kontak:hover {
-        transform: translateY(-3px);
+        transform: translateY(-4px);
         box-shadow: var(--shadow-md);
-        border-color: var(--primary);
+        border-color: rgba(26,188,156,0.25);
     }
 
     .stat-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--primary-light);
-        border-radius: 25px;
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, var(--primary-ultra-soft) 0%, var(--primary-soft) 100%);
+        border-radius: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 12px;
+        margin: 0 auto 14px;
     }
 
     .stat-icon i {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         color: var(--primary);
     }
 
     .stat-number {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         font-weight: 800;
-        color: var(--dark);
-        margin-bottom: 5px;
+        color: var(--primary-dark);
+        margin-bottom: 6px;
     }
 
     .stat-label {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         font-weight: 600;
         color: var(--text-muted);
+        letter-spacing: 0.3px;
     }
 
     /* ================= TWO COLUMNS ================= */
@@ -147,14 +150,14 @@
         min-width: 300px;
     }
 
-    /* ================= SECTION HEADER - DIPERKECIL ================= */
+    /* ================= SECTION HEADER ================= */
     .section-header {
         display: flex;
         align-items: center;
         gap: 12px;
         margin-bottom: 25px;
         padding-bottom: 12px;
-        border-bottom: 2px solid var(--primary-light);
+        border-bottom: 2px solid rgba(26,188,156,0.2);
     }
 
     .section-icon {
@@ -167,6 +170,7 @@
         justify-content: center;
         color: white;
         font-size: 1.2rem;
+        box-shadow: 0 4px 10px rgba(26,188,156,0.2);
     }
 
     .section-header h3 {
@@ -176,31 +180,32 @@
         margin: 0;
     }
 
-    /* ================= CONTACT CARDS - DIPERKECIL ================= */
+    /* ================= CONTACT CARDS ================= */
     .contact-card {
-        background: white;
-        border-radius: 18px;
-        padding: 20px;
+        background: var(--white);
+        border-radius: 20px;
+        padding: 22px;
         margin-bottom: 20px;
         display: flex;
         align-items: flex-start;
-        gap: 16px;
-        transition: all 0.2s;
+        gap: 18px;
+        transition: all 0.3s ease;
         box-shadow: var(--shadow-sm);
-        border: 1px solid #eef2f6;
+        border: 1px solid rgba(26,188,156,0.1);
     }
 
     .contact-card:hover {
         transform: translateX(6px);
         box-shadow: var(--shadow-md);
-        border-color: var(--primary-light);
+        border-color: rgba(26,188,156,0.25);
+        background: linear-gradient(135deg, var(--white) 0%, var(--primary-ultra-soft) 100%);
     }
 
     .contact-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--primary-light);
-        border-radius: 14px;
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, var(--primary-ultra-soft) 0%, var(--primary-soft) 100%);
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -217,32 +222,32 @@
     }
 
     .contact-detail h4 {
-        font-size: 0.95rem;
-        font-weight: 800;
+        font-size: 1rem;
+        font-weight: 700;
         color: var(--dark);
-        margin-bottom: 6px;
-    }
-
-    .contact-detail p {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        line-height: 1.5;
         margin-bottom: 8px;
     }
 
-    /* ================= TOMBOL WA - DIPERKECIL ================= */
+    .contact-detail p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    /* ================= BUTTONS ================= */
     .btn-wa-kontak {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: linear-gradient(135deg, #25D366, #128c7e);
+        background: linear-gradient(135deg, #25D366, #128C7E);
         color: white;
-        padding: 8px 20px;
+        padding: 8px 22px;
         border-radius: 40px;
         text-decoration: none;
         font-size: 0.75rem;
         font-weight: 700;
-        transition: all 0.2s;
+        transition: all 0.3s ease;
         margin-top: 6px;
     }
 
@@ -253,39 +258,43 @@
         color: white;
     }
 
-    /* ================= TOMBOL MAPS - DIPERKECIL ================= */
     .btn-maps {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        background: var(--primary);
+        gap: 8px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
-        padding: 7px 16px;
-        border-radius: 30px;
+        padding: 8px 18px;
+        border-radius: 40px;
         text-decoration: none;
-        font-size: 0.7rem;
-        font-weight: 700;
-        transition: all 0.2s;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(26,188,156,0.2);
     }
 
     .btn-maps-outline {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         background: transparent;
         color: var(--primary);
         border: 1.5px solid var(--primary);
-        padding: 7px 16px;
-        border-radius: 30px;
+        padding: 8px 18px;
+        border-radius: 40px;
         text-decoration: none;
-        font-size: 0.7rem;
-        font-weight: 700;
-        transition: all 0.2s;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
     .btn-maps:hover, .btn-maps-outline:hover {
         transform: translateY(-2px);
-        gap: 8px;
+        gap: 10px;
+    }
+
+    .btn-maps:hover {
+        background: var(--primary-dark);
     }
 
     .btn-maps-outline:hover {
@@ -293,36 +302,36 @@
         color: white;
     }
 
-    /* ================= MAPS CONTAINER - DIPERKECIL ================= */
+    /* ================= MAPS CONTAINER ================= */
     .maps-container {
-        background: white;
+        background: var(--white);
         border-radius: 20px;
         overflow: hidden;
         box-shadow: var(--shadow-md);
-        border: 1px solid #eef2f6;
+        border: 1px solid rgba(26,188,156,0.1);
         height: 100%;
         display: flex;
         flex-direction: column;
     }
 
     .maps-header {
-        padding: 16px 22px;
-        background: linear-gradient(135deg, #f8fafc, white);
-        border-bottom: 1px solid #eef2f6;
+        padding: 18px 24px;
+        background: linear-gradient(135deg, var(--white) 0%, var(--primary-ultra-soft) 100%);
+        border-bottom: 1px solid rgba(26,188,156,0.15);
     }
 
     .maps-header h4 {
-        font-size: 0.95rem;
-        font-weight: 800;
+        font-size: 1rem;
+        font-weight: 700;
         color: var(--dark);
         margin: 0;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .maps-header h4 i {
-        font-size: 1rem;
+        font-size: 1.1rem;
         color: var(--primary);
     }
 
@@ -333,89 +342,88 @@
     }
 
     .maps-footer {
-        padding: 15px 20px;
-        background: #f8fafc;
-        border-top: 1px solid #eef2f6;
+        padding: 16px 24px;
+        background: linear-gradient(135deg, var(--primary-ultra-soft) 0%, var(--white) 100%);
+        border-top: 1px solid rgba(26,188,156,0.15);
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .maps-footer .btn-maps,
-    .maps-footer .btn-maps-outline {
-        font-size: 0.7rem;
-        padding: 8px 18px;
+        gap: 12px;
     }
 
     .maps-placeholder {
         width: 100%;
         height: 350px;
-        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        background: linear-gradient(135deg, var(--primary-ultra-soft) 0%, #EAF8F4 100%);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        color: #94a3b8;
+        gap: 14px;
+        color: var(--text-light);
     }
 
     .maps-placeholder i {
-        font-size: 3rem;
-        opacity: 0.5;
+        font-size: 3.5rem;
+        opacity: 0.6;
+        color: var(--primary);
     }
 
     .maps-placeholder p {
-        font-size: 0.85rem;
-        font-weight: 600;
+        font-size: 0.9rem;
+        font-weight: 500;
         color: var(--text-muted);
     }
 
-    /* ================= CTA BANNER - DIPERKECIL ================= */
+    /* ================= CTA BANNER ================= */
     .cta-banner {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background: linear-gradient(135deg, #FFFFFF 0%, #F5FDFA 100%);
         border-radius: 24px;
-        padding: 30px 35px;
-        margin-top: 40px;
+        padding: 32px 38px;
+        margin-top: 45px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
         gap: 20px;
+        border: 1px solid rgba(26,188,156,0.15);
+        box-shadow: var(--shadow-md);
     }
 
     .cta-text h3 {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         font-weight: 800;
-        color: white;
+        color: var(--dark);
         margin-bottom: 6px;
     }
 
     .cta-text p {
-        font-size: 0.8rem;
-        color: rgba(255,255,255,0.85);
+        font-size: 0.85rem;
+        color: var(--text-muted);
         margin: 0;
     }
 
     .cta-btn {
-        background: white;
-        color: var(--primary);
-        padding: 10px 28px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 12px 32px;
         border-radius: 50px;
         text-decoration: none;
-        font-weight: 800;
-        font-size: 0.8rem;
+        font-weight: 700;
+        font-size: 0.85rem;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        transition: all 0.2s;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(26,188,156,0.25);
     }
 
     .cta-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        gap: 12px;
+        box-shadow: 0 6px 18px rgba(26,188,156,0.35);
+        gap: 14px;
+        color: white;
     }
 
     /* ================= RESPONSIVE ================= */
@@ -463,13 +471,12 @@
         .maps-footer .btn-maps-outline {
             justify-content: center;
         }
-        .section-header h3 {
-            font-size: 1rem;
+        .contact-card {
+            padding: 18px;
         }
-        .section-icon {
-            width: 38px;
-            height: 38px;
-            font-size: 1rem;
+        .contact-icon {
+            width: 45px;
+            height: 45px;
         }
     }
 </style>
@@ -479,7 +486,7 @@
 
 <div class="container-kontak">
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION - SEKARANG SAMA PERSIS DENGAN WARNA BAWAH -->
     <div class="hero-kontak">
         <h1 class="hero-title">Hubungi Kami</h1>
         <p class="hero-subtitle">
@@ -488,7 +495,6 @@
         </p>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
 
         @php 
@@ -532,20 +538,19 @@
         <!-- DUA KOLOM -->
         <div class="two-columns">
             
-            <!-- KOLOM KIRI: INFORMASI KONTAK -->
+            <!-- KOLOM KIRI -->
             <div class="contact-info-col">
                 <div class="section-header">
                     <div class="section-icon"><i class="fas fa-phone-alt"></i></div>
                     <h3>Informasi Kontak</h3>
                 </div>
 
-                <!-- ALAMAT -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div class="contact-detail">
                         <h4>📍 Alamat Apotek</h4>
                         <p>{{ \Illuminate\Support\Str::limit($alamat_toko, 120) }}</p>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px;">
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
                             <a href="{{ $maps_direction_url }}" target="_blank" class="btn-maps">
                                 <i class="fas fa-directions"></i> Petunjuk Arah
                             </a>
@@ -556,9 +561,8 @@
                     </div>
                 </div>
 
-                <!-- WHATSAPP -->
                 <div class="contact-card">
-                    <div class="contact-icon" style="background: #e5f9ed;"><i class="fab fa-whatsapp" style="color: #25D366;"></i></div>
+                    <div class="contact-icon" style="background: linear-gradient(135deg, #DCFCE7, #BBF7D0);"><i class="fab fa-whatsapp" style="color: #22C55E;"></i></div>
                     <div class="contact-detail">
                         <h4>💬 WhatsApp / Telepon</h4>
                         <p>Konsultasi obat lebih cepat via WhatsApp</p>
@@ -572,7 +576,6 @@
                     </div>
                 </div>
 
-                <!-- JAM OPERASIONAL -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="far fa-clock"></i></div>
                     <div class="contact-detail">
@@ -588,7 +591,6 @@
                     </div>
                 </div>
 
-                <!-- EMAIL -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="far fa-envelope"></i></div>
                     <div class="contact-detail">
@@ -612,7 +614,7 @@
                             <i class="fas fa-map-marked-alt"></i>
                             <p><strong>{{ $toko->nama_toko ?? 'Wijaya Farma' }}</strong></p>
                             <p style="font-size: 0.8rem; max-width: 80%; text-align: center;">{{ \Illuminate\Support\Str::limit($alamat_toko, 80) }}</p>
-                            <a href="{{ $maps_search_url }}" target="_blank" class="btn-maps" style="margin-top: 10px; padding: 8px 20px;">
+                            <a href="{{ $maps_search_url }}" target="_blank" class="btn-maps" style="margin-top: 10px; padding: 8px 22px;">
                                 <i class="fas fa-external-link-alt"></i> Buka Maps
                             </a>
                         </div>
@@ -642,7 +644,7 @@
                     <i class="fab fa-whatsapp"></i> Konsultasi Gratis
                 </a>
             @else
-                <a href="#" class="cta-btn" style="opacity: 0.5; cursor: not-allowed;">
+                <a href="#" class="cta-btn" style="opacity: 0.6; cursor: not-allowed;">
                     <i class="fab fa-whatsapp"></i> Konsultasi Gratis
                 </a>
             @endif
