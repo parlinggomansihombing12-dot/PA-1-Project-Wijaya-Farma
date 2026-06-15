@@ -76,7 +76,7 @@
         margin: 5px 0 0; 
     }
 
-    /* Tombol Semua Produk */
+    /* Tombol Semua Produk - PERBAIKI AGAR MENAMPILKAN WIJAYA FARMA */
     .all-produk-btn {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         margin: 15px 0 20px 0;
@@ -93,7 +93,6 @@
         box-shadow: 0 6px 15px rgba(26,188,156,0.3);
         color: white;
     }
-
     .all-produk-left { display: flex; align-items: center; gap: 10px; }
     .all-produk-icon { 
         background: rgba(255,255,255,0.2); 
@@ -104,9 +103,8 @@
         justify-content: center; 
         font-size: 1.1rem; 
     }
-    .all-produk-text span { font-size: 0.65rem; font-weight: 500; opacity: 0.9; }
+    .all-produk-text span { font-size: 0.65rem; font-weight: 500; opacity: 0.9; display: block; }
     .all-produk-text h5 { font-size: 0.85rem; font-weight: 800; margin: 0; }
-
     .all-produk-badge { 
         background: rgba(255,255,255,0.25); 
         color: white; 
@@ -181,7 +179,6 @@
         font-weight: 600; 
         font-size: 0.8rem; 
         color: inherit;
-        /* Hapus white-space: nowrap agar bisa 2 baris jika perlu */
         white-space: normal;
         line-height: 1.35;
     }
@@ -243,6 +240,20 @@
         transform: scale(1.02);
         box-shadow: 0 3px 10px rgba(26,188,156,0.3);
     }
+    .btn-outline-secondary {
+        border: 1px solid #e2e8f0;
+        background: white;
+        color: #64748b;
+        font-weight: 600;
+        font-size: 0.65rem;
+        padding: 8px 16px;
+        border-radius: 50px;
+        text-decoration: none;
+    }
+    .btn-outline-secondary:hover {
+        background: #f1f5f9;
+        color: var(--dark);
+    }
 
     /* Header Kategori */
     .category-header {
@@ -281,7 +292,7 @@
         box-shadow: var(--shadow-sm);
     }
 
-    /* Grid Produk - 6 Kolom */
+    /* Grid Produk */
     .row.g-4 { margin: 0 -8px; }
     .row.g-4 > [class*="col-"] { padding: 0 8px; }
 
@@ -495,15 +506,17 @@
 <div class="container-fluid">
     <div class="row g-0">
         
-        <!-- ============ SIDEBAR KATEGORI ============ -->
+        <!-- ============ SIDEBAR KATEGORI - DIPERBAIKI ============ -->
         <div class="col-md-3 col-lg-2 d-none d-md-block p-0">
             <div class="sidebar-kategori">
                 <div class="sidebar-inner">
+                    <!-- HEADER SIDEBAR -->
                     <div class="sidebar-header">
                         <div class="sidebar-title">KATEGORI</div>
                         <div class="sidebar-subtitle">Produk</div>
                     </div>
                     
+                    <!-- TOMBOL SEMUA PRODUK (WIJAYA FARMA TETAP MUNCUL) -->
                     <a href="/kategori" class="all-produk-btn text-decoration-none">
                         <div class="all-produk-left">
                             <div class="all-produk-icon">📦</div>
@@ -531,7 +544,6 @@
                                     <i class="fas fa-tag"></i>
                                 @endif
                             </div>
-                            <!-- NAMA KATEGORI TAMPIL LENGKAP (TIDAK DIPOTONG) -->
                             <span class="kategori-name">{{ $kat->nama_kategori }}</span>
                             <span class="kategori-count">{{ $kat->produks ? $kat->produks->count() : 0 }}</span>
                         </a>
@@ -546,11 +558,11 @@
             
             <!-- Search Bar -->
             <div class="search-wrapper">
-                <form action="/kategori" method="GET" class="d-flex align-items-center gap-2">
+                <form action="/kategori" method="GET" class="d-flex align-items-center gap-2 w-100">
                     @if(isset($kategori_aktif) && $kategori_aktif)
                         <input type="hidden" name="kategori" value="{{ $kategori_aktif }}">
                     @endif
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" style="flex-shrink: 0;">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
@@ -559,7 +571,7 @@
                            value="{{ request('cari') }}">
                     <button type="submit" class="btn search-btn">🔍 Cari</button>
                     @if(request('cari') || (isset($kategori_aktif) && $kategori_aktif))
-                        <a href="/kategori" class="btn btn-outline-secondary rounded-pill px-3" style="font-weight: 600; font-size: 0.65rem;">Reset</a>
+                        <a href="/kategori" class="btn-outline-secondary">Reset</a>
                     @endif
                 </form>
             </div>
@@ -577,12 +589,10 @@
                 @forelse($list_produk as $item)
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <div class="card-produk">
-                        <!-- Badge Obat Keras -->
                         @if(($item->is_keras ?? false) || in_array($item->nama_obat, ['Promag', 'Mylanta', 'Paramex', 'Cataflam']))
                         <div class="badge-keras" title="Obat Keras">K</div>
                         @endif
                         
-                        <!-- Foto Produk -->
                         <div class="img-container">
                             @if($item->foto)
                                 <img src="{{ asset('images/produk/' . $item->foto) }}" alt="{{ $item->nama_obat }}">
@@ -630,7 +640,6 @@
     </div>
 </div>
 
-<!-- SCRIPT UNTUK NAVBAR SCROLL -->
 <script>
 (function() {
     function updateNavbar() {
