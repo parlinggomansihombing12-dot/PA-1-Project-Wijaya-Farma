@@ -637,17 +637,8 @@
         <div class="cta-banner">
             <div class="cta-text">
                 <h3>Ada yang ingin ditanyakan?</h3>
-                <p>Tim kesehatan profesional kami siap membantu Anda 24/7</p>
+                <h5>Tim kesehatan profesional kami siap membantu Anda 24/7</h5>
             </div>
-            @if($no_wa != '')
-                <a href="https://wa.me/{{ $no_wa }}" target="_blank" class="cta-btn">
-                    <i class="fab fa-whatsapp"></i> Konsultasi Gratis
-                </a>
-            @else
-                <a href="#" class="cta-btn" style="opacity: 0.6; cursor: not-allowed;">
-                    <i class="fab fa-whatsapp"></i> Konsultasi Gratis
-                </a>
-            @endif
         </div>
 
     </div>
