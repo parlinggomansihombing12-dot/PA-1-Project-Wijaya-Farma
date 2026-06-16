@@ -17,18 +17,18 @@
     }
 
     /* =======================================================
-       HERO SECTION (FOTO BESAR) - DIPERKECIL
+       HERO SECTION - FULL WIDTH
        ======================================================= */
     .hero-section {
         position: relative;
         width: 100%;
-        min-height: 65vh;
+        min-height: 70vh;
         display: flex;
         align-items: center;
         background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+        margin-top: -20px;
     }
 
-    /* Lapisan Hitam Transparan */
     .hero-overlay {
         position: absolute;
         top: 0;
@@ -39,7 +39,6 @@
         z-index: 1;
     }
 
-    /* Area Tulisan di Tengah Foto */
     .hero-content {
         position: relative;
         z-index: 2;
@@ -50,7 +49,7 @@
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 800;
         letter-spacing: -0.5px;
         margin-bottom: 15px;
@@ -62,19 +61,18 @@
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 1.05rem;
         font-weight: 300;
         max-width: 600px;
         margin: 0 auto 30px auto;
-        line-height: 1.5;
+        line-height: 1.6;
         color: rgba(255,255,255,0.9);
     }
 
-    /* Tombol Cari Obat */
     .btn-hero-utama {
         background-color: var(--primary);
         color: white;
-        padding: 12px 35px;
+        padding: 14px 40px;
         border-radius: 50px;
         font-size: 1rem;
         font-weight: 700;
@@ -92,13 +90,14 @@
     }
 
     /* =======================================================
-       TIGA KOTAK KEUNGGULAN - DIPERKECIL
+       TIGA KOTAK KEUNGGULAN
        ======================================================= */
     .kotak-fitur-area {
         margin-top: -50px;
         position: relative;
         z-index: 10;
-        padding-bottom: 60px;
+        padding: 0 0 40px 0;
+        background: transparent;
     }
 
     .kartu-fitur {
@@ -138,10 +137,10 @@
     }
 
     /* =======================================================
-       PRODUK TERBARU SECTION - TAMBAHAN
+       PRODUK TERBARU SECTION
        ======================================================= */
     .produk-terbaru-section {
-        padding: 50px 0;
+        padding: 40px 0 50px 0;
         background: linear-gradient(135deg, #f8fafc, #f1f5f9);
     }
 
@@ -177,7 +176,6 @@
         border-radius: 3px;
     }
 
-    /* Grid Produk Terbaru - 5 Kolom */
     .produk-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -263,7 +261,8 @@
        LAYANAN KAMI SECTION
        ======================================================= */
     .layanan-section {
-        padding: 50px 0;
+        padding: 40px 0 50px 0;
+        background: white;
     }
 
     .layanan-grid {
@@ -273,7 +272,7 @@
     }
 
     .layanan-card {
-        background: white;
+        background: var(--primary-ultra-soft);
         border-radius: 14px;
         padding: 20px;
         text-align: center;
@@ -331,6 +330,7 @@
     @media (max-width: 768px) {
         .hero-section {
             min-height: 50vh;
+            margin-top: -10px;
         }
         .hero-title {
             font-size: 1.8rem;
@@ -345,7 +345,7 @@
         }
         .kotak-fitur-area {
             margin-top: -30px;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
         .kartu-fitur {
             padding: 20px 15px;
@@ -374,7 +374,7 @@
 
 @section('content')
 
-<!-- ================= HERO SECTION ================= -->
+<!-- ================= HERO SECTION - FULL ================= -->
 <div class="hero-section">
     <div class="hero-overlay"></div>
     

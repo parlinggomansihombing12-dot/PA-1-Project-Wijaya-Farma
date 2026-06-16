@@ -55,7 +55,7 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* ================= NAVBAR PREMIUM - LEBIH RAMPI NG ================= */
+        /* ================= NAVBAR PREMIUM ================= */
         .navbar-custom { 
             background: rgba(26, 188, 156, 0.95);
             backdrop-filter: blur(12px);
@@ -77,7 +77,7 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* NAVBAR BRAND - LEBIH KECIL */
+        /* NAVBAR BRAND */
         .navbar-brand { 
             display: flex;
             align-items: center;
@@ -85,7 +85,6 @@
             text-decoration: none;
         }
         
-        /* BRAND ICON */
         .navbar-brand .brand-icon {
             width: 32px;
             height: 32px;
@@ -111,7 +110,6 @@
             color: #1ABC9C;
         }
         
-        /* NAMA WIJAYA FARMA */
         .navbar-brand .brand-name {
             font-size: 0.95rem;
             font-weight: 800;
@@ -126,7 +124,6 @@
             font-size: 0.9rem;
         }
         
-        /* TAGLINE */
         .navbar-brand .brand-tagline {
             font-size: 0.45rem;
             color: rgba(255,255,255,0.8);
@@ -138,7 +135,7 @@
             color: #94a3b8;
         }
 
-        /* MENU LINK - LEBIH KECIL */
+        /* MENU LINK - DENGAN ACTIVE STATE */
         .nav-link { 
             display: flex;
             align-items: center;
@@ -150,6 +147,7 @@
             font-size: 0.75rem; 
             border-radius: 30px;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
         
         .nav-link i {
@@ -165,20 +163,33 @@
             color: #334155 !important; 
         }
         
-        .nav-link:hover, 
-        .nav-link.active { 
+        /* HOVER EFFECT */
+        .nav-link:hover { 
             background: rgba(255,255,255,0.2);
             color: white !important; 
             transform: translateY(-1px);
         }
         
-        .navbar-custom.scrolled .nav-link:hover,
-        .navbar-custom.scrolled .nav-link.active { 
+        .navbar-custom.scrolled .nav-link:hover { 
             background: rgba(26, 188, 156, 0.1);
             color: #1ABC9C !important; 
         }
+        
+        /* ========== ACTIVE STATE - PENANDA HALAMAN AKTIF ========== */
+        .nav-link.active { 
+            background: rgba(255,255,255,0.25);
+            color: white !important; 
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-custom.scrolled .nav-link.active { 
+            background: rgba(26, 188, 156, 0.15);
+            color: #1ABC9C !important; 
+            box-shadow: 0 2px 8px rgba(26,188,156,0.2);
+        }
 
-        /* TOMBOL LOGIN - LEBIH KECIL */
+        /* TOMBOL LOGIN */
         .btn-login { 
             display: flex;
             align-items: center;
@@ -254,14 +265,12 @@
         }
         
         /* ================= RESPONSIVE ================= */
-        /* Desktop besar (1200px ke atas) - navbar normal */
         @media (min-width: 1200px) {
             .navbar-nav {
                 gap: 0;
             }
         }
         
-        /* Tablet (992px - 1199px) - menu lebih kecil */
         @media (max-width: 1199px) and (min-width: 992px) {
             .nav-link {
                 padding: 5px 8px !important;
@@ -276,7 +285,6 @@
             }
         }
         
-        /* Mobile (max 991px) - collapse menu */
         @media (max-width: 991px) {
             .navbar-collapse {
                 background: white;
@@ -314,7 +322,6 @@
             }
         }
         
-        /* HP kecil (max 480px) */
         @media (max-width: 480px) {
             body {
                 padding-top: 58px;
@@ -341,7 +348,6 @@
             min-height: calc(100vh - 150px);
         }
         
-        /* FOOTER */
         footer {
             background: white;
             border-top: 1px solid #eef2f6;
@@ -394,15 +400,63 @@
         
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}"><i class="fas fa-home"></i> Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/produk') }}"><i class="fas fa-pills"></i> Produk</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/kategori') }}"><i class="fas fa-tags"></i> Kategori</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/layanan') }}"><i class="fas fa-concierge-bell"></i> Layanan</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/artikel') }}"><i class="fas fa-newspaper"></i> Artikel</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/profil') }}"><i class="fas fa-building"></i> Profil</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/testimoni') }}"><i class="fas fa-star"></i> Testimoni</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}"><i class="fas fa-envelope"></i> Kontak</a></li>
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">
+                        <i class="fas fa-home"></i> Beranda
+                    </a>
+                </li>
                 
+                <!-- PRODUK -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('produk*') ? 'active' : '' }}" href="{{ url('/produk') }}">
+                        <i class="fas fa-pills"></i> Produk
+                    </a>
+                </li>
+                
+                <!-- KATEGORI -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('kategori*') ? 'active' : '' }}" href="{{ url('/kategori') }}">
+                        <i class="fas fa-tags"></i> Kategori
+                    </a>
+                </li>
+                
+                <!-- LAYANAN -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('layanan*') ? 'active' : '' }}" href="{{ url('/layanan') }}">
+                        <i class="fas fa-concierge-bell"></i> Layanan
+                    </a>
+                </li>
+                
+                <!-- ARTIKEL -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('artikel*') ? 'active' : '' }}" href="{{ url('/artikel') }}">
+                        <i class="fas fa-newspaper"></i> Artikel
+                    </a>
+                </li>
+                
+                <!-- PROFIL -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('profil*') ? 'active' : '' }}" href="{{ url('/profil') }}">
+                        <i class="fas fa-building"></i> Profil
+                    </a>
+                </li>
+                
+                <!-- TESTIMONI -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('testimoni*') ? 'active' : '' }}" href="{{ url('/testimoni') }}">
+                        <i class="fas fa-star"></i> Testimoni
+                    </a>
+                </li>
+                
+                <!-- KONTAK -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('kontak*') ? 'active' : '' }}" href="{{ url('/kontak') }}">
+                        <i class="fas fa-envelope"></i> Kontak
+                    </a>
+                </li>
+                
+                <!-- LOGIN / DASHBOARD -->
                 <li class="nav-item ms-xl-2 mt-2 mt-xl-0">
                     @auth 
                         <a href="{{ url('/admin/dashboard') }}" class="btn-login"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
