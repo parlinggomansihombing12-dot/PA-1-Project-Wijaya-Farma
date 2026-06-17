@@ -172,19 +172,7 @@
         border-color: var(--primary);
     }
 
-    .category-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(4px);
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 0.6rem;
-        font-weight: 700;
-        color: white;
-        z-index: 1;
-    }
+    /* HAPUS BADGE KATEGORI - DIHAPUS */
 
     .img-container {
         height: 130px;
@@ -407,6 +395,31 @@
         .produk-title { font-size: 1.1rem; }
         .img-container { height: 120px; }
     }
+
+    /* Empty State */
+    .empty-state-full {
+        text-align: center;
+        padding: 50px;
+        width: 100%;
+    }
+
+    .empty-state-full h4 {
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    .empty-state-full .btn-cari {
+        display: inline-block;
+        border-radius: 50px;
+        margin-top: 15px;
+        text-decoration: none;
+        padding: 10px 30px;
+        color: white;
+    }
+
+    .empty-state-full .btn-cari:hover {
+        color: white;
+    }
 </style>
 @endsection
 
@@ -420,7 +433,7 @@
         <form action="{{ url('/produk') }}" method="GET">
             <div class="search-input-group">
                 <input type="text" name="cari" class="search-box" 
-                       placeholder="Cari nama obat atau kategori..." value="{{ request('cari') }}">
+                       placeholder="Cari nama obat..." value="{{ request('cari') }}">
                 <button type="submit" class="btn-cari">🔍 Cari</button>
             </div>
             @if(request('cari'))
@@ -442,7 +455,7 @@
         @forelse($list_produk as $item)
         <div class="produk-item">
             <div class="product-card">
-                <div class="category-badge">📂 {{ $item->kategori->nama_kategori ?? 'Umum' }}</div>
+                <!-- BADGE KATEGORI DIHAPUS -->
                 <div class="img-container">
                     @if($item->foto)
                         <img src="{{ asset('images/produk/' . $item->foto) }}" alt="{{ $item->nama_obat }}">
@@ -467,10 +480,10 @@
             </div>
         </div>
         @empty
-        <div class="empty-state-full" style="text-align: center; padding: 50px; width: 100%;">
+        <div class="empty-state-full">
             <i class="fas fa-box-open fa-3x mb-3 opacity-25"></i>
             <h4>🌿 Obat tidak ditemukan</h4>
-            <a href="{{ url('/produk') }}" class="btn-cari" style="display: inline-block; border-radius: 50px; margin-top: 15px;">🔄 Reset</a>
+            <a href="{{ url('/produk') }}" class="btn-cari" style="display: inline-block; border-radius: 50px; margin-top: 15px; text-decoration: none; padding: 10px 30px; color: white;">🔄 Reset</a>
         </div>
         @endforelse
     </div>
