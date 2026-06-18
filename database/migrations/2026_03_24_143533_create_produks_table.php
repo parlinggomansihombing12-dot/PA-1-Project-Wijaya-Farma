@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_obat');   // ✅ WAJIB
-            $table->integer('harga');      // ✅ WAJIB
+            $table->string('nama_obat');   
+            $table->integer('harga');      
             $table->integer('stok');
             $table->string('foto')->nullable();     
             $table->timestamps();

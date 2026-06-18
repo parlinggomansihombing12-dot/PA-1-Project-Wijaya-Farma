@@ -8,8 +8,6 @@ class Kategori extends Model
 {
     use HasFactory;
     
-    // Izin simpan data ke kolom ini
-    // SAYA SUDAH MENAMBAHKAN KATA 'foto' DI SINI! (INI KUNCI KESUKSESANNYA!)
     protected $fillable = ['nama_kategori', 'deskripsi', 'foto']; 
 
     public function produks()

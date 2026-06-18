@@ -24,7 +24,7 @@ class ProdukController extends Controller
         if ($request->has('cari') && $request->cari != '') {
             $query->where('nama_obat', 'like', '%' . $request->cari . '%')
                   // Tambahkan baris di bawah ini JIKA Anda punya kolom deskripsi dan ingin ikut dicari:
-                  ->orWhere('deskripsi', 'like', '%' . $request->cari . '%');
+                ->orWhere('deskripsi', 'like', '%' . $request->cari . '%');
         }
 
         // 4. MENGAMBIL DATA PRODUK FINAL & DIPOTONG-POTONG (PAGINATION)
