@@ -342,12 +342,12 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <input type="text" 
-                                   name="username" 
-                                   class="form-control-custom" 
-                                   value="{{ old('username') }}" 
-                                   placeholder="Masukkan username" 
-                                   required 
-                                   autofocus>
+                                name="username" 
+                                class="form-control-custom" 
+                                value="{{ old('username') }}" 
+                                placeholder="Masukkan username" 
+                                required 
+                                autofocus>
                         </div>
                     </div>
 
@@ -359,10 +359,10 @@
                                 <i class="fas fa-lock"></i>
                             </div>
                             <input type="password" 
-                                   name="password" 
-                                   class="form-control-custom" 
-                                   placeholder="Masukkan password" 
-                                   required>
+                                name="password" 
+                                class="form-control-custom" 
+                                placeholder="Masukkan password" 
+                                required>
                         </div>
                     </div>
 
