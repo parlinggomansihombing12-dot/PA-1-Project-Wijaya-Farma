@@ -44,7 +44,7 @@ class KategoriController extends Controller
             'list_kategori' => $list_kategori,
             'list_produk' => $list_produk,
             'kategori_aktif' => $request->kategori, 
-            'total_semua_produk' => $total_semua_produk // <--- PASTIKAN INI DIKIRIM!
+            'total_semua_produk' => $total_semua_produk 
         ]);
     }
 }

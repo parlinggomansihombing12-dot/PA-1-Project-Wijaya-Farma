@@ -246,6 +246,70 @@
         gap: 10px;
     }
 
+    /* ================= NOTIFIKASI SUCCESS ================= */
+    .notification {
+        display: none;
+        padding: 14px 20px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        align-items: center;
+        gap: 12px;
+        animation: slideDown 0.5s ease forwards;
+    }
+
+    .notification.show {
+        display: flex;
+    }
+
+    .notification-success {
+        background: #d1fae5;
+        border: 1px solid #34d399;
+        color: #065f46;
+    }
+
+    .notification-success i {
+        color: #10b981;
+        font-size: 1.2rem;
+    }
+
+    .notification-error {
+        background: #fee2e2;
+        border: 1px solid #f87171;
+        color: #991b1b;
+    }
+
+    .notification-error i {
+        color: #ef4444;
+        font-size: 1.2rem;
+    }
+
+    .notification-close {
+        margin-left: auto;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: 0.2s;
+        font-size: 1rem;
+        background: none;
+        border: none;
+    }
+
+    .notification-close:hover {
+        opacity: 1;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     /* ================= GRID TESTIMONI - 4 KOLOM ================= */
     .testimoni-grid {
         display: grid;
@@ -450,6 +514,10 @@
             height: 36px;
             font-size: 0.9rem;
         }
+        .notification {
+            font-size: 0.75rem;
+            padding: 12px 16px;
+        }
     }
 </style>
 @endsection
@@ -515,7 +583,38 @@
                 <h5>Tulis Ulasan Anda</h5>
             </div>
 
-            <form action="{{ route('testimoni.store') }}" method="POST">
+            <!-- NOTIFIKASI SUCCESS / ERROR -->
+            @if(session('success'))
+            <div class="notification notification-success show" id="notification">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ session('success') }}</span>
+                <button type="button" class="notification-close" onclick="closeNotification()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="notification notification-error show" id="notification">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ session('error') }}</span>
+                <button type="button" class="notification-close" onclick="closeNotification()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            @endif
+
+            @if($errors->any())
+            <div class="notification notification-error show" id="notification">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ $errors->first() }}</span>
+                <button type="button" class="notification-close" onclick="closeNotification()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            @endif
+
+            <form action="{{ route('testimoni.store') }}" method="POST" id="testimoniForm">
                 @csrf
 
                 <div class="mb-3">
@@ -523,6 +622,7 @@
                            name="nama_pelanggan" 
                            class="form-control-custom" 
                            placeholder="Nama lengkap Anda" 
+                           value="{{ old('nama_pelanggan') }}"
                            required>
                 </div>
 
@@ -531,7 +631,7 @@
                               class="form-control-custom" 
                               rows="3" 
                               placeholder="Ceritakan pengalaman Anda di Wijaya Farma..." 
-                              required></textarea>
+                              required>{{ old('komentar') }}</textarea>
                 </div>
 
                 <div class="rating-container">
@@ -539,16 +639,16 @@
                         <i class="fas fa-star me-1" style="color: #fbbf24;"></i> Beri Rating Anda
                     </div>
                     <div class="rating">
-                        <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
-                        <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
-                        <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
-                        <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
-                        <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                        <input type="radio" name="rating" value="5" id="star5" {{ old('rating') == '5' ? 'checked' : '' }}><label for="star5">★</label>
+                        <input type="radio" name="rating" value="4" id="star4" {{ old('rating') == '4' ? 'checked' : '' }}><label for="star4">★</label>
+                        <input type="radio" name="rating" value="3" id="star3" {{ old('rating') == '3' ? 'checked' : '' }}><label for="star3">★</label>
+                        <input type="radio" name="rating" value="2" id="star2" {{ old('rating') == '2' ? 'checked' : '' }}><label for="star2">★</label>
+                        <input type="radio" name="rating" value="1" id="star1" {{ old('rating') == '1' ? 'checked' : '' }}><label for="star1">★</label>
                     </div>
                 </div>
 
                 <div class="mt-3">
-                    <button type="submit" class="btn-submit">
+                    <button type="submit" class="btn-submit" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Kirim Testimoni
                     </button>
                 </div>
@@ -602,5 +702,42 @@
     </div>
 
 </div>
+
+<!-- SCRIPT NOTIFIKASI -->
+<script>
+    function closeNotification() {
+        var notif = document.getElementById('notification');
+        if (notif) {
+            notif.style.display = 'none';
+        }
+    }
+
+    // Auto close notification after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        var notif = document.getElementById('notification');
+        if (notif) {
+            setTimeout(function() {
+                notif.style.display = 'none';
+            }, 5000);
+        }
+    });
+
+    // Disable submit button after click to prevent double submission
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('testimoniForm');
+        var submitBtn = document.getElementById('submitBtn');
+        
+        if (form) {
+            form.addEventListener('submit', function() {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+                    submitBtn.style.opacity = '0.7';
+                    submitBtn.style.cursor = 'not-allowed';
+                }
+            });
+        }
+    });
+</script>
 
 @endsection

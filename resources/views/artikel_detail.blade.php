@@ -140,49 +140,8 @@
         font-size: 0.8rem;
     }
 
-    /* ================= SHARE BUTTONS ================= */
-    .share-section {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #eef2f6;
-        text-align: center;
-    }
-
-    .share-title {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        margin-bottom: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .share-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .share-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-
-    .share-btn.facebook { background: #1877f2; color: white; }
-    .share-btn.twitter { background: #1da1f2; color: white; }
-    .share-btn.whatsapp { background: #25d366; color: white; }
-    .share-btn.linkedin { background: #0077b5; color: white; }
-
-    .share-btn:hover {
-        transform: translateY(-3px);
-        opacity: 0.9;
-    }
+    /* ================= SHARE BUTTONS - DIHAPUS ================= */
+    /* Share section dan tombol share dihapus total */
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 768px) {
@@ -254,26 +213,7 @@
             {!! nl2br(e($artikel->konten)) !!}
         </div>
 
-        <!-- Share Buttons -->
-        <div class="share-section">
-            <div class="share-title">
-                <i class="fas fa-share-alt"></i> Bagikan Artikel
-            </div>
-            <div class="share-buttons">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="share-btn facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($artikel->judul) }}" target="_blank" class="share-btn twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://wa.me/?text={{ urlencode($artikel->judul . ' - ' . url()->current()) }}" target="_blank" class="share-btn whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank" class="share-btn linkedin">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-        </div>
+        <!-- BAGIKAN ARTIKEL - DIHAPUS -->
 
         <!-- Tombol Kembali -->
         <div class="text-center">
