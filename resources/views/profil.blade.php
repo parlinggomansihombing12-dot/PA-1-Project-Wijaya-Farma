@@ -24,20 +24,6 @@
         min-height: 100vh;
     }
 
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="none" stroke="%231ABC9C" stroke-width="1" d="M10 10 L90 10 M10 20 L90 20 M10 30 L90 30 M10 40 L90 40 M10 50 L90 50 M10 60 L90 60 M10 70 L90 70 M10 80 L90 80 M10 90 L90 90 M20 10 L20 90 M30 10 L30 90 M40 10 L40 90 M50 10 L50 90 M60 10 L60 90 M70 10 L70 90 M80 10 L80 90"/></svg>');
-        background-repeat: repeat;
-        background-size: 40px;
-        pointer-events: none;
-        z-index: 0;
-    }
-
     .container-full {
         width: 100%;
         max-width: 100%;
@@ -45,7 +31,7 @@
         margin: 0;
     }
 
-    /* ================= HERO SECTION - DIPERKECIL ================= */
+    /* ================= HERO SECTION ================= */
     .hero-profil {
         position: relative;
         width: 100%;
@@ -103,7 +89,7 @@
         border: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* ================= MAIN CONTENT - DIPERKECIL ================= */
+    /* ================= MAIN CONTENT ================= */
     .main-content {
         max-width: 1200px;
         margin: 0 auto;
@@ -127,7 +113,7 @@
         min-width: 280px;
     }
 
-    /* ================= ACCORDION STYLE - DIPERKECIL ================= */
+    /* ================= ACCORDION STYLE ================= */
     .accordion-section {
         margin-bottom: 20px;
     }
@@ -271,7 +257,7 @@
         gap: 8px;
     }
 
-    /* ================= PROFIL PEMILIK - DIPERKECIL ================= */
+    /* ================= PROFIL PEMILIK ================= */
     .owner-card {
         background: white;
         border-radius: 20px;
@@ -355,7 +341,7 @@
         line-height: 1.55;
     }
 
-    /* ================= CONTACT CARD - DIPERKECIL ================= */
+    /* ================= CONTACT CARD ================= */
     .contact-card {
         background: white;
         border-radius: 20px;
