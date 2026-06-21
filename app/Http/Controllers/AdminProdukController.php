@@ -30,7 +30,7 @@ public function index(Request $request)
     public function create()
     {
         // 1. Ambil SEMUA data kategori dari database
-        $kategoris = \App\Models\Kategori::all(); 
+         $kategoris = \App\Models\Kategori::all(); 
 
         // 2. Kirim variabel $kategoris tersebut ke halaman form
         return view('admin.produk.create', compact('kategoris'));

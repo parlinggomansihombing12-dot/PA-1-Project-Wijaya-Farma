@@ -22,7 +22,7 @@ class AdminKategoriController extends Controller
     }
 
     // ================= 3. STORE (SIMPAN DATA + FOTO!) =================
-    public function store(Request $request)
+     public function store(Request $request)
     {
         $request->validate([
             'nama_kategori' => 'required|string|max:255',

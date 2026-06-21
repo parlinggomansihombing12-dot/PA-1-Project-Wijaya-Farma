@@ -299,7 +299,7 @@
                         <i class="fas fa-align-left"></i> Deskripsi <span class="text-muted">(Opsional)</span>
                     </label>
                     <textarea name="deskripsi" class="form-control-custom" rows="3" 
-                              placeholder="Contoh: Obat untuk meredakan sakit kepala dan pusing."></textarea>
+                            placeholder="Contoh: Obat untuk meredakan sakit kepala dan pusing."></textarea>
                 </div>
 
                 <!-- Tombol Simpan -->
