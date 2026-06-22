@@ -365,7 +365,7 @@
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            <span>Jam operasional akan ditampilkan di halaman kontak dan footer website.</span>
+                            <span>Jam operasional akan ditampilkan di halaman kontak.</span>
                         </li>
                     </ul>
                 </div>
