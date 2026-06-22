@@ -43,7 +43,7 @@ class AdminKategoriController extends Controller
         Kategori::create([
             'nama_kategori' => $request->nama_kategori,
             'deskripsi'     => $request->deskripsi,
-            'foto'          => $nama_foto // WAJIB ADA!
+            'foto'          => $nama_foto 
         ]);
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori baru dan fotonya berhasil ditambahkan!');

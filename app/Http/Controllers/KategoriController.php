@@ -14,7 +14,7 @@ class KategoriController extends Controller
         $toko = ProfilToko::first();
         
         // 1. Ambil semua kategori untuk Sidebar di kiri
-        $list_kategori = Kategori::all(); 
+         $list_kategori = Kategori::all(); 
 
         // ==============================================================
         // INI TAMBAHAN PENTINGNYA (Untuk menjaga angka 'Semua Produk')

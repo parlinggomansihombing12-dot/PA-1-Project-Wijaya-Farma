@@ -535,7 +535,7 @@
                     </div>
                     
                     <div class="kategori-list">
-                        @foreach($list_kategori as $kat)
+                         @foreach($list_kategori as $kat)
                         <a href="/kategori?kategori={{ $kat->id }}" class="kategori-link {{ isset($kategori_aktif) && $kategori_aktif == $kat->id ? 'active' : '' }}">
                             <div class="kategori-icon">
                                 @if($kat->foto)
