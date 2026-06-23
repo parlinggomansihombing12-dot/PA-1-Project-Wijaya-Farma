@@ -42,8 +42,8 @@ public function index(Request $request)
         $request->validate([
             'nama_obat'   => 'required|string|max:255',
             'kategori_id' => 'required|integer',
-            'harga'       => 'required|numeric|min:1|max:99000000', // BATAS MAX 99 JUTA
-            'stok'        => 'required|numeric|min:0|max:10000',    // BATAS MAX STOK 10.000
+            'harga'       => 'required|numeric|min:1|max:99000000', 
+            'stok'        => 'required|numeric|min:0|max:10000',   
             'deskripsi'   => 'nullable|string',
             'foto'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072'
         ], [

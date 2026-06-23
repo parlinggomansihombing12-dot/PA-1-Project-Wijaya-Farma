@@ -12,14 +12,12 @@ class Layanan extends Model
 
     protected $fillable = [
         'nama_layanan',
-        'deskripsi',
+        'deskripsi', 
         'foto' // Pastikan ini ada
     ];
 
     /**
-     * Opsional: Accessor untuk mempermudah pemanggilan URL foto.
-     * Dengan ini, Anda cukup memanggil $layanan->foto_url di Blade.
-     */
+     * Opsional: Accessor untuk mempermudah pemanggilan URL foto./** */
     public function getFotoUrlAttribute()
     {
         if ($this->foto) {
